@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="clientListTitle" type="id" />
+    <item name="btnAddClient" type="id" />
+    <item name="clientList" type="id" />
+    <item name="headerClient" type="id" />
+    <item name="clientImg" type="id" />
+    <item name="clientAction" type="id" />
+    <item name="btnEditClient" type="id" />
+    <item name="btnDetailClient" type="id" />
+    <item name="btnDeleteClient" type="id" />
+    <item name="clientName" type="id" />
+</resources>
