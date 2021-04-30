@@ -10,4 +10,18 @@
     <item name="btnDetailClient" type="id" />
     <item name="btnDeleteClient" type="id" />
     <item name="clientName" type="id" />
+    <item name="addClientTitle" type="id" />
+    <item name="addClientLName" type="id" />
+    <item name="layoutClientLName" type="id" />
+    <item name="layoutClientFName" type="id" />
+    <item name="addClientFName" type="id" />
+    <item name="layoutClientDoc" type="id" />
+    <item name="addClientDoc" type="id" />
+    <item name="layoutClientDocNum" type="id" />
+    <item name="addClientDocNum" type="id" />
+    <item name="layoutClientEmail" type="id" />
+    <item name="addClientEmail" type="id" />
+    <item name="layoutClientPhone" type="id" />
+    <item name="addClientPhone" type="id" />
+    <item name="clientIdentity" type="id" />
 </resources>

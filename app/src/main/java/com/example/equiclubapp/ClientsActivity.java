@@ -2,8 +2,10 @@ package com.example.equiclubapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -46,6 +48,13 @@ public class ClientsActivity extends AppCompatActivity {
 
         btnAdd = findViewById(R.id.btnAddClient);
         clientsList = findViewById(R.id.clientList);
+
+        btnAdd.setOnClickListener(this::onClickAdd);
+    }
+
+    private void onClickAdd(View view) {
+        Intent intent = new Intent(this, AddClientActivity.class);
+        startActivity(intent);
     }
 
     @Override
@@ -58,15 +67,20 @@ public class ClientsActivity extends AppCompatActivity {
             try {
 
                 //JSONObject clientsJson = resp.getJSONObject(0);
-                for (int i = 0; i < resp.length(); i++) {
-                    int id = resp.getJSONObject(i).getInt("clientId");
-                    String fName = resp.getJSONObject(i).getString("fName");
-                    String lName = resp.getJSONObject(i).getString("lName");
-                    String email = resp.getJSONObject(i).getString("clientEmail");
-                    String phone = resp.getJSONObject(i).getString("clientPhone");
-                    clients.add(new Client(id, fName, lName, email, phone));
+                Log.d(ClientsActivity.class.getSimpleName(),"len" + resp.length());
+                if(clients.isEmpty()) {
+                    for (int i = 0; i < resp.length(); i++) {
+                        int id = resp.getJSONObject(i).getInt("clientId");
+                        String fName = resp.getJSONObject(i).getString("fName");
+                        String lName = resp.getJSONObject(i).getString("lName");
+                        String email = resp.getJSONObject(i).getString("clientEmail");
+                        String phone = resp.getJSONObject(i).getString("clientPhone");
+                        String idDoc = resp.getJSONObject(i).getString("identityDoc");
+                        String idNum = resp.getJSONObject(i).getString("identityNumber");
+                        String pathPhoto = resp.getJSONObject(i).getString("photo");
+                        clients.add(new Client(id, fName, lName, email, phone, idDoc, idNum, pathPhoto));
+                    }
                 }
-
                 if(!clients.isEmpty())
                     clientsList.setAdapter(new ClientAdapter(ClientsActivity.this, clients));
 

@@ -11,6 +11,7 @@ public class Client {
     private String fName ;
     private String lName ;
     private LocalDateTime birthDate ;
+    private String pathPhoto;
     private Bitmap photo ;
     private String identityDoc ;
     private String identityNumber ;
@@ -24,12 +25,16 @@ public class Client {
     private boolean isActive ;
     private String notes ;
 
-    public Client(int clientId, String fName, String lName, String clientEmail, String clientPhone) {
+    public Client(int clientId, String fName, String lName, String clientEmail, String clientPhone,
+                String identityDoc, String identityNumber, String pathPhoto) {
         this.clientId = clientId;
         this.fName = fName;
         this.lName = lName;
         this.clientEmail = clientEmail;
         this.clientPhone = clientPhone;
+        this.identityDoc = identityDoc;
+        this.identityNumber = identityNumber;
+        this.pathPhoto = pathPhoto;
     }
 
     public int getClientId() {
@@ -162,5 +167,13 @@ public class Client {
 
     public void setNotes(String notes) {
         this.notes = notes;
+    }
+
+    public String getPathPhoto() {
+        return pathPhoto;
+    }
+
+    public void setPathPhoto(String pathPhoto) {
+        this.pathPhoto = pathPhoto;
     }
 }

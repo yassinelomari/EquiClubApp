@@ -16,22 +16,31 @@
         android:layout_width="0dp"
         android:layout_height="0dp"
         app:layout_constraintStart_toEndOf="@id/clientImg"
-        app:layout_constraintEnd_toStartOf="@id/clientAction"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical"
+        android:layout_marginStart="7dp"
+        android:layout_marginLeft="7dp"
         android:gravity="center_vertical">
         <TextView
             android:id="@id/clientName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:textStyle="bold"
             android:text="@string/nom_du_client"
             />
+        <TextView
+            android:id="@id/clientIdentity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/xx000000"
+            android:textSize="14sp"/>
     </LinearLayout>
 
-    <LinearLayout
+    <!--<LinearLayout
         android:id="@id/clientAction"
-        android:layout_width="130dp"
+        android:layout_width="110dp"
         android:layout_height="80dp"
         android:gravity="center"
         app:layout_constraintEnd_toEndOf="parent"
@@ -61,5 +70,5 @@
             android:src="@android:drawable/ic_menu_delete"
             android:background="@android:color/transparent"
             android:layout_weight="1"/>
-    </LinearLayout>
+    </LinearLayout>-->
 </androidx.constraintlayout.widget.ConstraintLayout>

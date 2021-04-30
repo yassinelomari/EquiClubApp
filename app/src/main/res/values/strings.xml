@@ -2,4 +2,13 @@
     <string name="app_name">EquiClubApp</string>
     <string name="la_liste_des_clients">La liste des Clients</string>
     <string name="nom_du_client">Nom du client</string>
+    <string name="ajouter_un_client">Ajouter un client</string>
+    <string name="nom">Nom :</string>
+    <string name="pr_nom">Prénom :</string>
+    <string name="doc_d_identit">Doc d identité :</string>
+    <string name="num_d_identit">Num d identité</string>
+    <string name="l_email">L email :</string>
+    <string name="num_t_l">Num télé :</string>
+    <string name="enregistrer">Enregistrer</string>
+    <string name="xx000000">XX000000</string>
 </resources>
