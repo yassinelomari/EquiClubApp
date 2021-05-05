@@ -11,4 +11,21 @@
     <string name="num_t_l">Num télé :</string>
     <string name="enregistrer">Enregistrer</string>
     <string name="xx000000">XX000000</string>
+    <string name="photo_du_client">Photo du client</string>
+    <string name="pr_nom_nom">Prénom Nom</string>
+    <string name="tele_icon">tele icon</string>
+    <string name="_212666666666">+212666666666</string>
+    <string name="telephone">Telephone</string>
+    <string name="email_icon">email icon</string>
+    <string name="email_email_ma">email@email.ma</string>
+    <string name="email">Email</string>
+    <string name="identity_icon">identity icon</string>
+    <string name="cnie">CNIE</string>
+    <string name="birth_icon">birth icon</string>
+    <string name="_00_00_0000">00/00/0000</string>
+    <string name="date_de_naissance">Date de naissance</string>
+    <string name="register_icon">Register icon</string>
+    <string name="date_d_inscription">Date d inscription</string>
+    <string name="modifier">Modifier</string>
+    <string name="supprimer">Supprimer</string>
 </resources>

@@ -40,9 +40,9 @@ public class ClientAdapter extends ArrayAdapter<Client> {
         TextView cName = item.findViewById(R.id.clientName);
         TextView identity = item.findViewById(R.id.clientIdentity);
         Client clientItem = this.getItem(position);
-        String jpgPath = clientItem.getPathPhoto().replace("jpeg", "jpg");
+        //String jpgPath = clientItem.getPathPhoto().replace("jpeg", "jpg");
         VolleySingleton.getInstance(item.getContext()).getImageLoader().get(
-                URL_BASE + URL_PHOTO + jpgPath,
+                URL_BASE + URL_PHOTO + clientItem.getPathPhoto(),
                 new ImageLoader.ImageListener() {
                     @Override
                     public void onResponse(ImageLoader.ImageContainer response,

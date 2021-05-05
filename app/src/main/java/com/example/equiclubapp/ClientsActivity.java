@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -50,11 +51,8 @@ public class ClientsActivity extends AppCompatActivity {
         clientsList = findViewById(R.id.clientList);
 
         btnAdd.setOnClickListener(this::onClickAdd);
-    }
 
-    private void onClickAdd(View view) {
-        Intent intent = new Intent(this, AddClientActivity.class);
-        startActivity(intent);
+        clientsList.setOnItemClickListener(this::onClientItemClick);
     }
 
     @Override
@@ -63,10 +61,8 @@ public class ClientsActivity extends AppCompatActivity {
 
         JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL_BASE + URL_WS,
                 null, (resp) -> {
-            Log.d(ClientsActivity.class.getSimpleName(),resp.toString());
+            //Log.d(ClientsActivity.class.getSimpleName(),resp.toString());
             try {
-
-                //JSONObject clientsJson = resp.getJSONObject(0);
                 Log.d(ClientsActivity.class.getSimpleName(),"len" + resp.length());
                 if(clients.isEmpty()) {
                     for (int i = 0; i < resp.length(); i++) {
@@ -84,23 +80,6 @@ public class ClientsActivity extends AppCompatActivity {
                 if(!clients.isEmpty())
                     clientsList.setAdapter(new ClientAdapter(ClientsActivity.this, clients));
 
-                /*VolleySingleton.getInstance(getApplicationContext()).getImageLoader().get(
-                        URL_BASE + URL_IMG + resp.getString("photo"),
-                        new ImageLoader.ImageListener() {
-                            @Override
-                            public void onResponse(ImageLoader.ImageContainer response,
-                                                   boolean isImmediate) {
-                                etud.setPhoto(response.getBitmap());
-                                ImageView img = (ImageView)findViewById(R.id.img);
-                                img.setImageBitmap(etud.getPhoto());
-                            }
-
-                            @Override
-                            public void onErrorResponse(VolleyError error) {
-                                Log.e(MainActivity.class.getSimpleName(),error.getMessage());
-                            }
-                        }
-                );*/
             } catch (JSONException e) {
                 e.printStackTrace();
                 Toast.makeText(ClientsActivity.this , "error", Toast.LENGTH_LONG)
@@ -112,5 +91,18 @@ public class ClientsActivity extends AppCompatActivity {
         );
 
         VolleySingleton.getInstance(this).addToRequestQueue(request);
+    }
+
+    private void onClickAdd(View view) {
+        Intent intent = new Intent(this, AddClientActivity.class);
+        startActivity(intent);
+    }
+
+    private void onClientItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+        Client client = (Client) clientsList.getItemAtPosition(position);
+        Intent intent = new Intent(this, ClientDetailActivity.class);
+        intent.putExtra("clientId", client.getClientId());
+        startActivityForResult(intent, 100);
     }
 }

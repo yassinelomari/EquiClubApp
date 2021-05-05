@@ -2,10 +2,11 @@ package com.example.equiclubapp.Models;
 
 import android.graphics.Bitmap;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Client {
-    
+
     private int clientId ;
     private String sessionToken ;
     private String fName ;
@@ -35,6 +36,21 @@ public class Client {
         this.identityDoc = identityDoc;
         this.identityNumber = identityNumber;
         this.pathPhoto = pathPhoto;
+    }
+
+    public Client(int clientId, String fName, String lName, LocalDateTime birthDate,
+                  String pathPhoto, String identityDoc, String identityNumber,
+                  LocalDateTime inscriptionDate, String clientEmail, String clientPhone) {
+        this.clientId = clientId;
+        this.fName = fName;
+        this.lName = lName;
+        this.birthDate = birthDate;
+        this.pathPhoto = pathPhoto;
+        this.identityDoc = identityDoc;
+        this.identityNumber = identityNumber;
+        this.inscriptionDate = inscriptionDate;
+        this.clientEmail = clientEmail;
+        this.clientPhone = clientPhone;
     }
 
     public int getClientId() {

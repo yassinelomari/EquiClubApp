@@ -24,4 +24,21 @@
     <item name="layoutClientPhone" type="id" />
     <item name="addClientPhone" type="id" />
     <item name="clientIdentity" type="id" />
+    <item name="clientDetailImg" type="id" />
+    <item name="layoutTele" type="id" />
+    <item name="teleIcon" type="id" />
+    <item name="btnCallClient" type="id" />
+    <item name="clientTele" type="id" />
+    <item name="layoutEmail" type="id" />
+    <item name="emailIcon" type="id" />
+    <item name="clientEmail" type="id" />
+    <item name="btnEmailClient" type="id" />
+    <item name="layoutIdentity" type="id" />
+    <item name="idIcon" type="id" />
+    <item name="idDoc" type="id" />
+    <item name="layoutDate" type="id" />
+    <item name="birthClient" type="id" />
+    <item name="idBirthIcon" type="id" />
+    <item name="idRegisterIcon" type="id" />
+    <item name="registerClient" type="id" />
 </resources>
