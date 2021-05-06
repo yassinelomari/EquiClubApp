@@ -40,7 +40,8 @@ public class Client {
 
     public Client(int clientId, String fName, String lName, LocalDateTime birthDate,
                   String pathPhoto, String identityDoc, String identityNumber,
-                  LocalDateTime inscriptionDate, String clientEmail, String clientPhone) {
+                  LocalDateTime inscriptionDate, String clientEmail, String clientPhone,
+                  LocalDateTime ensurenceValidity, LocalDateTime licenceValidity) {
         this.clientId = clientId;
         this.fName = fName;
         this.lName = lName;
@@ -51,6 +52,8 @@ public class Client {
         this.inscriptionDate = inscriptionDate;
         this.clientEmail = clientEmail;
         this.clientPhone = clientPhone;
+        this.ensurenceValidity = ensurenceValidity;
+        this.licenceValidity = licenceValidity;
     }
 
     public int getClientId() {

@@ -5,7 +5,32 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ClientDetailActivity">
-    <ImageView
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/clientLayoutImg"
+        android:layout_width="0dp"
+        android:layout_height="220dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@id/clientDetailImg"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@android:color/darker_gray"
+            android:contentDescription="@string/photo_du_client"
+            android:src="@mipmap/ic_launcher_round"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
+            app:strokeColor="@android:color/darker_gray"
+            app:strokeWidth="1dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <!--<ImageView
         android:id="@id/clientDetailImg"
         android:layout_width="0dp"
         android:layout_height="220dp"
@@ -14,12 +39,12 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:background="@android:color/darker_gray"/>
+        android:background="@android:color/darker_gray"/>-->
     <TextView
         android:id="@id/clientName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/clientDetailImg"
+        app:layout_constraintTop_toBottomOf="@id/clientLayoutImg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/pr_nom_nom"
@@ -199,6 +224,62 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toBottomOf="@id/registerClient"
             app:layout_constraintStart_toEndOf="@id/idRegisterIcon"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/date_d_inscription"
+            android:textSize="14sp"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/layoutDate1"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/layoutDate"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="6dp"
+        android:background="@drawable/border_bottom">
+        <ImageView
+            android:id="@id/idEnsurenceIcon"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:contentDescription="@string/ensurence_icon"
+            android:src="@drawable/ic_action_ensurence"/>
+        <TextView
+            android:id="@id/EnsurenceClient"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:text="@string/_00_00_0000"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/idEnsurenceIcon" />
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/EnsurenceClient"
+            app:layout_constraintStart_toEndOf="@id/idEnsurenceIcon"
+            android:text="@string/validit_d_assurance"
+            android:textSize="14sp"/>
+        <ImageView
+            android:id="@id/idLicenceIcon"
+            android:layout_width="30dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/EnsurenceClient"
+            android:contentDescription="@string/register_icon"
+            android:src="@drawable/ic_action_licence"/>
+        <TextView
+            android:id="@id/LicenceClient"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="@string/_00_00_0000"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/idLicenceIcon" />
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/LicenceClient"
+            app:layout_constraintStart_toEndOf="@id/idLicenceIcon"
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/date_d_inscription"
             android:textSize="14sp"/>

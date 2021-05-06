@@ -51,6 +51,8 @@ public class ClientDetailActivity extends AppCompatActivity {
     TextView identityDocView;
     TextView birthView;
     TextView registrationView;
+    TextView ensurenceView;
+    TextView licenceView;
     ImageButton btnCall;
     ImageButton btnSendEmail;
     Button edit;
@@ -71,6 +73,8 @@ public class ClientDetailActivity extends AppCompatActivity {
         identityDocView = findViewById(R.id.idDoc);
         birthView = findViewById(R.id.birthClient);
         registrationView = findViewById(R.id.registerClient);
+        ensurenceView = findViewById(R.id.EnsurenceClient);
+        licenceView = findViewById(R.id.LicenceClient);
         btnCall = findViewById(R.id.btnCallClient);
         btnSendEmail = findViewById(R.id.btnEmailClient);
         edit = findViewById(R.id.btnEditClient);
@@ -103,8 +107,12 @@ public class ClientDetailActivity extends AppCompatActivity {
                         DateTimeFormatter.ISO_DATE_TIME);
                 LocalDateTime registrationDate = LocalDateTime.parse(
                         resp.getString("inscriptionDate"), DateTimeFormatter.ISO_DATE_TIME);
+                LocalDateTime ensurenceDate = LocalDateTime.parse(
+                        resp.getString("ensurenceValidity"), DateTimeFormatter.ISO_DATE_TIME);
+                LocalDateTime licenceDate = LocalDateTime.parse(
+                        resp.getString("licenceValidity"), DateTimeFormatter.ISO_DATE_TIME);
                 client = new Client(clientId, fName, lName, birthDate, pathPhoto, idDoc, idNum,
-                        registrationDate, email, phone);
+                        registrationDate, email, phone, ensurenceDate, licenceDate);
 
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 nameView.setText(client.getfName() + " " + client.getlName());
@@ -114,6 +122,8 @@ public class ClientDetailActivity extends AppCompatActivity {
                 identityDocView.setText(client.getIdentityDoc());
                 birthView.setText(client.getBirthDate().format(formatter));
                 registrationView.setText(client.getInscriptionDate().format(formatter));
+                ensurenceView.setText(client.getEnsurenceValidity().format(formatter));
+                licenceView.setText(client.getLicenceValidity().format(formatter));
                 /*Log.d(ClientsActivity.class.getSimpleName(), client.getPathPhoto());
                 String jpgPath = client.getPathPhoto().replace("jpeg", "jpg");
                 Log.d(ClientsActivity.class.getSimpleName(), jpgPath);*/

@@ -3,12 +3,12 @@
     <string name="la_liste_des_clients">La liste des Clients</string>
     <string name="nom_du_client">Nom du client</string>
     <string name="ajouter_un_client">Ajouter un client</string>
-    <string name="nom">Nom :</string>
-    <string name="pr_nom">Prénom :</string>
-    <string name="doc_d_identit">Doc d identité :</string>
-    <string name="num_d_identit">Num d identité</string>
-    <string name="l_email">L email :</string>
-    <string name="num_t_l">Num télé :</string>
+    <string name="nom">Nom  </string>
+    <string name="pr_nom">Prénom  </string>
+    <string name="doc_d_identit">Doc d\'identité</string>
+    <string name="num_d_identit">Num </string>
+    <string name="l_email">L email  </string>
+    <string name="num_t_l">Num télé  </string>
     <string name="enregistrer">Enregistrer</string>
     <string name="xx000000">XX000000</string>
     <string name="photo_du_client">Photo du client</string>
@@ -25,7 +25,10 @@
     <string name="_00_00_0000">00/00/0000</string>
     <string name="date_de_naissance">Date de naissance</string>
     <string name="register_icon">Register icon</string>
-    <string name="date_d_inscription">Date d inscription</string>
+    <string name="date_d_inscription">Date d\'inscription</string>
     <string name="modifier">Modifier</string>
     <string name="supprimer">Supprimer</string>
+    <string name="validit_d_assurance">Validité d\'assurance</string>
+    <string name="validit_de_licence">Validité de licence</string>
+    <string name="ensurence_icon">Ensurence icon</string>
 </resources>

@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditClientActivity">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:layout_margin="8dp">
+    <TextView
+        android:id="@id/addClientTitle"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:layout_marginBottom="5dp"
+        android:text="@string/ajouter_un_client"/>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@id/layoutClientLName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="#FF5722"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/addClientTitle"
+        app:startIconContentDescription="@string/nom"
+        app:startIconDrawable="@drawable/ic_action_profil">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@id/addClientLName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+             
+            android:ems="10"
+            android:hint="@string/nom"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@id/layoutClientFName"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="#FF5722"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutClientLName"
+        app:startIconContentDescription="@string/pr_nom"
+        app:startIconDrawable="@drawable/ic_action_profil">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@id/addClientFName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+             
+            android:ems="10"
+            android:hint="@string/pr_nom"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@id/layoutClientDoc"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="#FF5722"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/layoutClientDocNum"
+        app:layout_constraintTop_toBottomOf="@id/layoutClientFName"
+        app:startIconContentDescription="@string/doc_d_identit"
+        app:startIconDrawable="@drawable/ic_action_identity"
+        android:layout_marginRight="4dp">
+        <AutoCompleteTextView
+            android:id="@id/addClientDoc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="none"
+            android:hint="@string/doc_d_identit"
+            />
+       <!-- <com.google.android.material.textfield.TextInputEditText
+            android:id="@id/addClientDoc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+             
+            android:ems="10"
+            android:hint="@string/doc_d_identit"
+            android:inputType="text" />-->
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@id/layoutClientDocNum"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="130dp"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="#FF5722"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutClientFName"
+        app:startIconContentDescription="@string/num_d_identit"
+        >
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@id/addClientDocNum"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+             
+            android:ems="10"
+            android:hint="@string/num_d_identit"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@id/layoutClientEmail"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="#FF5722"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutClientDoc"
+        app:startIconContentDescription="@string/l_email"
+        app:startIconDrawable="@drawable/ic_action_email">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@id/addClientEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+             
+            android:ems="10"
+            android:hint="@string/l_email"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@id/layoutClientPhone"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="#FF5722"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutClientEmail"
+        app:startIconContentDescription="@string/num_t_l"
+        app:startIconDrawable="@drawable/ic_action_tele">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@id/addClientPhone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:prefixText="+212"
+             
+            android:ems="10"
+            android:hint="@string/num_t_l"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@id/layoutBirthDate"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="#FF5722"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutClientPhone"
+        app:startIconContentDescription="@string/date_de_naissance"
+        app:startIconDrawable="@drawable/ic_action_birth"
+        app:helperTextEnabled="true"
+        app:helperText="jj/mm/aaaa">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@id/addClientBirth"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:prefixText="+212"
+
+            android:ems="10"
+            android:hint="@string/date_de_naissance"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@id/layoutRegisterDate"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="#FF5722"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutBirthDate"
+        app:startIconContentDescription="@string/date_d_inscription"
+        app:startIconDrawable="@drawable/ic_action_register"
+        app:helperTextEnabled="true"
+        app:helperText="jj/mm/aaaa">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@id/addClientRegister"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:prefixText="+212"
+
+            android:ems="10"
+            android:hint="@string/date_d_inscription"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@id/layoutEnsurenceDate"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="#FF5722"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutRegisterDate"
+        app:startIconContentDescription="@string/validit_d_assurance"
+        app:startIconDrawable="@drawable/ic_action_ensurence"
+        app:helperTextEnabled="true"
+        app:helperText="jj/mm/aaaa">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@id/addClientEnsurence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:prefixText="+212"
+
+            android:ems="10"
+            android:hint="@string/validit_d_assurance"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@id/layoutLicenceDate"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
+        android:textColorHint="#FF5722"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutEnsurenceDate"
+        app:startIconContentDescription="@string/validit_de_licence"
+        app:startIconDrawable="@drawable/ic_action_licence"
+        app:helperTextEnabled="true"
+        app:helperText="jj/mm/aaaa">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@id/addClientLicence"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            app:prefixText="+212"
+
+            android:ems="10"
+            android:hint="@string/validit_de_licence"
+            android:inputType="text" />
+    </com.google.android.material.textfield.TextInputLayout>
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="6dp"
+        android:text="@string/enregistrer"
+        app:layout_constraintTop_toBottomOf="@id/layoutLicenceDate"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+</androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

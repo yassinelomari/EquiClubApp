@@ -41,4 +41,18 @@
     <item name="idBirthIcon" type="id" />
     <item name="idRegisterIcon" type="id" />
     <item name="registerClient" type="id" />
+    <item name="layoutBirthDate" type="id" />
+    <item name="addClientBirth" type="id" />
+    <item name="layoutRegisterDate" type="id" />
+    <item name="addClientRegister" type="id" />
+    <item name="layoutEnsurenceDate" type="id" />
+    <item name="addClientEnsurence" type="id" />
+    <item name="addClientLicence" type="id" />
+    <item name="layoutLicenceDate" type="id" />
+    <item name="layoutDate1" type="id" />
+    <item name="idEnsurenceIcon" type="id" />
+    <item name="EnsurenceClient" type="id" />
+    <item name="idLicenceIcon" type="id" />
+    <item name="LicenceClient" type="id" />
+    <item name="clientLayoutImg" type="id" />
 </resources>

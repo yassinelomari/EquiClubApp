@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EquiClubApp">
         <activity android:name=".ClientDetailActivity"></activity>
-        <activity android:name=".AddClientActivity" />
+        <activity android:name=".EditClientActivity" />
         <activity android:name=".ClientsActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
