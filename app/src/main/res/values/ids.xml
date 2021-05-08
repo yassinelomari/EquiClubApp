@@ -55,4 +55,7 @@
     <item name="idLicenceIcon" type="id" />
     <item name="LicenceClient" type="id" />
     <item name="clientLayoutImg" type="id" />
+    <item name="layoutNewImg" type="id" />
+    <item name="btnAddImg" type="id" />
+    <item name="saveClient" type="id" />
 </resources>

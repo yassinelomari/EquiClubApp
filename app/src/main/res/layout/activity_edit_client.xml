@@ -8,13 +8,41 @@
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-
     android:layout_margin="8dp">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@id/layoutNewImg"
+        android:layout_width="0dp"
+        android:layout_height="180dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@id/clientImg"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:src="@drawable/ic_action_profil"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"/>
+        <ImageButton
+            android:id="@id/btnAddImg"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_button"
+            android:src="@drawable/ic_action_cam"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/clientImg"
+            android:contentDescription="@string/camera" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
     <TextView
         android:id="@id/addClientTitle"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/layoutNewImg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:textStyle="bold"
@@ -275,6 +303,7 @@
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
     <Button
+        android:id="@id/saveClient"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:layout_constraintEnd_toEndOf="parent"
