@@ -93,9 +93,9 @@ public class ClientDetailActivity extends AppCompatActivity {
 
         JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_BASE + URL_WS
                 + clientId, null, (resp) -> {
-            Log.d(ClientsActivity.class.getSimpleName(),resp.toString());
+            //Log.d(ClientDetailActivity.class.getSimpleName(),resp.toString());
             try {
-                Log.d(ClientsActivity.class.getSimpleName(),"len" + resp.length());
+                //Log.d(ClientDetailActivity.class.getSimpleName(),"len" + resp.length());
                 String fName = resp.getString("fName");
                 String lName = resp.getString("lName");
                 String email = resp.getString("clientEmail");
@@ -113,7 +113,6 @@ public class ClientDetailActivity extends AppCompatActivity {
                         resp.getString("licenceValidity"), DateTimeFormatter.ISO_DATE_TIME);
                 client = new Client(clientId, fName, lName, birthDate, pathPhoto, idDoc, idNum,
                         registrationDate, email, phone, ensurenceDate, licenceDate);
-
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 nameView.setText(client.getfName() + " " + client.getlName());
                 phoneView.setText(client.getClientPhone());
@@ -124,9 +123,6 @@ public class ClientDetailActivity extends AppCompatActivity {
                 registrationView.setText(client.getInscriptionDate().format(formatter));
                 ensurenceView.setText(client.getEnsurenceValidity().format(formatter));
                 licenceView.setText(client.getLicenceValidity().format(formatter));
-                /*Log.d(ClientsActivity.class.getSimpleName(), client.getPathPhoto());
-                String jpgPath = client.getPathPhoto().replace("jpeg", "jpg");
-                Log.d(ClientsActivity.class.getSimpleName(), jpgPath);*/
                 VolleySingleton.getInstance(getApplicationContext()).getImageLoader().get(
                         URL_BASE + URL_PHOTO + client.getPathPhoto(),
                         new ImageLoader.ImageListener() {
@@ -137,24 +133,19 @@ public class ClientDetailActivity extends AppCompatActivity {
                                 ImageView img = (ImageView)findViewById(R.id.clientDetailImg);
                                 img.setImageBitmap(client.getPhoto());
                             }
-
                             @Override
                             public void onErrorResponse(VolleyError error) {
-                                Log.e(ClientsActivity.class.getSimpleName(),error.getMessage());
+                                Log.e(ClientDetailActivity.class.getSimpleName(),error.getMessage());
                             }
                         }
                 );
-                //Toast.makeText(this, fName, Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 e.printStackTrace();
                 Toast.makeText(ClientDetailActivity.this , "error", Toast.LENGTH_LONG)
                         .show();
             }
-        },
-                (error) -> Log.e(ClientsActivity.class.getSimpleName(),error.getMessage())
-
+        }, (error) -> Log.e(ClientDetailActivity.class.getSimpleName(),error.getMessage())
         );
-
         VolleySingleton.getInstance(this).addToRequestQueue(request);
     }
 
@@ -176,6 +167,10 @@ public class ClientDetailActivity extends AppCompatActivity {
                 startActivity(emailIntent);
                 break;
             case R.id.btnEditClient:
+                Intent intent = new Intent(this, EditClientActivity.class);
+                intent.putExtra("requestCode", 2);
+                intent.putExtra("clientId", client.getClientId());
+                startActivity(intent);
                 break;
             case R.id.btnDeleteClient:
                 AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);

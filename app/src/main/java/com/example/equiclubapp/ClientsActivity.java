@@ -88,6 +88,7 @@ public class ClientsActivity extends AppCompatActivity {
 
     private void onClickAdd(View view) {
         Intent intent = new Intent(this, EditClientActivity.class);
+        intent.putExtra("requestCode", 1);
         startActivity(intent);
     }
 

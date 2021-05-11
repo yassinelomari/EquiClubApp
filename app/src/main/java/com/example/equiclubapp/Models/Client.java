@@ -56,6 +56,10 @@ public class Client {
         this.licenceValidity = licenceValidity;
     }
 
+    public void setClientId(int clientId) {
+        this.clientId = clientId;
+    }
+
     public int getClientId() {
         return clientId;
     }

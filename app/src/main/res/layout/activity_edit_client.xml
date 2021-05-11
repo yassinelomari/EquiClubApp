@@ -17,7 +17,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@id/clientImg"
+            android:id="@id/clientImgEdit"
             android:layout_width="150dp"
             android:layout_height="150dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -34,7 +34,7 @@
             android:background="@drawable/round_button"
             android:src="@drawable/ic_action_cam"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="@id/clientImg"
+            app:layout_constraintEnd_toEndOf="@id/clientImgEdit"
             android:contentDescription="@string/camera" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -309,6 +309,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginBottom="6dp"
         android:text="@string/enregistrer"
+        app:layout_constraintTop_toBottomOf="@id/layoutLicenceDate"
+        app:layout_constraintBottom_toBottomOf="parent"/>
+    <Button
+        android:id="@id/modifyClient"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginBottom="6dp"
+        android:text="@string/modifier"
         app:layout_constraintTop_toBottomOf="@id/layoutLicenceDate"
         app:layout_constraintBottom_toBottomOf="parent"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

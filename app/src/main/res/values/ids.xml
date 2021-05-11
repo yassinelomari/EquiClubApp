@@ -58,4 +58,6 @@
     <item name="layoutNewImg" type="id" />
     <item name="btnAddImg" type="id" />
     <item name="saveClient" type="id" />
+    <item name="modifyClient" type="id" />
+    <item name="clientImgEdit" type="id" />
 </resources>

@@ -12,21 +12,17 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
-
-        <com.google.android.material.imageview.ShapeableImageView
+        <de.hdodenhof.circleimageview.CircleImageView
             android:id="@id/clientDetailImg"
             android:layout_width="200dp"
             android:layout_height="200dp"
-            android:background="@android:color/darker_gray"
-            android:contentDescription="@string/photo_du_client"
-            android:src="@mipmap/ic_launcher_round"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/roundedImageViewRounded"
-            app:strokeColor="@android:color/darker_gray"
-            app:strokeWidth="1dp"
+            android:src="@drawable/ic_action_profil"
+            app:civ_border_width="2dp"
+            app:civ_border_color="#FF000000"
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
