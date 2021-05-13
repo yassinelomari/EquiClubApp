@@ -32,4 +32,12 @@
     <string name="validit_de_licence">Validité de licence</string>
     <string name="ensurence_icon">Ensurence icon</string>
     <string name="camera">camera</string>
+    <string name="ajouter_seance">Ajouter seance</string>
+    <string name="groupe">Groupe</string>
+    <string name="moniteur_du_seance">Moniteur du seance</string>
+    <string name="date_du_seance">Date du seance</string>
+    <string name="select">Select</string>
+    <string name="l_heur_de_la_seance">L\'heur de la seance</string>
+    <string name="nouveau_goupe">Nouveau goupe</string>
+    <string name="dur_e_de_la_s_ance">Durée de la séance</string>
 </resources>

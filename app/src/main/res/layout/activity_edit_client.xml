@@ -118,15 +118,6 @@
             android:inputType="none"
             android:hint="@string/doc_d_identit"
             />
-       <!-- <com.google.android.material.textfield.TextInputEditText
-            android:id="@id/addClientDoc"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-             
-            android:ems="10"
-            android:hint="@string/doc_d_identit"
-            android:inputType="text" />-->
     </com.google.android.material.textfield.TextInputLayout>
     <com.google.android.material.textfield.TextInputLayout
         android:id="@id/layoutClientDocNum"

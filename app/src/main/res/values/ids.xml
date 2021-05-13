@@ -60,4 +60,21 @@
     <item name="saveClient" type="id" />
     <item name="modifyClient" type="id" />
     <item name="clientImgEdit" type="id" />
+    <item name="addSeanceTitle" type="id" />
+    <item name="layoutSeanceClient" type="id" />
+    <item name="addClientSeance" type="id" />
+    <item name="layoutSeanceGrp" type="id" />
+    <item name="addGrpSeance" type="id" />
+    <item name="layoutSeanceMonitor" type="id" />
+    <item name="addMonitorSeance" type="id" />
+    <item name="layoutSeancedate" type="id" />
+    <item name="addDateSeance" type="id" />
+    <item name="SelectDateSeance" type="id" />
+    <item name="layoutSeanceTime" type="id" />
+    <item name="addTimeSeance" type="id" />
+    <item name="SelectTimeSeance" type="id" />
+    <item name="nvGroup" type="id" />
+    <item name="addSeance" type="id" />
+    <item name="layoutSeanceDuration" type="id" />
+    <item name="addDurSeance" type="id" />
 </resources>

@@ -96,12 +96,12 @@ public class ClientDetailActivity extends AppCompatActivity {
             //Log.d(ClientDetailActivity.class.getSimpleName(),resp.toString());
             try {
                 //Log.d(ClientDetailActivity.class.getSimpleName(),"len" + resp.length());
-                String fName = resp.getString("fName");
-                String lName = resp.getString("lName");
-                String email = resp.getString("clientEmail");
-                String phone = resp.getString("clientPhone");
-                String idDoc = resp.getString("identityDoc");
-                String idNum = resp.getString("identityNumber");
+                String fName = (resp.getString("fName") == "null") ? null:resp.getString("fName");
+                String lName = (resp.getString("lName") == "null") ? null:resp.getString("lName");
+                String email = (resp.getString("clientEmail") == "null") ? null:resp.getString("clientEmail");
+                String phone = (resp.getString("clientPhone") == "null") ? null:resp.getString("clientPhone");
+                String idDoc = (resp.getString("identityDoc") == "null") ? "":resp.getString("identityDoc");
+                String idNum = (resp.getString("identityNumber") == "null") ? null:resp.getString("identityNumber");
                 String pathPhoto = resp.getString("photo");
                 LocalDateTime birthDate = LocalDateTime.parse(resp.getString("birthDate"),
                         DateTimeFormatter.ISO_DATE_TIME);
