@@ -8,7 +8,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Filter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -17,7 +16,7 @@ import androidx.annotation.Nullable;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.example.equiclubapp.ClientsActivity;
-import com.example.equiclubapp.Models.Client;
+import com.example.equiclubapp.Models.User;
 import com.example.equiclubapp.R;
 
 import java.util.ArrayList;
@@ -25,16 +24,16 @@ import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class ClientAdapter extends ArrayAdapter<Client> {
+public class UserAdapter extends ArrayAdapter<User> {
 
-    private static final String URL_BASE = "https://192.168.1.100:44352/api";
+    private static final String URL_BASE = "https://192.168.100.100:44352/api";
     private static final String URL_PHOTO = "/Clients/photo/";
 
-    private List<Client> clientListFull;
+    private List<User> usersListFull;
 
-    public ClientAdapter(@NonNull Context context, @NonNull List<Client> clientList) {
-        super(context, 0, clientList);
-        clientListFull = new ArrayList<>(clientList);
+    public UserAdapter(@NonNull Context context, @NonNull List<User> usersList) {
+        super(context, 0, usersList);
+        usersListFull = new ArrayList<>(usersList);
     }
 
     @NonNull
@@ -47,18 +46,18 @@ public class ClientAdapter extends ArrayAdapter<Client> {
         //ImageView icon = item.findViewById(R.id.clientImg);
         TextView cName = item.findViewById(R.id.clientName);
         TextView identity = item.findViewById(R.id.clientIdentity);
-        Client clientItem = this.getItem(position);
+        User userItem = this.getItem(position);
         //String jpgPath = clientItem.getPathPhoto().replace("jpeg", "jpg");
         VolleySingleton.getInstance(item.getContext()).getImageLoader().get(
-                URL_BASE + URL_PHOTO + clientItem.getPathPhoto(),
+                URL_BASE + URL_PHOTO + userItem.getUserphoto(),
                 new ImageLoader.ImageListener() {
                     @Override
                     public void onResponse(ImageLoader.ImageContainer response,
                                            boolean isImmediate) {
-                        clientItem.setPhoto(response.getBitmap());
+                        userItem.setPhoto(response.getBitmap());
                         CircleImageView img = item.findViewById(R.id.clientImg);
-                        img.setImageBitmap(clientItem.getPhoto());
-                        if(clientItem.isActive())
+                        img.setImageBitmap(userItem.getPhoto());
+                        if(userItem.isUserActive())
                             img.setBorderColor(Color.GREEN);
                         else
                             img.setBorderColor(Color.RED);
@@ -70,26 +69,26 @@ public class ClientAdapter extends ArrayAdapter<Client> {
                     }
                 }
         );
-        cName.setText(clientItem.getfName() + " " + clientItem.getlName());
-        identity.setText(clientItem.getIdentityDoc() + " : " + clientItem.getIdentityNumber());
+        cName.setText(userItem.getUserFname() + " " + userItem.getUserLname());
+        identity.setText(userItem.getUserType());
         return item;
     }
 
-    private Filter clientFilter = new Filter() {
+    private Filter userFilter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
-            List<Client> suggests = new ArrayList<>();
+            List<User> suggests = new ArrayList<>();
             if (constraint == null || constraint.length() == 0) {
-                suggests.addAll(clientListFull);
+                suggests.addAll(usersListFull);
             } else {
                 String filterPattern = constraint.toString().toLowerCase().trim();
 
-                for(Client client : clientListFull){
-                    if (client.getfName().toLowerCase().contains(filterPattern) ||
-                            client.getlName().toLowerCase().contains(filterPattern) ||
-                            client.getIdentityNumber().toLowerCase().contains(filterPattern)) {
-                        suggests.add(client);
+                for(User user : usersListFull){
+                    if (user.getUserFname().toLowerCase().contains(filterPattern) ||
+                            user.getUserLname().toLowerCase().contains(filterPattern) ||
+                            user.getUserType().toLowerCase().contains(filterPattern)) {
+                        suggests.add(user);
                     }
                 }
             }
@@ -107,12 +106,12 @@ public class ClientAdapter extends ArrayAdapter<Client> {
 
         @Override
         public CharSequence convertResultToString(Object resultValue) {
-            return ((Client) resultValue).getfName();
+            return ((User) resultValue).getUserLname();
         }
     };
 
     @Override
     public Filter getFilter() {
-        return clientFilter;
+        return userFilter;
     }
 }

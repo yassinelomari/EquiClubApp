@@ -40,4 +40,21 @@
     <string name="l_heur_de_la_seance">L\'heur de la seance</string>
     <string name="nouveau_goupe">Nouveau goupe</string>
     <string name="dur_e_de_la_s_ance">Durée de la séance</string>
+    <string name="ajouter">Ajouter</string>
+    <string name="chercher_un_client">Chercher un client</string>
+    <string name="desactiv">desactivé</string>
+    <string name="calendrier">Calendrier</string>
+    <string name="ajouter_une_tache">Ajouter une tache</string>
+    <string name="nom_de_l_utilisateur">Nom de l\'utilisateur</string>
+    <string name="titre_de_la_tache">Titre de la tache</string>
+    <string name="d_tail_de_la_tache">Détail de la tache</string>
+    <string name="date_de_la_tache">date de la tache</string>
+    <string name="l_heur_de_la_tache">L\'heur de la tache</string>
+    <string name="la_liste_des_utilisateurs">La liste des utilisateurs</string>
+    <string name="chercher_un_utilisateur">Chercher un utilisateur</string>
+    <string name="ajouter_un_utilisateur">Ajouter un utilisateur</string>
+    <string name="type_d_utilisateur">Type d\'utilisateur</string>
+    <string name="role_de_l_utilisateur">Role de l\'utilisateur</string>
+    <string name="date_du_contrat">Date du contrat</string>
+    <string name="date_de_d_rnier_acc_s">Date de dérnier accès</string>
 </resources>

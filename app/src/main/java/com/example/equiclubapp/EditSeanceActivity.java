@@ -85,11 +85,11 @@ public class EditSeanceActivity extends AppCompatActivity {
         clients = new ArrayList<>();
         users = new ArrayList<>();
         seanceGrps = new ArrayList<>();
-        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
-        builder.setTitleText("Selectioner la date");
 
         VolleySingleton.handleSSLHandshake();
 
+        MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
+        builder.setTitleText("Selectioner la date");
         builder.setSelection(MaterialDatePicker.todayInUtcMilliseconds());
         CalendarConstraints.Builder cBuilder = new CalendarConstraints.Builder();
         cBuilder.setValidator(DateValidatorPointForward.now());

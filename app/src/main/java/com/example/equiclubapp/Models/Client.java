@@ -38,10 +38,23 @@ public class Client {
         this.pathPhoto = pathPhoto;
     }
 
+    public Client(int clientId, String fName, String lName, String clientEmail, String clientPhone,
+                  String identityDoc, String identityNumber, String pathPhoto, boolean isActive) {
+        this.clientId = clientId;
+        this.fName = fName;
+        this.lName = lName;
+        this.clientEmail = clientEmail;
+        this.clientPhone = clientPhone;
+        this.identityDoc = identityDoc;
+        this.identityNumber = identityNumber;
+        this.pathPhoto = pathPhoto;
+        this.isActive = isActive;
+    }
+
     public Client(int clientId, String fName, String lName, LocalDateTime birthDate,
                   String pathPhoto, String identityDoc, String identityNumber,
                   LocalDateTime inscriptionDate, String clientEmail, String clientPhone,
-                  LocalDateTime ensurenceValidity, LocalDateTime licenceValidity) {
+                  LocalDateTime ensurenceValidity, LocalDateTime licenceValidity, boolean isActive) {
         this.clientId = clientId;
         this.fName = fName;
         this.lName = lName;
@@ -54,6 +67,7 @@ public class Client {
         this.clientPhone = clientPhone;
         this.ensurenceValidity = ensurenceValidity;
         this.licenceValidity = licenceValidity;
+        this.isActive = isActive;
     }
 
     public void setClientId(int clientId) {

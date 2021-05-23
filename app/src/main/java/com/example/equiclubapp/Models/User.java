@@ -1,10 +1,17 @@
 package com.example.equiclubapp.Models;
 
 import android.graphics.Bitmap;
+import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 
+import androidx.annotation.RequiresApi;
+
+import java.time.Instant;
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 
-public class User {
+public class User implements Parcelable {
 
     private int userId;
     private String sessionToken;
@@ -101,7 +108,7 @@ public class User {
         this.lastLoginTime = lastLoginTime;
     }
 
-    public Boolean getActive() {
+    public Boolean isUserActive() {
         return isActive;
     }
 
@@ -179,5 +186,74 @@ public class User {
 
     public void setPhoto(Bitmap photo) {
         this.photo = photo;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    public User(Parcel in ) {
+        readFromParcel( in );
+    }
+
+    public static final Parcelable.Creator CREATOR = new Creator<User>() {
+
+        @RequiresApi(api = Build.VERSION_CODES.Q)
+        @Override
+        public User createFromParcel(Parcel source) {
+            return new User(source);
+        }
+
+        @Override
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(userFname);
+        dest.writeString(userLname);
+        dest.writeString(userEmail);
+        dest.writeString(userPasswd);
+        dest.writeString(userPhone);
+        dest.writeString(userphoto);
+        dest.writeString(userType);
+        dest.writeString(this.sessionToken);
+        dest.writeString(this.displayColor);
+        dest.writeString(this.description);
+        dest.writeInt(this.adminLevel);
+        dest.writeInt(this.userId);
+        dest.writeLong(contractDate != null ?
+                contractDate.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() : -1);
+        dest.writeLong(lastLoginTime != null ?
+                lastLoginTime.atZone(ZoneId.systemDefault()).toInstant().toEpochMilli() : -1);
+        //dest.writeSerializable(this.contractDate);
+        //dest.writeSerializable(this.lastLoginTime);
+        dest.writeByte((byte) (isActive ? 1 : 0));
+        //dest.writeSerializable(this.photo.);
+    }
+    @RequiresApi(api = Build.VERSION_CODES.Q)
+    private void readFromParcel(Parcel in ) {
+        userFname = in.readString();
+        userLname = in.readString();
+        userEmail = in.readString();
+        userPasswd = in.readString();
+        userPhone = in.readString();
+        userphoto = in.readString();
+        userType = in.readString();
+        sessionToken = in.readString();
+        displayColor = in.readString();
+        description = in.readString();
+        adminLevel = in.readInt();
+        userId = in.readInt();
+        contractDate = Instant.ofEpochMilli(in.readLong()).atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+        lastLoginTime = Instant.ofEpochMilli(in.readLong()).atZone(ZoneId.systemDefault())
+                .toLocalDateTime();
+        isActive = in.readByte() != 0;
     }
 }

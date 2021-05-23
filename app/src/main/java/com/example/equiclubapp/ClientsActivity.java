@@ -2,9 +2,12 @@ package com.example.equiclubapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
@@ -16,6 +19,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.equiclubapp.ListesAdapters.ClientAdapter;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
 import com.example.equiclubapp.Models.Client;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
 
@@ -28,8 +32,11 @@ public class ClientsActivity extends AppCompatActivity {
 
     List<Client> clients;
 
-    ImageButton btnAdd;
+    Button btnAdd;
     ListView clientsList;
+    TextInputEditText editSearch;
+
+    ClientAdapter clientAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +49,29 @@ public class ClientsActivity extends AppCompatActivity {
 
         btnAdd = findViewById(R.id.btnAddClient);
         clientsList = findViewById(R.id.clientList);
+        editSearch = findViewById(R.id.editSearchClient);
 
         btnAdd.setOnClickListener(this::onClickAdd);
 
         clientsList.setOnItemClickListener(this::onClientItemClick);
+
+        editSearch.addTextChangedListener(new TextWatcher() {
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (clientAdapter != null)
+                    clientAdapter.getFilter().filter(s.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,int after) {
+            }
+        });
     }
 
     @Override
@@ -67,11 +93,15 @@ public class ClientsActivity extends AppCompatActivity {
                         String idDoc = resp.getJSONObject(i).getString("identityDoc");
                         String idNum = resp.getJSONObject(i).getString("identityNumber");
                         String pathPhoto = resp.getJSONObject(i).getString("photo");
-                        clients.add(new Client(id, fName, lName, email, phone, idDoc, idNum, pathPhoto));
+                        boolean isActive = resp.getJSONObject(i).getBoolean("isActive");
+                        clients.add(new Client(id, fName, lName, email, phone, idDoc, idNum,
+                                pathPhoto, isActive));
                     }
                 }
-                if(!clients.isEmpty())
-                    clientsList.setAdapter(new ClientAdapter(ClientsActivity.this, clients));
+                if(!clients.isEmpty()){
+                    clientAdapter = new ClientAdapter(ClientsActivity.this, clients);
+                    clientsList.setAdapter(clientAdapter);
+                }
 
             } catch (JSONException e) {
                 e.printStackTrace();
