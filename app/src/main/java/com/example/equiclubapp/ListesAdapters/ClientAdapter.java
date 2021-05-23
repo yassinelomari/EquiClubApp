@@ -27,7 +27,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ClientAdapter extends ArrayAdapter<Client> {
 
-    private static final String URL_BASE = "https://192.168.1.100:44352/api";
+    private static final String URL_BASE = "https://192.168.100.100:44352/api";
     private static final String URL_PHOTO = "/Clients/photo/";
 
     private List<Client> clientListFull;

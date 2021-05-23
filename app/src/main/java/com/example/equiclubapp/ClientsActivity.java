@@ -1,5 +1,7 @@
 package com.example.equiclubapp;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
@@ -11,8 +13,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.Toast;
-
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientsActivity extends AppCompatActivity {
-    private static final String URL_BASE = "https://192.168.1.100:44352/api";
+    private static final String URL_BASE = "https://192.168.100.100:44352/api";
     private static final String URL_WS = "/Clients";
 
     List<Client> clients;
