@@ -1,8 +1,5 @@
 package com.example.equiclubapp;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -17,16 +14,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.equiclubapp.ListesAdapters.ClientAdapter;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
 import com.example.equiclubapp.Models.Client;
 
@@ -37,7 +34,7 @@ import java.time.format.DateTimeFormatter;
 
 public class ClientDetailActivity extends AppCompatActivity {
 
-    private static final String URL_BASE = "https://192.168.100.100:44352/api";
+    private static final String URL_BASE = "https://192.168.1.100:44352/api";
     private static final String URL_WS = "/Clients/";
     private static final String URL_PHOTO = "/Clients/photo/";
 

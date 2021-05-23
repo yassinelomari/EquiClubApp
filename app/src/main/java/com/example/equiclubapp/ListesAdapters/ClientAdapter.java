@@ -22,7 +22,7 @@ import java.util.List;
 
 public class ClientAdapter extends ArrayAdapter<Client> {
 
-    private static final String URL_BASE = "https://192.168.100.100:44352/api";
+    private static final String URL_BASE = "https://192.168.1.100:44352/api";
     private static final String URL_PHOTO = "/Clients/photo/";
 
     public ClientAdapter(@NonNull Context context, @NonNull List<Client> objects) {
