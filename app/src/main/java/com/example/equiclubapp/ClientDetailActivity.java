@@ -2,10 +2,13 @@ package com.example.equiclubapp;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -35,28 +38,23 @@ import org.json.JSONException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class ClientDetailActivity extends AppCompatActivity {
 
     private static final String URL_BASE = "https://192.168.100.100:44352/api";
     private static final String URL_WS = "/Clients/";
+    private static final String URL_WS_DC = "/Clients/disable/";
+    private static final String URL_WS_EC = "/Clients/enable/";
     private static final String URL_PHOTO = "/Clients/photo/";
 
     Client client;
     int clientId;
 
-    TextView nameView;
-    TextView phoneView;
-    TextView emailView;
-    TextView identityView;
-    TextView identityDocView;
-    TextView birthView;
-    TextView registrationView;
-    TextView ensurenceView;
-    TextView licenceView;
-    ImageButton btnCall;
-    ImageButton btnSendEmail;
-    Button edit;
-    Button delete;
+    TextView nameView, phoneView, emailView, identityView, identityDocView, birthView;
+    TextView registrationView, ensurenceView, licenceView;
+    ImageButton btnCall, btnSendEmail;
+    Button edit, delete, calender, disable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,11 +77,15 @@ public class ClientDetailActivity extends AppCompatActivity {
         btnSendEmail = findViewById(R.id.btnEmailClient);
         edit = findViewById(R.id.btnEditClient);
         delete = findViewById(R.id.btnDeleteClient);
+        calender = findViewById(R.id.calendarClient);
+        disable = findViewById(R.id.btnDisableClient);
 
         btnCall.setOnClickListener(this::onClickButtons);
         btnSendEmail.setOnClickListener(this::onClickButtons);
         edit.setOnClickListener(this::onClickButtons);
         delete.setOnClickListener(this::onClickButtons);
+        calender.setOnClickListener(this::onClickButtons);
+        disable.setOnClickListener(this::onClickButtons);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -96,12 +98,19 @@ public class ClientDetailActivity extends AppCompatActivity {
             //Log.d(ClientDetailActivity.class.getSimpleName(),resp.toString());
             try {
                 //Log.d(ClientDetailActivity.class.getSimpleName(),"len" + resp.length());
-                String fName = (resp.getString("fName") == "null") ? null:resp.getString("fName");
-                String lName = (resp.getString("lName") == "null") ? null:resp.getString("lName");
-                String email = (resp.getString("clientEmail") == "null") ? null:resp.getString("clientEmail");
-                String phone = (resp.getString("clientPhone") == "null") ? null:resp.getString("clientPhone");
-                String idDoc = (resp.getString("identityDoc") == "null") ? "":resp.getString("identityDoc");
-                String idNum = (resp.getString("identityNumber") == "null") ? null:resp.getString("identityNumber");
+                String fName = (resp.getString("fName") == "null") ? null:
+                        resp.getString("fName");
+                String lName = (resp.getString("lName") == "null") ? null:
+                        resp.getString("lName");
+                String email = (resp.getString("clientEmail") == "null") ? null:
+                        resp.getString("clientEmail");
+                String phone = (resp.getString("clientPhone") == "null") ? null:
+                        resp.getString("clientPhone");
+                String idDoc = (resp.getString("identityDoc") == "null") ? "":
+                        resp.getString("identityDoc");
+                String idNum = (resp.getString("identityNumber") == "null") ? null:
+                        resp.getString("identityNumber");
+                boolean isActive = resp.getBoolean("isActive");
                 String pathPhoto = resp.getString("photo");
                 LocalDateTime birthDate = LocalDateTime.parse(resp.getString("birthDate"),
                         DateTimeFormatter.ISO_DATE_TIME);
@@ -112,7 +121,7 @@ public class ClientDetailActivity extends AppCompatActivity {
                 LocalDateTime licenceDate = LocalDateTime.parse(
                         resp.getString("licenceValidity"), DateTimeFormatter.ISO_DATE_TIME);
                 client = new Client(clientId, fName, lName, birthDate, pathPhoto, idDoc, idNum,
-                        registrationDate, email, phone, ensurenceDate, licenceDate);
+                        registrationDate, email, phone, ensurenceDate, licenceDate, isActive);
                 DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
                 nameView.setText(client.getfName() + " " + client.getlName());
                 phoneView.setText(client.getClientPhone());
@@ -130,8 +139,14 @@ public class ClientDetailActivity extends AppCompatActivity {
                             public void onResponse(ImageLoader.ImageContainer response,
                                                    boolean isImmediate) {
                                 client.setPhoto(response.getBitmap());
-                                ImageView img = (ImageView)findViewById(R.id.clientDetailImg);
+                                CircleImageView img = findViewById(R.id.clientDetailImg);
                                 img.setImageBitmap(client.getPhoto());
+                                if(client.isActive())
+                                    img.setBorderColor(Color.GREEN);
+                                else {
+                                    img.setBorderColor(Color.RED);
+                                    disable.setText("Activer");
+                                }
                             }
                             @Override
                             public void onErrorResponse(VolleyError error) {
@@ -182,6 +197,27 @@ public class ClientDetailActivity extends AppCompatActivity {
                         (DialogInterface dialogInterface, int i) -> dialogInterface.dismiss());
                 AlertDialog alertDialog = alertBuilder.create();
                 alertDialog.show();
+                break;
+            case R.id.btnDisableClient:
+                String fullUrl = URL_BASE;
+                if (client.isActive())
+                    fullUrl += URL_WS_DC + client.getClientId();
+                else
+                    fullUrl += URL_WS_EC + client.getClientId();
+                JsonObjectRequest requestState = new JsonObjectRequest(Request.Method.GET,
+                        fullUrl, null, (resp) -> {
+                    //Log.d(ClientDetailActivity.class.getSimpleName(),resp.toString());
+                    Toast.makeText(ClientDetailActivity.this , "state changed " +
+                            "successfully", Toast.LENGTH_LONG).show();
+                    ClientDetailActivity.this.finish();
+                    ClientDetailActivity.this.startActivity(getIntent());
+
+                }, (error) -> Log.e(ClientDetailActivity.class.getSimpleName(),error.getMessage())
+                );
+                VolleySingleton.getInstance(this).addToRequestQueue(requestState);
+                break;
+            case R.id.calendarClient:
+
                 break;
         }
     }

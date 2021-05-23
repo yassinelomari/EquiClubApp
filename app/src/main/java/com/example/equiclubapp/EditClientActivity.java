@@ -190,6 +190,7 @@ public class EditClientActivity extends AppCompatActivity {
                     String idDoc = (resp.getString("identityDoc") == "null") ? "":resp.getString("identityDoc");
                     String idNum = (resp.getString("identityNumber") == "null") ? null:resp.getString("identityNumber");
                     String pathPhoto = resp.getString("photo");
+                    boolean isActive = resp.getBoolean("isActive");
                     LocalDateTime birthDate = LocalDateTime.parse(resp.getString("birthDate"),
                             DateTimeFormatter.ISO_DATE_TIME);
                     LocalDateTime registrationDate = LocalDateTime.parse(
@@ -199,7 +200,7 @@ public class EditClientActivity extends AppCompatActivity {
                     LocalDateTime licenceDate = LocalDateTime.parse(
                             resp.getString("licenceValidity"), DateTimeFormatter.ISO_DATE_TIME);
                     client = new Client(clientId, fName, lName, birthDate, pathPhoto, idDoc, idNum,
-                            registrationDate, email, phone, ensurenceDate, licenceDate);
+                            registrationDate, email, phone, ensurenceDate, licenceDate, isActive);
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyy");
                     editFName.setText(client.getfName());
                     editLName.setText(client.getlName());
@@ -314,7 +315,7 @@ public class EditClientActivity extends AppCompatActivity {
         LocalDateTime dEnsurence = LocalDate.parse(sEnsurence, formatter).atStartOfDay();
         LocalDateTime dLicence = LocalDate.parse(sLicence, formatter).atStartOfDay();
         client = new Client(0, fName, lName, dBirth, "pathPhoto", doc, numDoc,
-                dInscription, email, tele, dEnsurence, dLicence);
+                dInscription, email, tele, dEnsurence, dLicence, true);
         //Log.d(EditClientActivity.class.getSimpleName(), "onClickSave1: ");
         sendRequest(Request.Method.POST, encodeBitmapImage(), null);
     }
@@ -351,7 +352,7 @@ public class EditClientActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 Intent intent = new Intent(getApplicationContext(), ClientsActivity.class);
-                startActivityForResult(intent, 50);
+                startActivity(intent);
                 Toast.makeText(getApplicationContext(), "Client uploaded succefuly", Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {

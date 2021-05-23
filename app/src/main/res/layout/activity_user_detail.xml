@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ClientDetailActivity">
+    tools:context=".UserDetailActivity">
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@id/clientLayoutImg"
+        android:id="@id/userLayoutImg"
         android:layout_width="0dp"
         android:layout_height="220dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@id/clientDetailImg"
+            android:id="@id/userDetailImg"
             android:layout_width="200dp"
             android:layout_height="200dp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -22,15 +22,14 @@
             app:layout_constraintTop_toTopOf="parent"
             android:src="@drawable/ic_action_profil"
             app:civ_border_width="4dp"
-
             android:layout_marginTop="5dp"
             android:layout_marginBottom="5dp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <TextView
-        android:id="@id/clientName"
+        android:id="@id/userName"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/clientLayoutImg"
+        app:layout_constraintTop_toBottomOf="@id/userLayoutImg"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/pr_nom_nom"
@@ -39,10 +38,10 @@
         android:textStyle="bold"
         android:gravity="center"/>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@id/layoutTele"
+        android:id="@id/layoutTeleUser"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/clientName"
+        app:layout_constraintTop_toBottomOf="@id/userName"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="6dp"
@@ -56,15 +55,15 @@
             android:contentDescription="@string/tele_icon"
             android:src="@drawable/ic_action_tele"/>
         <TextView
-            android:id="@id/clientTele"
+            android:id="@id/userTele"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/_212666666666"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/teleIcon"
-            app:layout_constraintEnd_toStartOf="@id/btnCallClient" />
+            app:layout_constraintEnd_toStartOf="@id/btnCallUser" />
         <ImageButton
-            android:id="@id/btnCallClient"
+            android:id="@id/btnCallUser"
             android:layout_width="60dp"
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -76,16 +75,16 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/clientTele"
+            app:layout_constraintTop_toBottomOf="@id/userTele"
             app:layout_constraintStart_toEndOf="@id/teleIcon"
             android:text="@string/telephone"
             android:textSize="14sp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@id/layoutEmail"
+        android:id="@id/layoutEmailUser"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/layoutTele"
+        app:layout_constraintTop_toBottomOf="@id/layoutTeleUser"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="6dp"
@@ -99,15 +98,15 @@
             android:contentDescription="@string/email_icon"
             android:src="@drawable/ic_action_email"/>
         <TextView
-            android:id="@id/clientEmail"
+            android:id="@id/userEmail"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/email_email_ma"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toEndOf="@id/emailIcon"
-            app:layout_constraintEnd_toStartOf="@id/btnEmailClient" />
+            app:layout_constraintEnd_toStartOf="@id/btnEmailUser" />
         <ImageButton
-            android:id="@id/btnEmailClient"
+            android:id="@id/btnEmailUser"
             android:layout_width="60dp"
             android:layout_height="0dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -119,86 +118,64 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/clientEmail"
+            app:layout_constraintTop_toBottomOf="@id/userEmail"
             app:layout_constraintStart_toEndOf="@id/emailIcon"
             android:text="@string/email"
             android:textSize="14sp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@id/layoutIdentity"
+        android:id="@id/layoutTypeUser"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/layoutEmail"
+        app:layout_constraintTop_toBottomOf="@id/layoutEmailUser"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="6dp"
         android:background="@drawable/border_bottom">
         <ImageView
-            android:id="@id/idIcon"
+            android:id="@id/typeIcon"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             android:contentDescription="@string/identity_icon"
-            android:src="@drawable/ic_action_identity"/>
+            android:src="@drawable/ic_action_profil"/>
         <TextView
-            android:id="@id/clientIdentity"
+            android:id="@id/userType"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@string/xx000000"
+            android:text="@string/role_de_l_utilisateur"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/idIcon"
+            app:layout_constraintStart_toEndOf="@id/typeIcon"
             app:layout_constraintEnd_toEndOf="parent" />
         <TextView
-            android:id="@id/idDoc"
+            android:id="@id/userTypeLebel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/clientIdentity"
-            app:layout_constraintStart_toEndOf="@id/idIcon"
-            android:text="@string/cnie"
+            app:layout_constraintTop_toBottomOf="@id/userType"
+            app:layout_constraintStart_toEndOf="@id/typeIcon"
+            android:text="@string/role_de_l_utilisateur"
             android:textSize="14sp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@id/layoutDate"
+        android:id="@id/layoutDateContract"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/layoutIdentity"
+        app:layout_constraintTop_toBottomOf="@id/layoutTypeUser"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="6dp"
         android:background="@drawable/border_bottom">
         <ImageView
-            android:id="@id/idBirthIcon"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/birth_icon"
-            android:src="@drawable/ic_action_birth"/>
-        <TextView
-            android:id="@id/birthClient"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="@string/_00_00_0000"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/idBirthIcon" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/birthClient"
-            app:layout_constraintStart_toEndOf="@id/idBirthIcon"
-            android:text="@string/date_de_naissance"
-            android:textSize="14sp"/>
-        <ImageView
             android:id="@id/idRegisterIcon"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/birthClient"
+            app:layout_constraintStart_toStartOf="parent"
             android:contentDescription="@string/register_icon"
             android:src="@drawable/ic_action_register"/>
         <TextView
-            android:id="@id/registerClient"
+            android:id="@id/contractUser"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/_00_00_0000"
@@ -208,66 +185,44 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/registerClient"
+            app:layout_constraintTop_toBottomOf="@id/contractUser"
             app:layout_constraintStart_toEndOf="@id/idRegisterIcon"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/date_d_inscription"
+            android:text="@string/date_du_contrat"
             android:textSize="14sp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@id/layoutDate1"
+        android:id="@id/layoutDateLogin"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/layoutDate"
+        app:layout_constraintTop_toBottomOf="@id/layoutDateContract"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_margin="6dp"
         android:background="@drawable/border_bottom">
         <ImageView
-            android:id="@id/idEnsurenceIcon"
+            android:id="@id/idLoginIcon"
             android:layout_width="30dp"
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            android:contentDescription="@string/ensurence_icon"
-            android:src="@drawable/ic_action_ensurence"/>
-        <TextView
-            android:id="@id/EnsurenceClient"
-            android:layout_width="150dp"
-            android:layout_height="wrap_content"
-            android:text="@string/_00_00_0000"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/idEnsurenceIcon" />
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/EnsurenceClient"
-            app:layout_constraintStart_toEndOf="@id/idEnsurenceIcon"
-            android:text="@string/validit_d_assurance"
-            android:textSize="14sp"/>
-        <ImageView
-            android:id="@id/idLicenceIcon"
-            android:layout_width="30dp"
-            android:layout_height="wrap_content"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintStart_toEndOf="@id/EnsurenceClient"
             android:contentDescription="@string/register_icon"
-            android:src="@drawable/ic_action_licence"/>
+            android:src="@drawable/ic_action_register"/>
         <TextView
-            android:id="@id/LicenceClient"
+            android:id="@id/loginUser"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@string/_00_00_0000"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/idLicenceIcon" />
+            app:layout_constraintStart_toEndOf="@id/idLoginIcon" />
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/LicenceClient"
-            app:layout_constraintStart_toEndOf="@id/idLicenceIcon"
+            app:layout_constraintTop_toBottomOf="@id/loginUser"
+            app:layout_constraintStart_toEndOf="@id/idLoginIcon"
             app:layout_constraintEnd_toEndOf="parent"
-            android:text="@string/date_d_inscription"
+            android:text="@string/date_de_d_rnier_acc_s"
             android:textSize="14sp"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
     <LinearLayout
@@ -280,7 +235,7 @@
         android:gravity="center"
         android:background="#EAEAEA">
         <Button
-            android:id="@id/calendarClient"
+            android:id="@id/calendarUser"
             android:layout_marginLeft="-10dp"
             android:layout_marginRight="-10dp"
             android:layout_width="90dp"
@@ -291,7 +246,7 @@
             android:textSize="9sp"
             android:drawableTop="@drawable/ic_action_calander" />
         <Button
-            android:id="@id/btnEditClient"
+            android:id="@id/btnEditUser"
             android:layout_marginLeft="-10dp"
             android:layout_marginRight="-10dp"
             android:layout_width="90dp"
@@ -302,7 +257,7 @@
             android:textSize="9sp"
             android:drawableTop="@drawable/ic_action_edit" />
         <Button
-            android:id="@id/btnDisableClient"
+            android:id="@id/btnDisableUser"
             android:layout_marginLeft="-10dp"
             android:layout_marginRight="-8dp"
             android:layout_width="90dp"
@@ -313,7 +268,7 @@
             android:textSize="9sp"
             android:drawableTop="@drawable/ic_action_disable" />
         <Button
-            android:id="@id/btnDeleteClient"
+            android:id="@id/btnDeleteUser"
             android:layout_marginLeft="-10dp"
             android:layout_marginRight="-8dp"
             android:layout_width="90dp"

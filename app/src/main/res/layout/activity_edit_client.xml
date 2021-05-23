@@ -57,7 +57,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:textColorHint="#FF5722"
+        android:textColorHint="@color/principal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/addClientTitle"
         app:startIconContentDescription="@string/nom"
@@ -68,7 +68,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-             
+
             android:ems="10"
             android:hint="@string/nom"
             android:inputType="text" />
@@ -81,7 +81,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:textColorHint="#FF5722"
+        android:textColorHint="@color/principal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutClientLName"
         app:startIconContentDescription="@string/pr_nom"
@@ -92,7 +92,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-             
+
             android:ems="10"
             android:hint="@string/pr_nom"
             android:inputType="text" />
@@ -104,7 +104,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:textColorHint="#FF5722"
+        android:textColorHint="@color/principal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@id/layoutClientDocNum"
         app:layout_constraintTop_toBottomOf="@id/layoutClientFName"
@@ -126,7 +126,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:textColorHint="#FF5722"
+        android:textColorHint="@color/principal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutClientFName"
         app:startIconContentDescription="@string/num_d_identit"
@@ -149,7 +149,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:textColorHint="#FF5722"
+        android:textColorHint="@color/principal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutClientDoc"
         app:startIconContentDescription="@string/l_email"
@@ -172,7 +172,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:textColorHint="#FF5722"
+        android:textColorHint="@color/principal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutClientEmail"
         app:startIconContentDescription="@string/num_t_l"
@@ -196,7 +196,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:textColorHint="#FF5722"
+        android:textColorHint="@color/principal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutClientPhone"
         app:startIconContentDescription="@string/date_de_naissance"
@@ -209,7 +209,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            app:prefixText="+212"
+
 
             android:ems="10"
             android:hint="@string/date_de_naissance"
@@ -222,7 +222,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:textColorHint="#FF5722"
+        android:textColorHint="@color/principal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutBirthDate"
         app:startIconContentDescription="@string/date_d_inscription"
@@ -235,7 +235,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            app:prefixText="+212"
+
 
             android:ems="10"
             android:hint="@string/date_d_inscription"
@@ -248,7 +248,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:textColorHint="#FF5722"
+        android:textColorHint="@color/principal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutRegisterDate"
         app:startIconContentDescription="@string/validit_d_assurance"
@@ -261,7 +261,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            app:prefixText="+212"
+
 
             android:ems="10"
             android:hint="@string/validit_d_assurance"
@@ -274,7 +274,7 @@
         android:layout_height="wrap_content"
         android:focusable="true"
         android:focusableInTouchMode="true"
-        android:textColorHint="#FF5722"
+        android:textColorHint="@color/principal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutEnsurenceDate"
         app:startIconContentDescription="@string/validit_de_licence"
@@ -287,7 +287,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            app:prefixText="+212"
+
 
             android:ems="10"
             android:hint="@string/validit_de_licence"
