@@ -151,7 +151,10 @@ public class EditClientActivity extends AppCompatActivity {
                     return map;
                 }
             };
+            RequestQueue queue = Volley.newRequestQueue(this);
+            queue.add(request);
         }
+
         client.setClientId(clientId);
         client.setfName(Objects.requireNonNull(editFName.getText()).toString().trim());
         client.setlName(Objects.requireNonNull(editLName.getText()).toString().trim());
@@ -169,7 +172,8 @@ public class EditClientActivity extends AppCompatActivity {
         client.setEnsurenceValidity(LocalDate.parse(sEnsurence, formatter).atStartOfDay());
         client.setLicenceValidity(LocalDate.parse(sLicence, formatter).atStartOfDay());
 
-        sendRequest(Request.Method.PUT, client.getPathPhoto(), client.getClientId());
+        sendRequest(Request.Method.PUT, client.getPathPhoto(), client.getClientId(),
+                client.getPasswd());
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
@@ -218,9 +222,10 @@ public class EditClientActivity extends AppCompatActivity {
                                 @Override
                                 public void onResponse(ImageLoader.ImageContainer response,
                                                        boolean isImmediate) {
-                                    client.setPhoto(response.getBitmap());
-                                    //ImageView img = (ImageView)findViewById(R.id.clientDetailImg);
-                                    clientImg.setImageBitmap(client.getPhoto());
+                                    if(!imgModified) {
+                                        client.setPhoto(response.getBitmap());
+                                        clientImg.setImageBitmap(client.getPhoto());
+                                    }
                                 }
 
                                 @Override
@@ -317,11 +322,11 @@ public class EditClientActivity extends AppCompatActivity {
         client = new Client(0, fName, lName, dBirth, "pathPhoto", doc, numDoc,
                 dInscription, email, tele, dEnsurence, dLicence, true);
         //Log.d(EditClientActivity.class.getSimpleName(), "onClickSave1: ");
-        sendRequest(Request.Method.POST, encodeBitmapImage(), null);
+        sendRequest(Request.Method.POST, encodeBitmapImage(), null, numDoc);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void sendRequest(int methode, String photo, Object id) {
+    private void sendRequest(int methode, String photo, Object id, String pwd) {
         JSONObject jsonObject = new JSONObject();
         try {
             jsonObject.put("clientId", id);
@@ -335,10 +340,10 @@ public class EditClientActivity extends AppCompatActivity {
             jsonObject.put("ensurenceValidity", client.getEnsurenceValidity().format(DateTimeFormatter.ISO_DATE_TIME));
             jsonObject.put("licenceValidity", client.getLicenceValidity().format(DateTimeFormatter.ISO_DATE_TIME));
             jsonObject.put("clientEmail", client.getClientEmail());
-            jsonObject.put("passwd", client.getIdentityNumber());
+            jsonObject.put("passwd", pwd);
             jsonObject.put("clientPhone", client.getClientPhone());
             jsonObject.put("priceRate", 100);
-            jsonObject.put("isActive", true);
+            jsonObject.put("isActive", client.isActive());
             jsonObject.put("notes", "");
             jsonObject.put("photo", photo);
             //jsonObject.put("base64Image",encodeBitmapImage());

@@ -37,6 +37,8 @@ public class UsersActivity extends AppCompatActivity  {
     private static final String URL_WS = "/Users";
     private static final int RES_ADD = 101;
     private static final int RES_ADD_OK = 1;
+    private static final int RES_MODIF_OK = 2;
+
 
     List<User> users;
 
@@ -149,8 +151,10 @@ public class UsersActivity extends AppCompatActivity  {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(requestCode == RES_ADD && resultCode == RES_ADD_OK){
-            Toast.makeText(this, "Client uploaded succefuly " + RES_ADD
-                    , Toast.LENGTH_LONG).show();
+            User newUser = data.getExtras().getParcelable("newUser");
+            ((UserAdapter)usersList.getAdapter()).add(newUser);
+        } else if(resultCode == RES_MODIF_OK) {
+            Log.e(UsersActivity.class.getSimpleName(), "bien modifiér");
         }
     }
 }

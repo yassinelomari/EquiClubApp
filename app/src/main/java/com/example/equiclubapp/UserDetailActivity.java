@@ -3,7 +3,11 @@ package com.example.equiclubapp;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Parcel;
@@ -13,15 +17,23 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
 import com.example.equiclubapp.Models.Client;
 import com.example.equiclubapp.Models.User;
 
 import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -32,7 +44,7 @@ public class UserDetailActivity extends AppCompatActivity  {
     private static final String URL_WS_EC = "/Users/enable/";
     private static final String URL_PHOTO = "/Clients/photo/";
 
-
+    Map<String, String> types;
     User user;
     int userId;
 
@@ -49,6 +61,14 @@ public class UserDetailActivity extends AppCompatActivity  {
         user = extras.getParcelable("user");
         if(user == null)
             Log.e(UserDetailActivity.class.getSimpleName(), "probleeeema");
+
+        types = new HashMap<>();
+        types.put("OTHER", "");
+        types.put("MONITOR", "Moniteur");
+        types.put("ADMIN", "Admin");
+        types.put("SERVICE ", "Service");
+        types.put("GUARD", "Gardien");
+        types.put("COMPTA", "Comptable");
 
         nameView = findViewById(R.id.userName);
         phoneView = findViewById(R.id.userTele);
@@ -80,7 +100,7 @@ public class UserDetailActivity extends AppCompatActivity  {
         nameView.setText(user.getUserFname() + " " + user.getUserLname());
         phoneView.setText(user.getUserPhone());
         emailView.setText(user.getUserEmail());
-        typeView.setText(user.getUserType());
+        typeView.setText(types.get(user.getUserType()));
         contractView.setText(user.getContractDate().format(formatter));
         loginView.setText(user.getLastLoginTime().format(formatter));
         VolleySingleton.getInstance(getApplicationContext()).getImageLoader().get(
@@ -108,6 +128,86 @@ public class UserDetailActivity extends AppCompatActivity  {
     }
 
     private void onClickButtons(View view) {
+        switch (view.getId()){
+            case R.id.btnCallUser :
+                if(user!=null && user.getUserPhone()!= null) {
+                    Intent iCall = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" +
+                            user.getUserPhone()));
+                    startActivity(iCall);
+                } else {
+                    Toast.makeText(view.getContext(), "vous ne pouvez pas l'appeler",
+                            Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.btnEmailUser:
 
+                if(user!=null && user.getUserEmail()!= null) {
+                    Intent emailIntent = new Intent(Intent.ACTION_SENDTO, Uri.fromParts(
+                            "mailto", user.getUserEmail(), null));
+                    startActivity(emailIntent);
+                } else {
+                    Toast.makeText(view.getContext(),
+                            "vous ne pouvez pas le contacter par email",
+                            Toast.LENGTH_LONG).show();
+                }
+                break;
+            case R.id.btnEditUser:
+                Intent intent = new Intent(this, EditUserActivity.class);
+                intent.putExtra("requestCode", 2);
+                intent.putExtra("user", user);
+                startActivity(intent);
+                break;
+            case R.id.btnDeleteUser:
+                AlertDialog.Builder alertBuilder = new AlertDialog.Builder(this);
+                alertBuilder.setTitle("Confirmation");
+                alertBuilder.setMessage("Voulez-vous supprimer l'utilisateur " + user.getUserFname()
+                        + " " + user.getUserLname());
+                alertBuilder.setPositiveButton("Confirm", this::onConfirmDelete);
+                alertBuilder.setNegativeButton("Cancel",
+                        (DialogInterface dialogInterface, int i) -> dialogInterface.dismiss());
+                AlertDialog alertDialog = alertBuilder.create();
+                alertDialog.show();
+                break;
+            case R.id.btnDisableUser:
+                String fullUrl = URL_BASE;
+                if (user.isUserActive()) {
+                    fullUrl += URL_WS_DC + user.getUserId();
+                    user.setActive(false);
+                }else {
+                    fullUrl += URL_WS_EC + user.getUserId();
+                    user.setActive(true);
+                }
+                JsonObjectRequest requestState = new JsonObjectRequest(Request.Method.GET,
+                        fullUrl, null, (resp) -> {
+                    //Log.d(ClientDetailActivity.class.getSimpleName(),resp.toString());
+                    Toast.makeText(UserDetailActivity.this , "state changed " +
+                            "successfully", Toast.LENGTH_LONG).show();
+                    UserDetailActivity.this.finish();
+                    UserDetailActivity.this.startActivity(getIntent().putExtra("user", user));
+
+                }, (error) -> Log.e(ClientDetailActivity.class.getSimpleName(),error.getMessage())
+                );
+                VolleySingleton.getInstance(this).addToRequestQueue(requestState);
+                break;
+            case R.id.calendarUser:
+
+                break;
+        }
+    }
+
+    private void onConfirmDelete(DialogInterface dialogInterface, int i) {
+        RequestQueue queue = Volley.newRequestQueue(this);
+        StringRequest deleteRequest = new StringRequest(Request.Method.DELETE, URL_BASE +
+                URL_WS + user.getUserId(),
+                (String response) -> {
+                    Log.d("Response", response);
+                    Intent intent = new Intent(UserDetailActivity.this, UsersActivity.class);
+                    startActivity(intent);
+                    Toast.makeText(UserDetailActivity.this, "L'utilisateur supprimer avec succés", Toast.LENGTH_LONG).show();
+                },
+                error ->Log.e("Error.Response", error.getMessage())
+        );
+        queue.add(deleteRequest);
+        dialogInterface.dismiss();
     }
 }

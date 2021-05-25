@@ -20,7 +20,9 @@ import com.example.equiclubapp.Models.User;
 import com.example.equiclubapp.R;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -30,10 +32,18 @@ public class UserAdapter extends ArrayAdapter<User> {
     private static final String URL_PHOTO = "/Clients/photo/";
 
     private List<User> usersListFull;
+    Map<String, String> types;
 
     public UserAdapter(@NonNull Context context, @NonNull List<User> usersList) {
         super(context, 0, usersList);
         usersListFull = new ArrayList<>(usersList);
+        types = new HashMap<>();
+        types.put("OTHER", "");
+        types.put("MONITOR", "Moniteur");
+        types.put("ADMIN", "Admin");
+        types.put("SERVICE ", "Service");
+        types.put("GUARD", "Gardien");
+        types.put("COMPTA", "Comptable");
     }
 
     @NonNull
@@ -48,29 +58,31 @@ public class UserAdapter extends ArrayAdapter<User> {
         TextView identity = item.findViewById(R.id.clientIdentity);
         User userItem = this.getItem(position);
         //String jpgPath = clientItem.getPathPhoto().replace("jpeg", "jpg");
-        VolleySingleton.getInstance(item.getContext()).getImageLoader().get(
-                URL_BASE + URL_PHOTO + userItem.getUserphoto(),
-                new ImageLoader.ImageListener() {
-                    @Override
-                    public void onResponse(ImageLoader.ImageContainer response,
-                                           boolean isImmediate) {
-                        userItem.setPhoto(response.getBitmap());
-                        CircleImageView img = item.findViewById(R.id.clientImg);
-                        img.setImageBitmap(userItem.getPhoto());
-                        if(userItem.isUserActive())
-                            img.setBorderColor(Color.GREEN);
-                        else
-                            img.setBorderColor(Color.RED);
-                    }
+        if(userItem.getUserphoto() != null && userItem.getUserphoto() != ""){
+            VolleySingleton.getInstance(item.getContext()).getImageLoader().get(
+                    URL_BASE + URL_PHOTO + userItem.getUserphoto(),
+                    new ImageLoader.ImageListener() {
+                        @Override
+                        public void onResponse(ImageLoader.ImageContainer response,
+                                               boolean isImmediate) {
+                            userItem.setPhoto(response.getBitmap());
+                            CircleImageView img = item.findViewById(R.id.clientImg);
+                            img.setImageBitmap(userItem.getPhoto());
+                            if(userItem.isUserActive())
+                                img.setBorderColor(Color.GREEN);
+                            else
+                                img.setBorderColor(Color.RED);
+                        }
 
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e(ClientsActivity.class.getSimpleName(),error.getMessage());
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            Log.e(ClientsActivity.class.getSimpleName(),error.getMessage());
+                        }
                     }
-                }
-        );
+            );
+        }
         cName.setText(userItem.getUserFname() + " " + userItem.getUserLname());
-        identity.setText(userItem.getUserType());
+        identity.setText(types.get(userItem.getUserType()));
         return item;
     }
 

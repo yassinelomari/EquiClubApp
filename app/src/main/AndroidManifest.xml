@@ -13,23 +13,25 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EquiClubApp">
-        <activity android:name=".UserDetailActivity"></activity>
-        <activity android:name=".EditUserActivity"></activity>
+        <activity android:name=".UserDetailActivity" />
+        <activity android:name=".EditUserActivity" />
         <activity android:name=".UsersActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
-        <activity android:name=".EditTaskActivity"></activity>
+        <activity android:name=".EditTaskActivity" />
         <activity android:name=".EditSeanceActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".ClientDetailActivity" />
         <activity android:name=".EditClientActivity" />
-        <activity android:name=".ClientsActivity" />
+        <activity android:name=".ClientsActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".MainActivity" />
     </application>
 
