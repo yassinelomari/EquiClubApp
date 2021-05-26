@@ -27,8 +27,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 
 public class EditTaskActivity extends AppCompatActivity {
-    private static final String URL_BASE = "https://192.168.100.100:44352/api";
-    private static final String URL_WS_UR = "/Users/";
+    /*private static final String URL_BASE = "https://192.168.100.100:44352/api";
+    private static final String URL_WS_UR = "/Users/";*/
 
     AutoCompleteTextView editUser;
     TextInputEditText dateStart, timeStart, editDetail, editTitle;

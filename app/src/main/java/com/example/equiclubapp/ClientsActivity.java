@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
+import com.example.equiclubapp.ListesAdapters.ApiUrls;
 import com.example.equiclubapp.ListesAdapters.ClientAdapter;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
 import com.example.equiclubapp.Models.Client;
@@ -27,8 +28,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ClientsActivity extends AppCompatActivity {
-    private static final String URL_BASE = "https://192.168.100.100:44352/api";
-    private static final String URL_WS = "/Clients";
+    /*private static final String URL_BASE = "https://192.168.100.100:44352/api";
+    private static final String URL_WS = "/Clients";*/
 
     List<Client> clients;
 
@@ -78,8 +79,8 @@ public class ClientsActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL_BASE + URL_WS,
-                null, (resp) -> {
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, ApiUrls.BASE +
+                ApiUrls.CLIENTS_WS,null, (resp) -> {
             //Log.d(ClientsActivity.class.getSimpleName(),resp.toString());
             try {
                 Log.d(ClientsActivity.class.getSimpleName(),"len" + resp.length());

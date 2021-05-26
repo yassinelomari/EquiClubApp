@@ -29,6 +29,7 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.equiclubapp.ListesAdapters.ApiUrls;
 import com.example.equiclubapp.ListesAdapters.ClientAdapter;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
 import com.example.equiclubapp.Models.Client;
@@ -42,11 +43,11 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ClientDetailActivity extends AppCompatActivity {
 
-    private static final String URL_BASE = "https://192.168.100.100:44352/api";
+    /*private static final String URL_BASE = "https://192.168.100.100:44352/api";
     private static final String URL_WS = "/Clients/";
     private static final String URL_WS_DC = "/Clients/disable/";
     private static final String URL_WS_EC = "/Clients/enable/";
-    private static final String URL_PHOTO = "/Clients/photo/";
+    private static final String URL_PHOTO = "/Clients/photo/";*/
 
     Client client;
     int clientId;
@@ -93,7 +94,7 @@ public class ClientDetailActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_BASE + URL_WS
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, ApiUrls.BASE + ApiUrls.CLIENTS_WS
                 + clientId, null, (resp) -> {
             //Log.d(ClientDetailActivity.class.getSimpleName(),resp.toString());
             try {
@@ -133,7 +134,7 @@ public class ClientDetailActivity extends AppCompatActivity {
                 ensurenceView.setText(client.getEnsurenceValidity().format(formatter));
                 licenceView.setText(client.getLicenceValidity().format(formatter));
                 VolleySingleton.getInstance(getApplicationContext()).getImageLoader().get(
-                        URL_BASE + URL_PHOTO + client.getPathPhoto(),
+                        ApiUrls.BASE + ApiUrls.PHOTO_WS + client.getPathPhoto(),
                         new ImageLoader.ImageListener() {
                             @Override
                             public void onResponse(ImageLoader.ImageContainer response,
@@ -199,11 +200,11 @@ public class ClientDetailActivity extends AppCompatActivity {
                 alertDialog.show();
                 break;
             case R.id.btnDisableClient:
-                String fullUrl = URL_BASE;
+                String fullUrl = ApiUrls.BASE;
                 if (client.isActive())
-                    fullUrl += URL_WS_DC + client.getClientId();
+                    fullUrl += ApiUrls.CLIENTS_DS_WS + client.getClientId();
                 else
-                    fullUrl += URL_WS_EC + client.getClientId();
+                    fullUrl += ApiUrls.CLIENTS_EN_WS + client.getClientId();
                 JsonObjectRequest requestState = new JsonObjectRequest(Request.Method.GET,
                         fullUrl, null, (resp) -> {
                     //Log.d(ClientDetailActivity.class.getSimpleName(),resp.toString());
@@ -224,8 +225,8 @@ public class ClientDetailActivity extends AppCompatActivity {
 
     private void onConfirmDelete(DialogInterface dialogInterface, int i) {
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest deleteRequest = new StringRequest(Request.Method.DELETE, URL_BASE +
-                URL_WS + client.getClientId(),
+        StringRequest deleteRequest = new StringRequest(Request.Method.DELETE, ApiUrls.BASE +
+                ApiUrls.CLIENTS_WS + client.getClientId(),
                 (String response) -> {
                     Log.d("Response", response);
                     Intent intent = new Intent(ClientDetailActivity.this, ClientsActivity.class);

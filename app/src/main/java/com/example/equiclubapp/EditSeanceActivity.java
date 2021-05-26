@@ -30,6 +30,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.equiclubapp.ListesAdapters.ApiUrls;
 import com.example.equiclubapp.ListesAdapters.AutoCompleteClientAdapter;
 import com.example.equiclubapp.ListesAdapters.AutoCompleteMonitorAdapter;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
@@ -55,12 +56,12 @@ import java.util.Map;
 import java.util.Objects;
 
 public class EditSeanceActivity extends AppCompatActivity {
-    private static final String URL_BASE = "https://192.168.100.100:44352/api";
+   /* private static final String URL_BASE = "https://192.168.100.100:44352/api";
     private static final String URL_WS_CL = "/Clients/";
     private static final String URL_WS_SC = "/Seances/";
     private static final String URL_WS_GP = "/Seances/groups/";
     private static final String URL_WS_MX_GP = "/Seances/groupIdMax/";
-    private static final String URL_WS_MN = "/Users/";
+    private static final String URL_WS_MN = "/Users/";*/
 
     Seance seance;
     List<Client> clients;
@@ -151,7 +152,7 @@ public class EditSeanceActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, URL_BASE +URL_WS_CL,
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, ApiUrls.BASE + ApiUrls.CLIENTS_WS,
                 null, (resp) -> {
             try {
                 if(clients.isEmpty()) {
@@ -179,8 +180,8 @@ public class EditSeanceActivity extends AppCompatActivity {
         );
         VolleySingleton.getInstance(this).addToRequestQueue(request);
 
-        JsonArrayRequest requestSGrps = new JsonArrayRequest(Request.Method.GET, URL_BASE +
-                URL_WS_GP, null, (resp) -> {
+        JsonArrayRequest requestSGrps = new JsonArrayRequest(Request.Method.GET, ApiUrls.BASE +
+                ApiUrls.GP_SC_WS, null, (resp) -> {
             try {
                 //Log.d(EditSeanceActivity.class.getSimpleName(),"len :" + resp);
                 if(seanceGrps.isEmpty()) {
@@ -206,8 +207,8 @@ public class EditSeanceActivity extends AppCompatActivity {
         );
         VolleySingleton.getInstance(this).addToRequestQueue(requestSGrps);
 
-        JsonArrayRequest requestUsers = new JsonArrayRequest(Request.Method.GET, URL_BASE +
-                URL_WS_MN, null, (resp) -> {
+        JsonArrayRequest requestUsers = new JsonArrayRequest(Request.Method.GET, ApiUrls.BASE +
+                ApiUrls.USERS_WS, null, (resp) -> {
             try {
 
                 if(users.isEmpty()) {
@@ -279,7 +280,7 @@ public class EditSeanceActivity extends AppCompatActivity {
                     DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyyHH:mm");
                     dateSeance = LocalDateTime.parse(dateS + timeS, formatter);
                     JsonObjectRequest requestMaxGrps = new JsonObjectRequest(Request.Method.GET,
-                            URL_BASE + URL_WS_MX_GP, null, (resp) -> {
+                            ApiUrls.BASE + ApiUrls.MAX_GP_WS, null, (resp) -> {
                         try {
                            idGrp = resp.getInt("id") + 1;
                             //Log.d(EditClientActivity.class.getSimpleName(), "maxid: " + resp.getInt("id"));
@@ -318,7 +319,7 @@ public class EditSeanceActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(methode, URL_BASE + URL_WS_SC,
+        JsonObjectRequest request = new JsonObjectRequest(methode, ApiUrls.BASE + ApiUrls.SEANCES_WS,
                 jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

@@ -36,6 +36,7 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.equiclubapp.ListesAdapters.ApiUrls;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
 import com.example.equiclubapp.Models.Client;
 import com.example.equiclubapp.Models.User;
@@ -62,10 +63,10 @@ import java.util.Objects;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditUserActivity extends AppCompatActivity {
-    private static final String URL_BASE = "https://192.168.100.100:44352/api";
+    /*private static final String URL_BASE = "https://192.168.100.100:44352/api";
     private static final String URL_WS = "/Users/";
     private static final String URL_PHOTO = "/Clients/photo/";
-    private static final String URL_MODIF_PHOTO = "/Users/photo/";
+    private static final String URL_MODIF_PHOTO = "/Users/photo/";*/
     private static final int PERMISSION_FILE = 23;
     private static final int ACCESS_FILE = 43;
     private static final int RES_ADD_OK = 1;
@@ -149,7 +150,7 @@ public class EditUserActivity extends AppCompatActivity {
             //Log.e(EditUserActivity.class.getSimpleName(), "userT"+ user.getUserType());
             userType.setText(types.get(user.getUserType()));
             VolleySingleton.getInstance(getApplicationContext()).getImageLoader().get(
-                    URL_BASE + URL_PHOTO + user.getUserphoto(),
+                    ApiUrls.BASE + ApiUrls.PHOTO_WS + user.getUserphoto(),
                     new ImageLoader.ImageListener() {
                         @Override
                         public void onResponse(ImageLoader.ImageContainer response,
@@ -180,8 +181,8 @@ public class EditUserActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, URL_BASE
-                    + URL_MODIF_PHOTO, jsonObject, new Response.Listener<JSONObject>() {
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, ApiUrls.BASE
+                    + ApiUrls.USERS_MODIF_PHOTO_WS, jsonObject, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 
@@ -262,7 +263,7 @@ public class EditUserActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(method, URL_BASE + URL_WS,
+        JsonObjectRequest request = new JsonObjectRequest(method, ApiUrls.BASE + ApiUrls.USERS_WS,
                 jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {

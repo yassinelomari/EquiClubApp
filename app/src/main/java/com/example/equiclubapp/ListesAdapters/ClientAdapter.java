@@ -27,8 +27,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ClientAdapter extends ArrayAdapter<Client> {
 
-    private static final String URL_BASE = "https://192.168.100.100:44352/api";
-    private static final String URL_PHOTO = "/Clients/photo/";
+    /*private static final String URL_BASE = "https://192.168.100.100:44352/api";
+    private static final String URL_PHOTO = "/Clients/photo/";*/
 
     private List<Client> clientListFull;
 
@@ -50,7 +50,7 @@ public class ClientAdapter extends ArrayAdapter<Client> {
         Client clientItem = this.getItem(position);
         //String jpgPath = clientItem.getPathPhoto().replace("jpeg", "jpg");
         VolleySingleton.getInstance(item.getContext()).getImageLoader().get(
-                URL_BASE + URL_PHOTO + clientItem.getPathPhoto(),
+                ApiUrls.BASE + ApiUrls.PHOTO_WS + clientItem.getPathPhoto(),
                 new ImageLoader.ImageListener() {
                     @Override
                     public void onResponse(ImageLoader.ImageContainer response,

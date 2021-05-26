@@ -26,6 +26,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.equiclubapp.ListesAdapters.ApiUrls;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
 import com.example.equiclubapp.Models.Client;
 import com.example.equiclubapp.Models.User;
@@ -38,11 +39,11 @@ import java.util.Map;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class UserDetailActivity extends AppCompatActivity  {
-    private static final String URL_BASE = "https://192.168.100.100:44352/api";
+    /*private static final String URL_BASE = "https://192.168.100.100:44352/api";
     private static final String URL_WS = "/Users/";
     private static final String URL_WS_DC = "/Users/disable/";
     private static final String URL_WS_EC = "/Users/enable/";
-    private static final String URL_PHOTO = "/Clients/photo/";
+    private static final String URL_PHOTO = "/Clients/photo/";*/
 
     Map<String, String> types;
     User user;
@@ -104,7 +105,7 @@ public class UserDetailActivity extends AppCompatActivity  {
         contractView.setText(user.getContractDate().format(formatter));
         loginView.setText(user.getLastLoginTime().format(formatter));
         VolleySingleton.getInstance(getApplicationContext()).getImageLoader().get(
-                URL_BASE + URL_PHOTO + user.getUserphoto(),
+                ApiUrls.BASE + ApiUrls.PHOTO_WS + user.getUserphoto(),
                 new ImageLoader.ImageListener() {
                     @Override
                     public void onResponse(ImageLoader.ImageContainer response,
@@ -169,12 +170,12 @@ public class UserDetailActivity extends AppCompatActivity  {
                 alertDialog.show();
                 break;
             case R.id.btnDisableUser:
-                String fullUrl = URL_BASE;
+                String fullUrl = ApiUrls.BASE;
                 if (user.isUserActive()) {
-                    fullUrl += URL_WS_DC + user.getUserId();
+                    fullUrl += ApiUrls.USERS_DS_WS + user.getUserId();
                     user.setActive(false);
                 }else {
-                    fullUrl += URL_WS_EC + user.getUserId();
+                    fullUrl += ApiUrls.USERS_EN_WS + user.getUserId();
                     user.setActive(true);
                 }
                 JsonObjectRequest requestState = new JsonObjectRequest(Request.Method.GET,
@@ -197,8 +198,8 @@ public class UserDetailActivity extends AppCompatActivity  {
 
     private void onConfirmDelete(DialogInterface dialogInterface, int i) {
         RequestQueue queue = Volley.newRequestQueue(this);
-        StringRequest deleteRequest = new StringRequest(Request.Method.DELETE, URL_BASE +
-                URL_WS + user.getUserId(),
+        StringRequest deleteRequest = new StringRequest(Request.Method.DELETE, ApiUrls.BASE +
+                ApiUrls.USERS_WS + user.getUserId(),
                 (String response) -> {
                     Log.d("Response", response);
                     Intent intent = new Intent(UserDetailActivity.this, UsersActivity.class);

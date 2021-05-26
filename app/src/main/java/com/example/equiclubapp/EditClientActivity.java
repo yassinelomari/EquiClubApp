@@ -35,6 +35,7 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.example.equiclubapp.ListesAdapters.ApiUrls;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
 import com.example.equiclubapp.Models.Client;
 import com.google.android.material.textfield.TextInputEditText;
@@ -59,9 +60,9 @@ import java.util.Objects;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditClientActivity extends AppCompatActivity {
-    private static final String URL_BASE = "https://192.168.100.100:44352/api";
+    /*private static final String URL_BASE = "https://192.168.100.100:44352/api";
     private static final String URL_WS = "/Clients/";
-    private static final String URL_PHOTO = "/Clients/photo/";
+    private static final String URL_PHOTO = "/Clients/photo/";*/
     private static final int PERMISSION_FILE = 23;
     private static final int ACCESS_FILE = 43;
 
@@ -130,8 +131,8 @@ public class EditClientActivity extends AppCompatActivity {
             } catch (JSONException e) {
                 e.printStackTrace();
             }
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, URL_BASE
-                    + URL_PHOTO, jsonObject, new Response.Listener<JSONObject>() {
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.PUT, ApiUrls.BASE
+                    + ApiUrls.PHOTO_WS, jsonObject, new Response.Listener<JSONObject>() {
                 @Override
                 public void onResponse(JSONObject response) {
 
@@ -184,8 +185,8 @@ public class EditClientActivity extends AppCompatActivity {
             modify.setVisibility(View.INVISIBLE);
         else if (action == 2) {
             save.setVisibility(View.INVISIBLE);
-            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, URL_BASE
-                    + URL_WS + clientId, null, (resp) -> {
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, ApiUrls.BASE
+                    + ApiUrls.CLIENTS_WS + clientId, null, (resp) -> {
                 try {
                     String fName = (resp.getString("fName") == "null") ? null:resp.getString("fName");
                     String lName = (resp.getString("lName") == "null") ? null:resp.getString("lName");
@@ -217,7 +218,7 @@ public class EditClientActivity extends AppCompatActivity {
                     editEnsurence.setText(client.getEnsurenceValidity().format(formatter));
                     editLicence.setText(client.getLicenceValidity().format(formatter));
                     VolleySingleton.getInstance(getApplicationContext()).getImageLoader().get(
-                            URL_BASE + URL_PHOTO + client.getPathPhoto(),
+                            ApiUrls.BASE + ApiUrls.PHOTO_WS + client.getPathPhoto(),
                             new ImageLoader.ImageListener() {
                                 @Override
                                 public void onResponse(ImageLoader.ImageContainer response,
@@ -352,7 +353,7 @@ public class EditClientActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(methode, URL_BASE + URL_WS,
+        JsonObjectRequest request = new JsonObjectRequest(methode, ApiUrls.BASE + ApiUrls.CLIENTS_WS,
                 jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
