@@ -2,7 +2,6 @@ package com.example.equiclubapp.Models;
 
 import android.graphics.Bitmap;
 
-import java.io.Serializable;
 import java.time.LocalDateTime;
 
 public class Client {
@@ -26,8 +25,8 @@ public class Client {
     private boolean isActive ;
     private String notes ;
 
-    public Client(int clientId, String fName, String lName, String clientEmail, String clientPhone,
-                String identityDoc, String identityNumber, String pathPhoto) {
+    public Client(int clientId, String fName, String lName, LocalDateTime birthDate, String clientEmail, String clientPhone,
+                  String identityDoc, LocalDateTime registrationDate, String identityNumber, String pathPhoto, LocalDateTime ensurenceDate, LocalDateTime licenceDate) {
         this.clientId = clientId;
         this.fName = fName;
         this.lName = lName;
@@ -68,6 +67,9 @@ public class Client {
         this.ensurenceValidity = ensurenceValidity;
         this.licenceValidity = licenceValidity;
         this.isActive = isActive;
+    }
+
+    public Client(int id, String fName, String lName, String email, String phone, String idDoc, String idNum, String pathPhoto) {
     }
 
     public void setClientId(int clientId) {

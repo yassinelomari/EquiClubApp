@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RatingActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:padding="10dp"
+            android:background="#fece2f">
+            <ImageView
+                android:id="@+id/review_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/review"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/review_image"
+                android:fontFamily="@font/bangers"
+                android:includeFontPadding="false"
+                android:text="Laisser nous un avis"
+                android:textSize="22sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Votre Avis Nous Intéresse"
+            android:fontFamily="cursive"
+            android:textColor="#990000"
+            android:textSize="38sp"
+            android:layout_gravity="center"
+            android:layout_margin="20dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:clickable="true"
+                android:layout_gravity="center">
+
+                <ImageView
+                    android:id="@+id/emoji1"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="15dp"
+                    android:elevation="10dp"
+                    android:src="@drawable/angry" />
+
+                <ImageView
+                    android:id="@+id/emoji2"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="15dp"
+                    android:elevation="10dp"
+                    android:src="@drawable/notfine" />
+
+                <ImageView
+                    android:id="@+id/emoji3"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/good" />
+
+                <ImageView
+                    android:id="@+id/emoji4"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_margin="15dp"
+                    android:src="@drawable/wonderful" />
+            </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Donnez votre avis">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/rating"
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:inputType="text|textMultiLine">
+
+            </com.google.android.material.textfield.TextInputEditText>
+        </com.google.android.material.textfield.TextInputLayout>
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="5dp"
+            android:background="@android:color/holo_orange_dark"
+            android:text="Envoyer"
+            android:textColor="#ffff" />
+    </LinearLayout>
+    </LinearLayout>
+</ScrollView>

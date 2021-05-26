@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SupportActivity">
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:padding="10dp"
+            android:background="#fece2f">
+            <ImageView
+                android:id="@+id/support_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:src="@drawable/support"
+                android:layout_centerVertical="true"/>
+
+            <TextView
+                android:id="@+id/full_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/support_image"
+                android:fontFamily="@font/bangers"
+                android:includeFontPadding="false"
+                android:text="Nous sommes là pour vous"
+                android:textSize="22sp" />
+        </RelativeLayout>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="5dp"
+            android:padding="15dp">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:text="- A partir de votre page d’accueil, vos visiteurs doivent pouvoir rapidement trouver une réponse aux questions : « Qu’est-ce que cette entreprise ? », « Que fait-elle, que propose-t-elle ? », « Que puis-je faire grâce à ce site ? ». Si vous êtes une entreprise qui a pignon sur rue (Nestlé, Fnac…), vous n’avez pas besoin de décrire qui vous êtes et ce que vous faites. Mais pour la plupart des entreprises, donner une réponse à ces questions de manière claire sur la page d’accueil est indispensable. Il faut que vos visiteurs qui viennent d’arriver sur votre site puissent se dire tout de suite : « je suis au bon endroit ». La page d’accueil doit inclure des boutons d’appel à l’action (CTA), du type : « Essayez maintenant », « Essai gratuit », « Réserver une démo », « Acheter maintenant », « En savoir plus », etc. Rappelez-vous toujours que l’objectif d’une page d’accueil est d’inciter vos visiteurs à naviguer plus profondément dans votre site. Les boutons CTA guident vos visiteurs dans votre tunnel de conversion. Bien visibles, les CTA transforment votre page d’accueil en page de conversion."/>
+        </RelativeLayout>
+    </LinearLayout>
+</ScrollView>
