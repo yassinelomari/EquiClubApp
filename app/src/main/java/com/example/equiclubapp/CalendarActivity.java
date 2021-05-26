@@ -21,6 +21,7 @@ import java.util.TimeZone;
 public class CalendarActivity extends AppCompatActivity {
     CustomCalendar customCalendar;
     ImageView today, week, month, year;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
