@@ -1,26 +1,78 @@
 package com.example.equiclubapp;
 
+import android.content.Context;
+import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
+import android.icu.text.SimpleDateFormat;
+import android.icu.util.Calendar;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
+import android.os.Build;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import org.naishadhparmar.zcustomcalendar.CustomCalendar;
-import org.naishadhparmar.zcustomcalendar.OnDateSelectedListener;
-import org.naishadhparmar.zcustomcalendar.Property;
+import com.android.volley.Request;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.example.equiclubapp.ListesAdapters.ApiUrls;
+import com.example.equiclubapp.ListesAdapters.VolleySingleton;
+import com.example.equiclubapp.Models.Seance;
+import com.example.equiclubapp.Models.SeancesOpenHelper;
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.android.material.textfield.TextInputEditText;
 
-import java.util.Calendar;
-import java.util.HashMap;
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Locale;
-import java.util.TimeZone;
 
+
+@RequiresApi(api = Build.VERSION_CODES.N)
 public class CalendarActivity extends AppCompatActivity {
-    CustomCalendar customCalendar;
+
+    int clientId;
+
+    CompactCalendarView compactCalendarView;
+    private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM-YYYY", Locale.getDefault());
+    private SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+    //SimpleDateFormat sdf;
+    TextView tx_date;
+    //TextView tx_today;
+    //LinearLayout ly_detail;
+    LinearLayout ly_left, ly_right;
+    //Calendar myCalendar;
+    //ImageView im_back;
+    //Date c;
+    //SimpleDateFormat df;
+    String formattedDate;
+
     ImageView today, week, month, year;
+    TextInputEditText monitor, dateStart, timeStart, duration;
+
+    ArrayList<Seance> seances;
+
+    SeancesOpenHelper db;
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,65 +81,270 @@ public class CalendarActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         setContentView(R.layout.activity_calendar);
 
-        customCalendar = findViewById(R.id.custom_calendar);
+        VolleySingleton.handleSSLHandshake();
+
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+        clientId = sharedPreferences.getInt("idUser", 0);
+
+        db = new SeancesOpenHelper(this);
 
         today = findViewById(R.id.today);
-
-        today.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                calendarShowToday();
-            }
-        });
-
         week = findViewById(R.id.week);
         month = findViewById(R.id.month);
         year = findViewById(R.id.year);
-        calendarShowToday();
+
+        monitor = findViewById(R.id.addMonitorSeance);
+        dateStart = findViewById(R.id.addDateSeance);
+        timeStart = findViewById(R.id.addTimeSeance);
+        duration = findViewById(R.id.addDurSeance);
+
+        compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
+        tx_date = (TextView) findViewById(R.id.text);
+        ly_left = (LinearLayout) findViewById(R.id.layout_left);
+        ly_right = (LinearLayout) findViewById(R.id.layout_right);
+        //im_back = (ImageView) findViewById(R.id.image_back);
+        //tx_today = (TextView) findViewById(R.id.text_today);
+
+        today.setOnClickListener(this::calendarShowToday);
+
+        calendarlistener();
+        Date currentDate = new Date(System.currentTimeMillis());
+        monthData(currentDate);
+        //Setdate();
+
+
+        tx_date.setText(simpleDateFormat.format(currentDate));
+
+
+        ly_right.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View v) {
+                compactCalendarView.showCalendarWithAnimation();
+                compactCalendarView.showNextMonth();
+            }
+        });
+
+        ly_left.setOnClickListener(new View.OnClickListener() {
+            @Override
+
+            public void onClick(View v) {
+                compactCalendarView.showCalendarWithAnimation();
+                compactCalendarView.showPreviousMonth();
+            }
+        });
 
     }
 
-    public void calendarShowToday(){
-        HashMap<Object, Property> descHashMap = new HashMap<>();
+    public void calendarShowToday(View v){
+        Intent intent = new Intent(CalendarActivity.this, CalendarActivity.class);
+        startActivity(intent);
+        finish();
+    }
 
-        Property defaultProperty = new Property();
-        defaultProperty.layoutResource = R.layout.default_view;
-        defaultProperty.dateTextViewResource = R.id.text_view;
-        descHashMap.put("default", defaultProperty);
-        //For current date
-        Property currentProperty = new Property();
-        currentProperty.layoutResource = R.layout.current_view;
-        currentProperty.dateTextViewResource = R.id.text_view;
-        descHashMap.put("current", currentProperty);
-        //For present date
-        Property presentProperty = new Property();
-        presentProperty.layoutResource = R.layout.present_view;
-        presentProperty.dateTextViewResource = R.id.text_view;
-        descHashMap.put("present", presentProperty);
-        //For absent date
-        Property absentProperty = new Property();
-        absentProperty.layoutResource = R.layout.absent_view;
-        absentProperty.dateTextViewResource = R.id.text_view;
-        descHashMap.put("absent", absentProperty);
-        //Set descHashMap on custom calendar
-        customCalendar.setMapDescToProp(descHashMap);
-        //Initialize dateHashMap
-        HashMap<Integer,Object> dateHashMap = new HashMap<>();
-        //Initialize calendar
-        Calendar calendar = Calendar.getInstance(TimeZone.getDefault(), Locale.FRENCH);
-        //Put values
-        dateHashMap.put(calendar.get(Calendar.DAY_OF_YEAR), "current");
-        dateHashMap.put(25, "present");
-        dateHashMap.put(28, "present");
-        dateHashMap.put(30, "present");
-        //Set date
-        customCalendar.setDate(calendar,dateHashMap);
-        customCalendar.setOnDateSelectedListener(new OnDateSelectedListener() {
+    public void calendarlistener() {
+        compactCalendarView.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @RequiresApi(api = Build.VERSION_CODES.O)
             @Override
-            public void onDateSelected(View view, Calendar selectedDate, Object desc) {
-                String sDate = selectedDate.get(Calendar.DATE)+"/";
-                Toast.makeText(getApplicationContext(),sDate, Toast.LENGTH_SHORT).show();
+            public void onDayClick(Date dateClicked) {
+                if(!seances.isEmpty()){
+                    boolean drap = true;
+                    for(Seance seance:seances){
+                        LocalDateTime sd = seance.getStartDate();
+
+                        if(sd.getDayOfMonth() == dateClicked.getDate() &&
+                                sd.getMonthValue() == (dateClicked.getMonth() + 1) &&
+                                sd.getYear() == (dateClicked.getYear() +1900)) {
+                            drap = false;
+                            setMonitorName(seance.getMonitorId());
+                            //monitor.setText("" + seance.getMonitorId());
+                            dateStart.setText(seance.getStartDate().format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy")));
+                            timeStart.setText(seance.getStartDate().format(DateTimeFormatter.ofPattern("HH:mm")));
+                            duration.setText("" + seance.getDurationMinut());
+                            //Log.e(CalendarActivity.class.getSimpleName(),"seance : " + seance);
+                        }
+                    }
+                    if(drap) {
+                        Toast.makeText(getApplicationContext(), "pas de seance dans ce jour",
+                                Toast.LENGTH_LONG).show();
+                        setFieldsNull();
+                    }
+                } else {
+                    Toast.makeText(getApplicationContext(),"pas de seance dans ce jour",
+                            Toast.LENGTH_LONG).show();
+                    setFieldsNull();
+                }
+            }
+
+            @RequiresApi(api = Build.VERSION_CODES.O)
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+                compactCalendarView.removeAllEvents();
+                monthData(firstDayOfNewMonth);
+                //Setdate();
+                tx_date.setText(simpleDateFormat.format(firstDayOfNewMonth));
+
             }
         });
+    }
+
+    private void setFieldsNull() {
+        monitor.setText(null);
+        dateStart.setText(null);
+        timeStart.setText(null);
+        duration.setText(null);
+    }
+
+    private void setMonitorName(int monitorId) {
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                ApiUrls.BASE + ApiUrls.USERS_WS + monitorId,
+                null, (resp) -> {
+            try {
+                monitor.setText(resp.getString("userFname") + " " + resp.getString("userLname"));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }, (error) -> Log.e(CalendarActivity.class.getSimpleName(),error.getMessage())
+        );
+        VolleySingleton.getInstance(this).addToRequestQueue(request);
+    }
+
+    //get data of current month
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void monthData(Date monthSelected){
+        Log.e(CalendarActivity.class.getSimpleName(),"monthSelected : " + monthSelected);
+        String month = (new SimpleDateFormat("MM")).format(monthSelected);
+        String year = (new SimpleDateFormat("yyyy")).format(monthSelected);
+
+        Date currentDate = new Date(System.currentTimeMillis());
+        if (isConnected()){
+            Log.e(CalendarActivity.class.getSimpleName(),"connected ");
+            JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
+                    ApiUrls.BASE + ApiUrls.SEANCES_WS + clientId + "/" + month + "/" + year,
+                    null, (resp) -> {
+                setdate(resp);
+                if(monthSelected.compareTo(currentDate) <= 0) {
+                    setDataInLocalDb();
+                }
+            }, (error) -> Log.e(CalendarActivity.class.getSimpleName(),error.getMessage())
+            );
+            VolleySingleton.getInstance(this).addToRequestQueue(request);
+        } else {
+            Log.e(CalendarActivity.class.getSimpleName(),"disconnected ");
+            if(monthSelected.compareTo(currentDate) <= 0) {
+                getDataFromDb(month, year);
+            }
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void getDataFromDb(String month, String year) {
+        seances = (ArrayList<Seance>) db.getAllSeances(clientId, Integer.parseInt(month), Integer.parseInt(year));
+        Log.e(CalendarActivity.class.getSimpleName(),"from db : " + seances);
+        for(Seance newSeance:seances){
+            Calendar cal = Calendar.getInstance();
+            cal.set(Calendar.YEAR, newSeance.getStartDate().getYear());
+            cal.set(Calendar.MONTH, newSeance.getStartDate().getMonthValue() - 1);
+            cal.set(Calendar.DAY_OF_MONTH, newSeance.getStartDate().getDayOfMonth());
+            Event event = new Event(Color.RED, cal.getTimeInMillis(), "test");
+            compactCalendarView.addEvent(event);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void setDataInLocalDb() {
+        Log.e(CalendarActivity.class.getSimpleName(), "DataInLocalDb : " + db.getAllSeances());
+        List<Seance> seancesDb = db.getAllSeances();
+        for (Seance s:seancesDb) {
+            Log.e(CalendarActivity.class.getSimpleName(),"contains : " + s.getSeanceId());
+            //db.deleteSeance(s);
+        }
+        for (Seance s:seances) {
+            if(!seancesDb.contains(s)){
+                Log.e(CalendarActivity.class.getSimpleName(),"not contains : " + s.getSeanceId());
+                //Log.e(CalendarActivity.class.getSimpleName(),"add url :" +ApiUrls.BASE + ApiUrls.USERS_WS + s.getSeanceId());
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                        ApiUrls.BASE + ApiUrls.USERS_WS + s.getMonitorId(),
+                        null, (resp) -> {
+                    try {
+
+                        db.addSeance(s, resp.getString("userFname") + " " + resp.getString("userLname"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, (error) -> Log.e(CalendarActivity.class.getSimpleName(),error.getMessage()));
+                VolleySingleton.getInstance(this).addToRequestQueue(request);
+            } else {
+                Log.e(CalendarActivity.class.getSimpleName(),"contains");
+                JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
+                        ApiUrls.BASE + ApiUrls.USERS_WS + s.getMonitorId(),
+                        null, (resp) -> {
+                    try {
+                        Log.e(CalendarActivity.class.getSimpleName(),"update from json :" +resp.toString());
+                        db.updateSeance(s, resp.getString("userFname") + " " + resp.getString("userLname"));
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }, (error) -> Log.e(CalendarActivity.class.getSimpleName(),error.getMessage()));
+                VolleySingleton.getInstance(this).addToRequestQueue(request);
+            }
+
+        }
+    }
+
+
+    //get current date
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void setdate(JSONArray resp) {
+        seances = new ArrayList();
+        try {
+            for (int i = 0; i < resp.length(); i++) {
+
+                int id = resp.getJSONObject(i).getInt("seanceId");
+                int seanceGrpId = resp.getJSONObject(i).getInt("seanceGrpId");
+                int clientId = resp.getJSONObject(i).getInt("clientId");
+                int monitorId = resp.getJSONObject(i).getInt("monitorId");
+                int durationMinut = resp.getJSONObject(i).getInt("durationMinut");
+                int paymentId = resp.getJSONObject(i).getInt("paymentId");
+                LocalDateTime startDate = LocalDateTime.parse(
+                        resp.getJSONObject(i).getString("startDate"),
+                        DateTimeFormatter.ISO_DATE_TIME);
+                String comments = resp.getJSONObject(i).getString("comments");
+                boolean isDone = resp.getJSONObject(i).getBoolean("isDone");
+                Seance newSeance = new Seance(id, seanceGrpId, clientId, monitorId, startDate,
+                        durationMinut, isDone, paymentId, comments);
+                seances.add(newSeance);
+                Calendar cal = Calendar.getInstance();
+                cal.set(Calendar.YEAR, newSeance.getStartDate().getYear());
+                cal.set(Calendar.MONTH, newSeance.getStartDate().getMonthValue() - 1);
+                cal.set(Calendar.DAY_OF_MONTH, newSeance.getStartDate().getDayOfMonth());
+                Event event = new Event(Color.RED, cal.getTimeInMillis(), "test");
+                compactCalendarView.addEvent(event);
+            }
+            //compactCalendarView.showNextMonth();
+            //compactCalendarView.showPreviousMonth();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public boolean isConnected(){
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        if (activeNetwork != null) {
+            // connected to the internet
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                connected = true;
+            } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                connected = false;
+            }
+        } else {
+            connected = false;
+        }
+        return connected;
     }
 }

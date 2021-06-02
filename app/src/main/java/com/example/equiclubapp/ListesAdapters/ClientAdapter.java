@@ -50,7 +50,7 @@ public class ClientAdapter extends ArrayAdapter<Client> {
         Client clientItem = this.getItem(position);
         //String jpgPath = clientItem.getPathPhoto().replace("jpeg", "jpg");
         VolleySingleton.getInstance(item.getContext()).getImageLoader().get(
-                ApiUrls.BASE + ApiUrls.PHOTO_WS + clientItem.getPathPhoto(),
+                ApiUrls.BASE + ApiUrls.PHOTO_CLIENTID_WS + clientItem.getClientId(),
                 new ImageLoader.ImageListener() {
                     @Override
                     public void onResponse(ImageLoader.ImageContainer response,

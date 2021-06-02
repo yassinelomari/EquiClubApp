@@ -44,6 +44,7 @@
             android:hint="identifiant">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@id/loginEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
@@ -60,14 +61,23 @@
             android:layout_marginTop="7dp">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@id/pwdEdit"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword">
 
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
-
+        <CheckBox
+            android:id="@id/keepConnection"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:checked="false"
+            android:textSize="14sp"
+            android:text="@string/rester_connecte"
+            android:layout_gravity="center"/>
         <Button
+            android:id="@id/btnConnection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"

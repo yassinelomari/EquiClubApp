@@ -141,4 +141,10 @@
     <item name="btnEditUser" type="id" />
     <item name="btnDisableUser" type="id" />
     <item name="btnDeleteUser" type="id" />
+    <item name="keepConnection" type="id" />
+    <item name="loginEdit" type="id" />
+    <item name="pwdEdit" type="id" />
+    <item name="btnConnection" type="id" />
+    <item name="clientDashImg" type="id" />
+    <item name="layout_left" type="id" />
 </resources>

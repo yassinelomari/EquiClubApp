@@ -21,7 +21,9 @@
         </activity>
         <activity android:name=".EditTaskActivity" />
         <activity android:name=".RatingActivity"></activity>
-        <activity android:name=".CalendarActivity" />
+        <activity android:name=".CalendarActivity" >
+
+        </activity>
         <activity android:name=".SupportActivity" />
         <activity android:name=".EditSeanceActivity" />
         <activity
@@ -30,15 +32,17 @@
         <activity android:name=".ClientDetailActivity" />
         <activity android:name=".EditClientActivity" />
         <activity android:name=".ClientsActivity">
+
+        </activity>
+        <activity android:name=".PersonnelActivity">
+
+        </activity>
+        <activity android:name=".FaceActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".PersonnelActivity">
-
-        </activity>
-        <activity android:name=".FaceActivity"></activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
     </application>

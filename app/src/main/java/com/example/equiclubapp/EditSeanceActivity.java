@@ -14,11 +14,13 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.RadioGroup;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -64,6 +66,8 @@ public class EditSeanceActivity extends AppCompatActivity {
     private static final String URL_WS_MN = "/Users/";*/
 
     Seance seance;
+    int action;
+
     List<Client> clients;
     List<User> users;
     List<String> seanceGrps;
@@ -82,6 +86,10 @@ public class EditSeanceActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_seance);
+
+        /*Bundle extras = getIntent().getExtras();
+        action = extras.getInt("requestCode");*/
+
 
         clients = new ArrayList<>();
         users = new ArrayList<>();
@@ -146,7 +154,25 @@ public class EditSeanceActivity extends AppCompatActivity {
         saveButton.setOnClickListener(this::onClickButtons);
         materialDatePicker.addOnPositiveButtonClickListener(this::onSelectDate);
 
+        /*if (action == 2) {
+            seance = extras.getParcelable("seance");
+            showAdapter();
+        }*/
     }
+
+    /*private void showAdapter() {
+        findViewById(R.id.layoutSeanceClient).setVisibility(View.INVISIBLE);
+        selectDate.setVisibility(View.INVISIBLE);
+        selectTime.setVisibility(View.INVISIBLE);
+        saveButton.setVisibility(View.INVISIBLE);
+        nvGroup.setVisibility(View.INVISIBLE);
+        findViewById(R.id.layoutSeanceGrp).getLayoutParams().width = ConstraintLayout.LayoutParams
+                .MATCH_PARENT;
+        findViewById(R.id.layoutSeancedate).getLayoutParams().width = ConstraintLayout.LayoutParams
+                .MATCH_PARENT;
+        findViewById(R.id.layoutSeanceTime).getLayoutParams().width = ConstraintLayout.LayoutParams
+                .MATCH_PARENT;
+    }*/
 
     @Override
     protected void onResume() {
