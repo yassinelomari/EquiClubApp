@@ -69,12 +69,5 @@
                 android:layout_margin="20dp"
                 android:src="@drawable/day" />
         </LinearLayout>
-
-
-        <org.naishadhparmar.zcustomcalendar.CustomCalendar
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/custom_calendar"/>
-    </LinearLayout>
+        </LinearLayout>
 </ScrollView>

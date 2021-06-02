@@ -14,13 +14,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EquiClubApp">
+        <activity android:name=".AdminActivity"></activity>
+        <activity android:name=".MonitorActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".UserDetailActivity" />
         <activity android:name=".EditUserActivity" />
-        <activity android:name=".UsersActivity">
-
-        </activity>
+        <activity android:name=".UsersActivity" />
         <activity android:name=".EditTaskActivity" />
-        <activity android:name=".RatingActivity"></activity>
+        <activity android:name=".RatingActivity" />
         <activity android:name=".CalendarActivity" />
         <activity android:name=".SupportActivity" />
         <activity android:name=".EditSeanceActivity" />
@@ -29,16 +35,9 @@
             android:theme="@style/Base.Theme.AppCompat" />
         <activity android:name=".ClientDetailActivity" />
         <activity android:name=".EditClientActivity" />
-        <activity android:name=".ClientsActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
-        <activity android:name=".PersonnelActivity">
-
-        </activity>
-        <activity android:name=".FaceActivity"></activity>
+        <activity android:name=".ClientsActivity" />
+        <activity android:name=".PersonnelActivity" />
+        <activity android:name=".FaceActivity" />
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
     </application>
