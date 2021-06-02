@@ -1,8 +1,5 @@
 package com.example.equiclubapp;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -10,14 +7,15 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Parcel;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -28,10 +26,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.equiclubapp.ListesAdapters.ApiUrls;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
-import com.example.equiclubapp.Models.Client;
 import com.example.equiclubapp.Models.User;
 
-import java.io.Serializable;
 import java.time.format.DateTimeFormatter;
 import java.util.HashMap;
 import java.util.Map;
@@ -117,7 +113,7 @@ public class UserDetailActivity extends AppCompatActivity  {
                             img.setBorderColor(Color.GREEN);
                         else {
                             img.setBorderColor(Color.RED);
-                            disable.setText("Activer");
+                            //disable.setText("Activer");
                         }
                     }
                     @Override

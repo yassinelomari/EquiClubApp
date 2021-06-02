@@ -1,10 +1,5 @@
 package com.example.equiclubapp;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
-
-import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,21 +11,20 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
-import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.equiclubapp.ListesAdapters.ApiUrls;
-import com.example.equiclubapp.ListesAdapters.ClientAdapter;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
 import com.example.equiclubapp.Models.Client;
 
@@ -146,7 +140,7 @@ public class ClientDetailActivity extends AppCompatActivity {
                                     img.setBorderColor(Color.GREEN);
                                 else {
                                     img.setBorderColor(Color.RED);
-                                    disable.setText("Activer");
+                                    //disable.setText("Activer");
                                 }
                             }
                             @Override
@@ -218,7 +212,8 @@ public class ClientDetailActivity extends AppCompatActivity {
                 VolleySingleton.getInstance(this).addToRequestQueue(requestState);
                 break;
             case R.id.calendarClient:
-
+                Intent tt = new Intent(this, CalendarActivity.class);
+                startActivity(tt);
                 break;
         }
     }
