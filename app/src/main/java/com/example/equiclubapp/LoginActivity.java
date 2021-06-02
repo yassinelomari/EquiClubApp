@@ -1,7 +1,10 @@
 package com.example.equiclubapp;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.util.Log;
@@ -49,7 +52,23 @@ public class LoginActivity extends AppCompatActivity {
         if(autoLogin){
             String login = sharedPreferences.getString("login", "");
             String pwd = sharedPreferences.getString("pwd", "");
-            authentification(login, pwd);
+            if(isConnected())
+                authentification(login, pwd);
+            else{
+                String role = sharedPreferences.getString("role", "");
+                openDashBoard(role);
+            }
+        }
+    }
+
+    private void openDashBoard(String role) {
+        if (role.equals("CLIENT")) {
+            Intent intent = new Intent(LoginActivity.this, PersonnelActivity.class);
+            startActivity(intent);
+            LoginActivity.this.finish();
+        } else {
+            Toast.makeText(LoginActivity.this,
+                    "autre user", Toast.LENGTH_LONG).show();
         }
     }
 
@@ -79,15 +98,7 @@ public class LoginActivity extends AppCompatActivity {
                         editor.putString("pwd", pwd);
                     }
                     editor.apply();
-                    //Log.e(EditClientActivity.class.getSimpleName(), "role" + role);
-                    if (role.equals("CLIENT")) {
-                        Intent intent = new Intent(LoginActivity.this, PersonnelActivity.class);
-                        startActivity(intent);
-                        LoginActivity.this.finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this,
-                                resp.toString(), Toast.LENGTH_LONG).show();
-                    }
+                    openDashBoard(role);
                 } else if (status == "FAIL") {
                     Toast.makeText(LoginActivity.this,
                             "Login ou mot de passe incorrecte", Toast.LENGTH_LONG).show();
@@ -100,5 +111,24 @@ public class LoginActivity extends AppCompatActivity {
         }, (error) -> Log.e(EditSeanceActivity.class.getSimpleName(),error.getMessage())
         );
         VolleySingleton.getInstance(this).addToRequestQueue(request);
+    }
+
+
+
+    public boolean isConnected(){
+        boolean connected = false;
+        ConnectivityManager connectivityManager = (ConnectivityManager)getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo activeNetwork = connectivityManager.getActiveNetworkInfo();
+        if (activeNetwork != null) {
+            // connected to the internet
+            if (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI) {
+                connected = true;
+            } else if (activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE) {
+                connected = false;
+            }
+        } else {
+            connected = false;
+        }
+        return connected;
     }
 }

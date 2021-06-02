@@ -174,8 +174,6 @@ public class Seance implements Parcelable {
 
     @Override
     public boolean equals(@Nullable Object obj) {
-        Log.e(Seance.class.getSimpleName(),"seance id1 : " + (((Seance) obj).seanceId));
-        Log.e(Seance.class.getSimpleName(),"seance id2 : " + this.seanceId);
         return (((Seance) obj).seanceId == this.seanceId);
     }
 }

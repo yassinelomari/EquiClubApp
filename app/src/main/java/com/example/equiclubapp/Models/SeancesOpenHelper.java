@@ -45,7 +45,7 @@ public class SeancesOpenHelper extends SQLiteOpenHelper {
                 + KEY_DATE + " TEXT," + KEY_DURATION + " INTEGER,"
                 + KEY_ISDONE + " INTEGER," + KEY_PAYMENT + " INTEGER)";
         db.execSQL(CREATE_CONTACTS_TABLE);
-        Log.e(SeancesOpenHelper.class.getSimpleName(),"CREATE_CONTACTS_TABLE : " + CREATE_CONTACTS_TABLE);
+        //Log.e(SeancesOpenHelper.class.getSimpleName(),"CREATE_CONTACTS_TABLE : " + CREATE_CONTACTS_TABLE);
     }
 
     // Upgrading database
@@ -56,29 +56,15 @@ public class SeancesOpenHelper extends SQLiteOpenHelper {
 
         // Create tables again
         onCreate(db);
-        Log.e(SeancesOpenHelper.class.getSimpleName(),"Upgrade_CONTACTS_TABLE");
+        //Log.e(SeancesOpenHelper.class.getSimpleName(),"Upgrade_CONTACTS_TABLE");
     }
 
     // code to add the new contact
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void addSeance(Seance seance, String monitor) {
-        Log.e(SeancesOpenHelper.class.getSimpleName()," try addSeance" + seance.getSeanceId());
+        //Log.e(SeancesOpenHelper.class.getSimpleName()," try addSeance" + seance.getSeanceId());
         SQLiteDatabase db = this.getWritableDatabase();
 
-        /*ContentValues values = new ContentValues();
-        values.put(KEY_ID, seance.getSeanceId());
-        values.put(KEY_GRP, seance.getSeanceGrpId());
-        values.put(KEY_CLIENT, seance.getClientId());
-        values.put(KEY_MONITOR, monitor);
-        values.put(KEY_DATE, seance.getStartDate().format(DateTimeFormatter.ISO_DATE_TIME));
-        values.put(KEY_DURATION, seance.getDurationMinut());
-        values.put(KEY_ISDONE, (seance.getDone()) ? 1 : 0);
-        values.put(KEY_PAYMENT, seance.getPaymentId());
-
-        // Inserting Row
-        long test = db.insert(TABLE_SEANCE, null, values);
-        //2nd argument is String containing nullColumnHack
-        db.close(); // Closing database connection*/
         db.execSQL("INSERT INTO "+ TABLE_SEANCE + "("+ KEY_ID +"," + KEY_GRP +"," + KEY_CLIENT +","
                 + KEY_MONITOR +"," + KEY_DATE +"," + KEY_DURATION +"," + KEY_ISDONE+"," +
                 KEY_PAYMENT  +") VALUES ("+seance.getSeanceId() +","+ seance.getSeanceGrpId()
@@ -86,7 +72,7 @@ public class SeancesOpenHelper extends SQLiteOpenHelper {
                 seance.getStartDate().format(DateTimeFormatter.ISO_DATE_TIME) +"\","+
                 seance.getDurationMinut() +","+ ((seance.getDone()) ? 1 : 0)
                 +","+ seance.getPaymentId()+")");
-        Log.e(SeancesOpenHelper.class.getSimpleName(),"addSeance");
+        //Log.e(SeancesOpenHelper.class.getSimpleName(),"addSeance");
     }
 
     // code to get the single contact
@@ -161,12 +147,6 @@ public class SeancesOpenHelper extends SQLiteOpenHelper {
                 LocalDateTime startDate = LocalDateTime.parse(cursor.getString(cursor.getColumnIndex(KEY_DATE)), DateTimeFormatter.ISO_DATE_TIME);
                 int sMois = startDate.getMonthValue() ;
                 int sYear = startDate.getYear();
-                Log.e(CalendarActivity.class.getSimpleName(),"test to add id1: " + idClient);
-                Log.e(CalendarActivity.class.getSimpleName(),"test to add id2: " + id);
-                Log.e(CalendarActivity.class.getSimpleName(),"test to add mois1: " + sMois);
-                Log.e(CalendarActivity.class.getSimpleName(),"test to add annes1: " + sYear);
-                Log.e(CalendarActivity.class.getSimpleName(),"test to add mois2: " + mois);
-                Log.e(CalendarActivity.class.getSimpleName(),"test to add anne2: " + annee);
                 if(idClient == id && mois == sMois && annee == sYear) {
                     Seance seance = new Seance();
                     seance.setSeanceId(idClient);
@@ -184,7 +164,7 @@ public class SeancesOpenHelper extends SQLiteOpenHelper {
         }
 
         // return contact list
-        Log.e(SeancesOpenHelper.class.getSimpleName(),"getAllSeances mounth year : " + seancesList);
+        //Log.e(SeancesOpenHelper.class.getSimpleName(),"getAllSeances mounth year : " + seancesList);
         return seancesList;
     }
 
