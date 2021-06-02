@@ -8,6 +8,7 @@ public interface ApiUrls {
     String USERS_WS = "/Users/";
     String USERS_MODIF_PHOTO_WS = "/Users/photo/";
     String SEANCES_WS = "/Seances/";
+    String SEANCES_MONITOR_WS = "/Seances/monitor/";
     String GP_SC_WS = "/Seances/groups/";
     String MAX_GP_WS = "/Seances/groupIdMax/";
     String USERS_DS_WS= "/Users/disable/";
@@ -15,4 +16,5 @@ public interface ApiUrls {
     String CLIENTS_DS_WS = "/Clients/disable/";
     String CLIENTS_EN_WS = "/Clients/enable/";
     String LOGIN_WS = "/Users/login/";
+    String TASKS_WS = "/Tasks/";
 }

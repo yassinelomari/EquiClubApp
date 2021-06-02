@@ -60,7 +60,4 @@ public class AdminActivity extends AppCompatActivity implements View.OnClickList
         startActivity(intent);
         finish();
     }
-
-
-
 }

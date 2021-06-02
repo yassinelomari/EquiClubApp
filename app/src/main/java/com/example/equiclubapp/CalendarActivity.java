@@ -54,15 +54,8 @@ public class CalendarActivity extends AppCompatActivity {
     CompactCalendarView compactCalendarView;
     private SimpleDateFormat simpleDateFormat = new SimpleDateFormat("MMMM-YYYY", Locale.getDefault());
     private SimpleDateFormat DateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-    //SimpleDateFormat sdf;
     TextView tx_date;
-    //TextView tx_today;
-    //LinearLayout ly_detail;
     LinearLayout ly_left, ly_right;
-    //Calendar myCalendar;
-    //ImageView im_back;
-    //Date c;
-    //SimpleDateFormat df;
     String formattedDate;
 
     ImageView today, week, month, year;
@@ -103,36 +96,23 @@ public class CalendarActivity extends AppCompatActivity {
         tx_date = (TextView) findViewById(R.id.text);
         ly_left = (LinearLayout) findViewById(R.id.layout_left);
         ly_right = (LinearLayout) findViewById(R.id.layout_right);
-        //im_back = (ImageView) findViewById(R.id.image_back);
-        //tx_today = (TextView) findViewById(R.id.text_today);
 
         today.setOnClickListener(this::calendarShowToday);
 
         calendarlistener();
         Date currentDate = new Date(System.currentTimeMillis());
         monthData(currentDate);
-        //Setdate();
-
 
         tx_date.setText(simpleDateFormat.format(currentDate));
 
-
-        ly_right.setOnClickListener(new View.OnClickListener() {
-            @Override
-
-            public void onClick(View v) {
-                compactCalendarView.showCalendarWithAnimation();
-                compactCalendarView.showNextMonth();
-            }
+        ly_right.setOnClickListener(v -> {
+            compactCalendarView.showCalendarWithAnimation();
+            compactCalendarView.showNextMonth();
         });
 
-        ly_left.setOnClickListener(new View.OnClickListener() {
-            @Override
-
-            public void onClick(View v) {
-                compactCalendarView.showCalendarWithAnimation();
-                compactCalendarView.showPreviousMonth();
-            }
+        ly_left.setOnClickListener(v -> {
+            compactCalendarView.showCalendarWithAnimation();
+            compactCalendarView.showPreviousMonth();
         });
 
     }
@@ -157,8 +137,10 @@ public class CalendarActivity extends AppCompatActivity {
                                 sd.getMonthValue() == (dateClicked.getMonth() + 1) &&
                                 sd.getYear() == (dateClicked.getYear() +1900)) {
                             drap = false;
-                            setMonitorName(seance.getMonitorId());
-                            //monitor.setText("" + seance.getMonitorId());
+                            if (isConnected())
+                                setMonitorName(seance.getMonitorId());
+                            else
+                                monitor.setText(seance.getComments());
                             dateStart.setText(seance.getStartDate().format(DateTimeFormatter.ofPattern("dd-MMMM-yyyy")));
                             timeStart.setText(seance.getStartDate().format(DateTimeFormatter.ofPattern("HH:mm")));
                             duration.setText("" + seance.getDurationMinut());
@@ -235,6 +217,9 @@ public class CalendarActivity extends AppCompatActivity {
             Log.e(CalendarActivity.class.getSimpleName(),"disconnected ");
             if(monthSelected.compareTo(currentDate) <= 0) {
                 getDataFromDb(month, year);
+            } else {
+                Toast.makeText(getApplicationContext(), "Il faut se connecter a l'internet",
+                        Toast.LENGTH_LONG).show();
             }
         }
     }
@@ -242,7 +227,7 @@ public class CalendarActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void getDataFromDb(String month, String year) {
         seances = (ArrayList<Seance>) db.getAllSeances(clientId, Integer.parseInt(month), Integer.parseInt(year));
-        Log.e(CalendarActivity.class.getSimpleName(),"from db : " + seances);
+        //Log.e(CalendarActivity.class.getSimpleName(),"from db : " + seances);
         for(Seance newSeance:seances){
             Calendar cal = Calendar.getInstance();
             cal.set(Calendar.YEAR, newSeance.getStartDate().getYear());
@@ -255,16 +240,11 @@ public class CalendarActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setDataInLocalDb() {
-        Log.e(CalendarActivity.class.getSimpleName(), "DataInLocalDb : " + db.getAllSeances());
+        //Log.e(CalendarActivity.class.getSimpleName(), "DataInLocalDb : " + db.getAllSeances());
         List<Seance> seancesDb = db.getAllSeances();
-        for (Seance s:seancesDb) {
-            Log.e(CalendarActivity.class.getSimpleName(),"contains : " + s.getSeanceId());
-            //db.deleteSeance(s);
-        }
         for (Seance s:seances) {
             if(!seancesDb.contains(s)){
-                Log.e(CalendarActivity.class.getSimpleName(),"not contains : " + s.getSeanceId());
-                //Log.e(CalendarActivity.class.getSimpleName(),"add url :" +ApiUrls.BASE + ApiUrls.USERS_WS + s.getSeanceId());
+                //Log.e(CalendarActivity.class.getSimpleName(),"not contains : " + s.getSeanceId());
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
                         ApiUrls.BASE + ApiUrls.USERS_WS + s.getMonitorId(),
                         null, (resp) -> {
@@ -277,7 +257,7 @@ public class CalendarActivity extends AppCompatActivity {
                 }, (error) -> Log.e(CalendarActivity.class.getSimpleName(),error.getMessage()));
                 VolleySingleton.getInstance(this).addToRequestQueue(request);
             } else {
-                Log.e(CalendarActivity.class.getSimpleName(),"contains");
+                //Log.e(CalendarActivity.class.getSimpleName(),"contains");
                 JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET,
                         ApiUrls.BASE + ApiUrls.USERS_WS + s.getMonitorId(),
                         null, (resp) -> {
@@ -324,8 +304,6 @@ public class CalendarActivity extends AppCompatActivity {
                 Event event = new Event(Color.RED, cal.getTimeInMillis(), "test");
                 compactCalendarView.addEvent(event);
             }
-            //compactCalendarView.showNextMonth();
-            //compactCalendarView.showPreviousMonth();
         } catch (JSONException e) {
             e.printStackTrace();
         }
