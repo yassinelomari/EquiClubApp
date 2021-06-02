@@ -14,13 +14,19 @@
         android:layout_height="280dp"
         android:padding="20dp"
         android:background="#fece2f">
-            <ImageView
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_action_profil"
+                app:civ_border_width="2dp" />
+            <!--<ImageView
                 android:id="@+id/profile_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:src="@drawable/user"
-                android:layout_centerVertical="true"/>
-
+                android:layout_centerVertical="true"/>-->
             <TextView
                 android:id="@+id/full_name"
                 android:layout_width="wrap_content"
@@ -33,6 +39,7 @@
                 android:textSize="18sp" />
 
             <TextView
+                android:id="@id/clientIdentity"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mohamed Larbi Soufi"
@@ -65,7 +72,7 @@
                         android:src="@drawable/licence_icon"
                         android:contentDescription="TODO" />
                     <TextView
-                        android:id="@+id/pay1"
+                        android:id="@id/LicenceClient"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="38 Jrs"
@@ -80,7 +87,7 @@
                         android:includeFontPadding="false"
                         android:textSize="14sp"
                         android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/pay1"/>
+                        android:layout_below="@id/LicenceClient"/>
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
             <com.google.android.material.card.MaterialCardView
@@ -101,7 +108,7 @@
                         android:src="@drawable/validity_icon"
                         android:contentDescription="TODO" />
                     <TextView
-                        android:id="@+id/pay2"
+                        android:id="@id/EnsurenceClient"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="0 Jrs"
@@ -116,7 +123,7 @@
                         android:includeFontPadding="false"
                         android:textSize="14sp"
                         android:layout_centerHorizontal="true"
-                        android:layout_below="@+id/pay2"/>
+                        android:layout_below="@id/EnsurenceClient"/>
                 </RelativeLayout>
             </com.google.android.material.card.MaterialCardView>
         </LinearLayout>
@@ -128,10 +135,11 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Nom Complet"
+                android:hint="Email"
                 android:layout_marginBottom="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@id/clientEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -148,6 +156,7 @@
                 android:layout_marginBottom="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@id/clientTele"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -164,6 +173,7 @@
                 android:layout_marginBottom="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@id/birthClient"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -180,6 +190,7 @@
                 android:layout_marginBottom="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@id/registerClient"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"

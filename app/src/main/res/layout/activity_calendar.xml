@@ -36,7 +36,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="20dp"
+            android:layout_margin="10dp"
             android:clickable="true"
             android:layout_gravity="center">
             <ImageView
@@ -69,5 +69,244 @@
                 android:layout_margin="20dp"
                 android:src="@drawable/day" />
         </LinearLayout>
+
+
+        <!--<org.naishadhparmar.zcustomcalendar.CustomCalendar
+            android:layout_marginTop="5dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/custom_calendar"/>-->
+
+        <LinearLayout
+
+            android:layout_width="match_parent"
+
+            android:layout_height="wrap_content"
+
+            android:layout_margin="8dp"
+
+            android:background="@drawable/layout_shape"
+
+            android:gravity="center"
+
+            android:orientation="vertical">
+
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+
+                android:layout_height="60dp"
+
+                android:gravity="center"
+
+                android:orientation="horizontal">
+
+                <LinearLayout
+
+                    android:id="@+id/layout_left"
+
+                    android:layout_width="40dp"
+
+                    android:layout_height="match_parent"
+
+                    android:gravity="center">
+
+                    <ImageView
+
+                        android:layout_width="20dp"
+
+                        android:layout_height="20dp"
+
+                        android:background="@drawable/ic_action_left" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="match_parent"
+
+                    android:layout_weight="1"
+
+                    android:gravity="center">
+
+                    <TextView
+
+                        android:id="@+id/text"
+
+                        android:layout_width="wrap_content"
+
+                        android:layout_height="wrap_content"
+
+                        android:layout_gravity="center"
+
+                        android:text="Date"
+
+                        android:textColor="@color/principal"
+
+                        android:textSize="17dp"
+
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+                <LinearLayout
+
+                    android:id="@+id/layout_right"
+
+                    android:layout_width="40dp"
+
+                    android:layout_height="match_parent"
+
+                    android:gravity="center">
+
+                    <ImageView
+
+                        android:layout_width="20dp"
+
+                        android:layout_height="20dp"
+
+                        android:background="@drawable/ic_action_right" />
+                </LinearLayout>
+            </LinearLayout>
+            <View
+
+                android:layout_width="match_parent"
+
+                android:layout_height="1dp"
+
+                android:background="@color/purple_500" />
+            <LinearLayout
+
+                android:layout_width="match_parent"
+
+                android:layout_height="0dp"
+
+                android:layout_weight="0.3">
+                <com.github.sundeepk.compactcalendarview.CompactCalendarView
+
+                    android:id="@+id/compactcalendar_view"
+
+                    android:layout_width="match_parent"
+
+                    android:layout_height="320dp"
+
+
+                    android:layout_margin="10dp"
+
+                    app:compactCalendarBackgroundColor="@android:color/transparent"
+                    app:compactCalendarCurrentSelectedDayBackgroundColor="#fece2f"
+                    app:compactCalendarCurrentDayBackgroundColor="@color/principal"
+                    app:compactCalendarMultiEventIndicatorColor="@color/purple_700"
+                    app:compactCalendarTargetHeight="360dp"
+
+                    app:compactCalendarTextColor="@android:color/black"
+
+                    app:compactCalendarTextSize="15dp" />
+            </LinearLayout>
         </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:orientation="vertical">
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@id/layoutSeanceMonitor"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textColorHint="@color/principal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutSeanceMonitor"
+                app:startIconContentDescription="@string/moniteur_du_seance"
+                app:startIconDrawable="@drawable/ic_action_profil">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@id/addMonitorSeance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:ems="10"
+                    android:hint="@string/moniteur_du_seance"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@id/layoutSeanceDuration"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textColorHint="@color/principal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutSeanceMonitor"
+                app:startIconContentDescription="@string/dur_e_de_la_s_ance"
+                app:startIconDrawable="@drawable/ic_action_duration">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@id/addDurSeance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:ems="10"
+                    android:hint="@string/dur_e_de_la_s_ance"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@id/layoutSeancedate"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textColorHint="@color/principal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutSeanceDuration"
+                app:startIconContentDescription="@string/date_du_seance"
+                app:startIconDrawable="@drawable/ic_action_calander">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@id/addDateSeance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:ems="10"
+                    android:hint="@string/date_du_seance"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@id/layoutSeanceTime"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:focusable="false"
+                android:focusableInTouchMode="false"
+                android:textColorHint="@color/principal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/layoutSeancedate"
+                app:startIconContentDescription="@string/l_heur_de_la_seance"
+                app:startIconDrawable="@drawable/ic_action_time">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@id/addTimeSeance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="4dp"
+                    android:focusable="false"
+                    android:focusableInTouchMode="false"
+                    android:ems="10"
+                    android:hint="@string/l_heur_de_la_seance"
+                    android:inputType="text" />
+            </com.google.android.material.textfield.TextInputLayout>
+        </LinearLayout>
+    </LinearLayout>
 </ScrollView>

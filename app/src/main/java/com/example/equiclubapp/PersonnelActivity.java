@@ -2,9 +2,13 @@ package com.example.equiclubapp;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -13,7 +17,16 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.example.equiclubapp.ListesAdapters.ApiUrls;
+import com.example.equiclubapp.ListesAdapters.VolleySingleton;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class PersonnelActivity extends AppCompatActivity implements View.OnClickListener{
+    CircleImageView imgClient;
+    int idClient;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -21,6 +34,26 @@ public class PersonnelActivity extends AppCompatActivity implements View.OnClick
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_personnel);
+
+        imgClient = findViewById(R.id.clientDashImg);
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+        idClient = sharedPreferences.getInt("idUser", 0);
+        VolleySingleton.getInstance(getApplicationContext()).getImageLoader().get(
+                ApiUrls.BASE + ApiUrls.PHOTO_CLIENTID_WS + idClient,
+                new ImageLoader.ImageListener() {
+                    @Override
+                    public void onResponse(ImageLoader.ImageContainer response,
+                                           boolean isImmediate) {
+                        imgClient.setImageBitmap(response.getBitmap());
+                    }
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(ClientDetailActivity.class.getSimpleName(),error.getMessage());
+                    }
+                }
+        );
+
         //get CardView
         CardView card1 = findViewById(R.id.card1);
         CardView card2 = findViewById(R.id.card2);
@@ -34,6 +67,12 @@ public class PersonnelActivity extends AppCompatActivity implements View.OnClick
         card5.setOnClickListener(this);
         card6.setOnClickListener(this);
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()){

@@ -226,6 +226,7 @@ public class ClientDetailActivity extends AppCompatActivity {
                     Log.d("Response", response);
                     Intent intent = new Intent(ClientDetailActivity.this, ClientsActivity.class);
                     startActivity(intent);
+                    this.finish();
                     },
                 error ->Log.e("Error.Response", error.getMessage())
         );

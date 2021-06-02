@@ -34,7 +34,7 @@
     <string name="camera">camera</string>
     <string name="ajouter_seance">Ajouter seance</string>
     <string name="groupe">Groupe</string>
-    <string name="moniteur_du_seance">Moniteur du seance</string>
+    <string name="moniteur_du_seance">Moniteur de la seance</string>
     <string name="date_du_seance">Date du seance</string>
     <string name="select">Select</string>
     <string name="l_heur_de_la_seance">L\'heur de la seance</string>
@@ -57,4 +57,5 @@
     <string name="role_de_l_utilisateur">Role de l\'utilisateur</string>
     <string name="date_du_contrat">Date du contrat</string>
     <string name="date_de_d_rnier_acc_s">Date de dérnier accès</string>
+    <string name="rester_connecte">Rester connecté</string>
 </resources>
