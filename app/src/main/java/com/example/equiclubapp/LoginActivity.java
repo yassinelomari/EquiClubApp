@@ -66,9 +66,14 @@ public class LoginActivity extends AppCompatActivity {
             Intent intent = new Intent(LoginActivity.this, PersonnelActivity.class);
             startActivity(intent);
             LoginActivity.this.finish();
-        } else {
-            Toast.makeText(LoginActivity.this,
-                    "autre user", Toast.LENGTH_LONG).show();
+        } else if (role.equals("ADMIN")){
+            Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+            startActivity(intent);
+            LoginActivity.this.finish();
+        }else {
+            Intent intent = new Intent(LoginActivity.this, MonitorActivity.class);
+            startActivity(intent);
+            LoginActivity.this.finish();
         }
     }
 

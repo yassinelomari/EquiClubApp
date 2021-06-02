@@ -11,7 +11,8 @@ public class Task {
     private LocalDateTime isDone;
     private int user_Fk;
 
-    public Task(int taskId, LocalDateTime startDate, int durationMinut, String title, String detail, LocalDateTime isDone, int user_Fk) {
+    public Task(int taskId, LocalDateTime startDate, int durationMinut, String title, String detail,
+                LocalDateTime isDone, int user_Fk) {
         this.taskId = taskId;
         this.startDate = startDate;
         this.durationMinut = durationMinut;

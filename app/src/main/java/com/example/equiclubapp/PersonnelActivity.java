@@ -119,6 +119,11 @@ public class PersonnelActivity extends AppCompatActivity implements View.OnClick
         startActivity(intent);
     }
     public void openCard6(){
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
         Intent intent = new Intent(com.example.equiclubapp.PersonnelActivity.this, FaceActivity.class);
         startActivity(intent);
         finish();

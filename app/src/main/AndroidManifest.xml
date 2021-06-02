@@ -14,13 +14,17 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.EquiClubApp">
-        <activity android:name=".AdminActivity">
+        <activity android:name=".CalendarUserActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".MonitorActivity"></activity>
+        <activity android:name=".AdminActivity">
+
+        </activity>
+        <activity android:name=".MonitorActivity" />
         <activity android:name=".UserDetailActivity" />
         <activity android:name=".EditUserActivity" />
         <activity android:name=".UsersActivity" />
@@ -36,7 +40,9 @@
         <activity android:name=".EditClientActivity" />
         <activity android:name=".ClientsActivity" />
         <activity android:name=".PersonnelActivity" />
-        <activity android:name=".FaceActivity" />
+        <activity android:name=".FaceActivity" >
+
+        </activity>
         <activity android:name=".LoginActivity" />
         <activity android:name=".ProfileActivity" />
     </application>
