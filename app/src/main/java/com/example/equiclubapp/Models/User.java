@@ -60,6 +60,19 @@ public class User implements Parcelable {
         this.userPhone = userPhone;
     }
 
+    public User(int userId, String userEmail, String userFname, String userLname, String userType,
+                String userphoto, String userPhone, LocalDateTime contractDate, String displayColor) {
+        this.userId = userId;
+        this.userEmail = userEmail;
+        this.userFname = userFname;
+        this.userLname = userLname;
+        this.userType = userType;
+        this.userphoto = userphoto;
+        this.userPhone = userPhone;
+        this.contractDate = contractDate;
+        this.displayColor = displayColor;
+    }
+
     public int getUserId() {
         return userId;
     }

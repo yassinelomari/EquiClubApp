@@ -3,7 +3,6 @@ package com.example.equiclubapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -119,6 +118,10 @@ public class PersonnelActivity extends AppCompatActivity implements View.OnClick
         startActivity(intent);
     }
     public void openCard6(){
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
         Intent intent = new Intent(com.example.equiclubapp.PersonnelActivity.this, FaceActivity.class);
         startActivity(intent);
         finish();

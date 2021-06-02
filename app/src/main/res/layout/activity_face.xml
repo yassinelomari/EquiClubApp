@@ -28,7 +28,7 @@
         android:layout_marginBottom="200dp"
         android:fontFamily="@font/bangers"
         android:gravity="center_horizontal"
-        android:text="Equitation App"
+        android:text="EquiClubApp"
         android:textAlignment="center"
         android:textSize="50sp"
         app:layout_constraintBottom_toBottomOf="parent"

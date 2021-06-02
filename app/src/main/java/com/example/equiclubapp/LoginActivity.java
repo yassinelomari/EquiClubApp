@@ -17,7 +17,6 @@ import com.android.volley.Request;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.example.equiclubapp.ListesAdapters.ApiUrls;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
-import com.example.equiclubapp.Models.Seance;
 import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONException;
@@ -84,9 +83,14 @@ public class LoginActivity extends AppCompatActivity {
                         Intent intent = new Intent(LoginActivity.this, PersonnelActivity.class);
                         startActivity(intent);
                         LoginActivity.this.finish();
-                    } else {
-                        Toast.makeText(LoginActivity.this,
-                                resp.toString(), Toast.LENGTH_LONG).show();
+                    } else if (role.equals("ADMIN")){
+                        Intent intent = new Intent(LoginActivity.this, AdminActivity.class);
+                        startActivity(intent);
+                        LoginActivity.this.finish();
+                    }else {
+                        Intent intent = new Intent(LoginActivity.this, MonitorActivity.class);
+                        startActivity(intent);
+                        LoginActivity.this.finish();
                     }
                 } else if (status == "FAIL") {
                     Toast.makeText(LoginActivity.this,

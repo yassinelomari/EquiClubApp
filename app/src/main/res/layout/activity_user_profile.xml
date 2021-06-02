@@ -4,21 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileActivity">
+    tools:context=".UserProfileActivity">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="280dp"
-        android:padding="20dp"
-        android:background="#fece2f">
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:padding="20dp"
+            android:background="#fece2f">
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/profile_image"
                 android:layout_width="100dp"
                 android:layout_height="100dp"
                 android:layout_centerVertical="true"
+
                 android:src="@drawable/ic_action_profil"
                 app:civ_border_width="2dp" />
             <TextView
@@ -31,9 +32,8 @@
                 android:includeFontPadding="false"
                 android:text="Mohamed Larbi Soufi"
                 android:textSize="18sp" />
-
             <TextView
-                android:id="@id/clientIdentity"
+                android:id="@id/userType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Mohamed Larbi Soufi"
@@ -47,84 +47,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp"
-            android:layout_marginTop="-100dp">
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="125dp"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                app:cardElevation="10dp"
-                app:cardBackgroundColor="#fece2f">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="5dp">
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/licence_icon"
-                        android:contentDescription="TODO" />
-                    <TextView
-                        android:id="@id/LicenceClient"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="38 Jrs"
-                        android:textSize="16sp"
-                        android:includeFontPadding="false"
-                        android:layout_centerInParent="true"/>
-                    <TextView
-                        android:id="@+id/desc1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="valide"
-                        android:includeFontPadding="false"
-                        android:textSize="14sp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/LicenceClient"/>
-                </RelativeLayout>
-            </com.google.android.material.card.MaterialCardView>
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="0dp"
-                android:layout_height="125dp"
-                android:layout_weight="1"
-                android:layout_margin="10dp"
-                app:cardElevation="10dp"
-                app:cardBackgroundColor="#fece2f">
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="5dp">
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:layout_centerHorizontal="true"
-                        android:src="@drawable/validity_icon"
-                        android:contentDescription="TODO" />
-                    <TextView
-                        android:id="@id/EnsurenceClient"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0 Jrs"
-                        android:textSize="16sp"
-                        android:includeFontPadding="false"
-                        android:layout_centerInParent="true"/>
-                    <TextView
-                        android:id="@+id/desc2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="expiré"
-                        android:includeFontPadding="false"
-                        android:textSize="14sp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_below="@id/EnsurenceClient"/>
-                </RelativeLayout>
-            </com.google.android.material.card.MaterialCardView>
-        </LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
             android:orientation="vertical">
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
@@ -133,7 +55,7 @@
                 android:layout_marginBottom="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@id/clientEmail"
+                    android:id="@id/userEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -150,7 +72,7 @@
                 android:layout_marginBottom="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@id/clientTele"
+                    android:id="@id/userTele"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -160,31 +82,15 @@
                     android:text="0723559966"
                     android:textColor="#000000" />
             </com.google.android.material.textfield.TextInputLayout>
+
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Date Naissance"
+                android:hint="Date Contrat"
                 android:layout_marginBottom="10dp">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@id/birthClient"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:drawableLeft="@drawable/date_icon"
-                    android:drawablePadding="5dp"
-                    android:enabled="false"
-                    android:text="10/12/2002"
-                    android:textColor="#000000" />
-            </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:hint="Date Inscription"
-                android:layout_marginBottom="10dp">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@id/registerClient"
+                    android:id="@+id/userContrat"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/white"
@@ -192,6 +98,24 @@
                     android:drawablePadding="5dp"
                     android:enabled="false"
                     android:text="25/10/2021"
+                    android:textColor="#000000" />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Couleur"
+                android:layout_marginBottom="10dp">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/userColor"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:drawableLeft="@drawable/date_icon"
+                    android:drawablePadding="5dp"
+                    android:enabled="false"
+                    android:text="10/12/2002"
                     android:textColor="#000000" />
             </com.google.android.material.textfield.TextInputLayout>
         </LinearLayout>
