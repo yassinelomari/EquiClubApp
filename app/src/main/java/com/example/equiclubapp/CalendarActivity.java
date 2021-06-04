@@ -36,7 +36,6 @@ import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -58,7 +57,8 @@ public class CalendarActivity extends AppCompatActivity {
     LinearLayout ly_left, ly_right;
     String formattedDate;
 
-    ImageView today, week, month, year;
+    ImageView addSeance;
+    //ImageView today, week, month, year;
     TextInputEditText monitor, dateStart, timeStart, duration;
 
     ArrayList<Seance> seances;
@@ -73,20 +73,19 @@ public class CalendarActivity extends AppCompatActivity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_calendar);
-
+        addSeance = findViewById(R.id.add_seance);
         VolleySingleton.handleSSLHandshake();
-
+        Bundle extras = getIntent().getExtras();
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
         clientId = sharedPreferences.getInt("idUser", 0);
-
+        addSeance.setVisibility((clientId == 0 ? View.VISIBLE : View.INVISIBLE));
+        clientId = (clientId == 0) ? extras.getInt("clientId") : clientId;
+        Toast.makeText(CalendarActivity.this , "- Yopiiii :"+clientId, Toast.LENGTH_LONG)
+                .show();
         db = new SeancesOpenHelper(this);
 
-        today = findViewById(R.id.today);
-        week = findViewById(R.id.week);
-        month = findViewById(R.id.month);
-        year = findViewById(R.id.year);
-
+        addSeance.setOnClickListener(this::addSeance);
         monitor = findViewById(R.id.addMonitorSeance);
         dateStart = findViewById(R.id.addDateSeance);
         timeStart = findViewById(R.id.addTimeSeance);
@@ -97,7 +96,7 @@ public class CalendarActivity extends AppCompatActivity {
         ly_left = (LinearLayout) findViewById(R.id.layout_left);
         ly_right = (LinearLayout) findViewById(R.id.layout_right);
 
-        today.setOnClickListener(this::calendarShowToday);
+        //today.setOnClickListener(this::calendarShowToday);
 
         calendarlistener();
         Date currentDate = new Date(System.currentTimeMillis());
@@ -117,10 +116,9 @@ public class CalendarActivity extends AppCompatActivity {
 
     }
 
-    public void calendarShowToday(View v){
-        Intent intent = new Intent(CalendarActivity.this, CalendarActivity.class);
+    public void addSeance(View v){
+        Intent intent = new Intent(CalendarActivity.this, EditTaskActivity.class);
         startActivity(intent);
-        finish();
     }
 
     public void calendarlistener() {

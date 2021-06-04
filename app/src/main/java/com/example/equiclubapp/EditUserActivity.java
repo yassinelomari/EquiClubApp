@@ -1,19 +1,11 @@
 package com.example.equiclubapp;
 
-import androidx.annotation.Nullable;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
-import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -25,8 +17,13 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.Toast;
+
+import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -38,7 +35,6 @@ import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.equiclubapp.ListesAdapters.ApiUrls;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
-import com.example.equiclubapp.Models.Client;
 import com.example.equiclubapp.Models.User;
 import com.google.android.material.textfield.TextInputEditText;
 import com.theartofdev.edmodo.cropper.CropImage;
@@ -49,7 +45,6 @@ import org.json.JSONObject;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -235,7 +230,7 @@ public class EditUserActivity extends AppCompatActivity {
         int adminLevel = (type == "Admin") ? 100:1;
         user = new User(0, email, adminLevel, LocalDateTime.now(), true, fName,
                 lName, "", types.get(type), encodeBitmapImage(), dContract, tele,
-                "FFFFFF");
+                "#FFFFFF");
 
         sendRequest(Request.Method.POST, encodeBitmapImage(), null, user.getUserPhone());
     }

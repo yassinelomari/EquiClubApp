@@ -213,6 +213,7 @@ public class ClientDetailActivity extends AppCompatActivity {
                 break;
             case R.id.calendarClient:
                 Intent tt = new Intent(this, CalendarActivity.class);
+                tt.putExtra("clientId", clientId);
                 startActivity(tt);
                 break;
         }

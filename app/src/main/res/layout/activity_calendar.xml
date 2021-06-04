@@ -36,46 +36,19 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:layout_margin="10dp"
+            android:gravity="right"
             android:clickable="true"
             android:layout_gravity="center">
             <ImageView
-                android:id="@+id/year"
+                android:id="@+id/add_seance"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_margin="20dp"
-                android:elevation="10dp"
-                android:src="@drawable/year" />
-
-            <ImageView
-                android:id="@+id/month"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="20dp"
-                android:elevation="10dp"
-                android:src="@drawable/month" />
-
-            <ImageView
-                android:id="@+id/week"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="20dp"
-                android:src="@drawable/week" />
-
-            <ImageView
-                android:id="@+id/today"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="20dp"
-                android:src="@drawable/day" />
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/header"
+                android:src="@drawable/add_icon"/>
         </LinearLayout>
 
 
-        <!--<org.naishadhparmar.zcustomcalendar.CustomCalendar
-            android:layout_marginTop="5dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/custom_calendar"/>-->
 
         <LinearLayout
 

@@ -3,7 +3,6 @@ package com.example.equiclubapp;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -39,6 +38,8 @@ public class PersonnelActivity extends AppCompatActivity implements View.OnClick
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
         idClient = sharedPreferences.getInt("idUser", 0);
+
+        //Log.d(PersonnelActivity.class.getSimpleName(), String.valueOf(idClient));
         VolleySingleton.getInstance(getApplicationContext()).getImageLoader().get(
                 ApiUrls.BASE + ApiUrls.PHOTO_CLIENTID_WS + idClient,
                 new ImageLoader.ImageListener() {
