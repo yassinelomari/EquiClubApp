@@ -46,7 +46,7 @@
                 android:layout_width="50dp"
                 android:layout_height="50dp"
                 android:layout_centerVertical="true"
-                android:src="@drawable/addTask"/>
+                android:src="@drawable/ic_action_addtask"/>
             <ImageView
                 android:id="@+id/add_seance"
                 android:layout_width="50dp"
