@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -11,7 +12,17 @@ import android.view.WindowManager;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageLoader;
+import com.example.equiclubapp.ListesAdapters.ApiUrls;
+import com.example.equiclubapp.ListesAdapters.VolleySingleton;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class MonitorActivity extends AppCompatActivity implements View.OnClickListener {
+
+    CircleImageView imgUser;
+    int idUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,6 +31,26 @@ public class MonitorActivity extends AppCompatActivity implements View.OnClickLi
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_monitor);
+
+        imgUser = findViewById(R.id.userDashImg);
+        SharedPreferences sharedPreferences = PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext());
+        idUser = sharedPreferences.getInt("idUser", 0);
+
+        VolleySingleton.getInstance(getApplicationContext()).getImageLoader().get(
+                ApiUrls.BASE + ApiUrls.PHOTO_CLIENTID_WS + idUser,
+                new ImageLoader.ImageListener() {
+                    @Override
+                    public void onResponse(ImageLoader.ImageContainer response,
+                                           boolean isImmediate) {
+                        imgUser.setImageBitmap(response.getBitmap());
+                    }
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.e(ClientDetailActivity.class.getSimpleName(),error.getMessage());
+                    }
+                }
+        );
         //get CardView
         CardView card1 = findViewById(R.id.card1);
         CardView card2 = findViewById(R.id.card2);
@@ -50,7 +81,7 @@ public class MonitorActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
     }
     public void openCard2(){
-        Intent intent = new Intent(this, com.example.equiclubapp.ClientsActivity.class);
+        Intent intent = new Intent(this, com.example.equiclubapp.CalendarUserActivity.class);
         startActivity(intent);
     }
     public void openCard3(){

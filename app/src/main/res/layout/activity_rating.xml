@@ -51,31 +51,31 @@
 
                 <ImageView
                     android:id="@+id/emoji1"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="15dp"
                     android:elevation="10dp"
                     android:src="@drawable/angry" />
 
                 <ImageView
                     android:id="@+id/emoji2"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="15dp"
                     android:elevation="10dp"
                     android:src="@drawable/notfine" />
 
                 <ImageView
                     android:id="@+id/emoji3"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="15dp"
                     android:src="@drawable/good" />
 
                 <ImageView
                     android:id="@+id/emoji4"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
+                    android:layout_width="60dp"
+                    android:layout_height="60dp"
                     android:layout_margin="15dp"
                     android:src="@drawable/wonderful" />
             </LinearLayout>
@@ -102,6 +102,7 @@
             </com.google.android.material.textfield.TextInputEditText>
         </com.google.android.material.textfield.TextInputLayout>
         <Button
+            android:id="@+id/saveRate"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

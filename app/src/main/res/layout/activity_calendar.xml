@@ -195,7 +195,7 @@
                     android:layout_margin="10dp"
 
                     app:compactCalendarBackgroundColor="@android:color/transparent"
-                    app:compactCalendarCurrentSelectedDayBackgroundColor="#fece2f"
+                    app:compactCalendarCurrentSelectedDayBackgroundColor="@android:color/transparent"
                     app:compactCalendarCurrentDayBackgroundColor="@color/principal"
                     app:compactCalendarMultiEventIndicatorColor="@color/purple_700"
                     app:compactCalendarTargetHeight="360dp"

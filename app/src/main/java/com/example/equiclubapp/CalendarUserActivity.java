@@ -34,6 +34,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -70,10 +71,10 @@ public class CalendarUserActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
-        //userId = sharedPreferences.getInt("idUser", 0);
-        //role = sharedPreferences.getString("role", "");
-        userId = 2;
-        role = "MONITOR";
+        userId = sharedPreferences.getInt("idUser", 0);
+        role = sharedPreferences.getString("role", "");
+        /*userId = 2;
+        role = "MONITOR";*/
 
         simpleDateFormat = new SimpleDateFormat("MMMM-YYYY", Locale.getDefault());
         DateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
@@ -224,8 +225,14 @@ public class CalendarUserActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "pas de tache dans ce jour",
                                 Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "il y'a des taches dans ce jour",
-                                Toast.LENGTH_LONG).show();
+                        LocalDate date = LocalDate.of((dateClicked.getYear() +1900),
+                                (dateClicked.getMonth() + 1), dateClicked.getDate());
+                        Intent intent = new Intent(CalendarUserActivity.this,
+                                DayTasksActivity.class);
+                        intent.putExtra("day", date.atStartOfDay().format(DateTimeFormatter.ISO_DATE_TIME));
+                        startActivity(intent);
+                        /*Toast.makeText(getApplicationContext(), "il y'a des taches dans ce jour",
+                                Toast.LENGTH_LONG).show();*/
                     }
                 } else {
                     Toast.makeText(getApplicationContext(),"pas de seance dans ce jour",

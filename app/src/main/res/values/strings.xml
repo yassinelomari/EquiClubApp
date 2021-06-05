@@ -58,4 +58,5 @@
     <string name="date_du_contrat">Date du contrat</string>
     <string name="date_de_d_rnier_acc_s">Date de dérnier accès</string>
     <string name="rester_connecte">Rester connecté</string>
+    <string name="l_evaluation_du_client">L\'evaluation du client</string>
 </resources>

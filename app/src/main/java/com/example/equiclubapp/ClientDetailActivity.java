@@ -47,7 +47,7 @@ public class ClientDetailActivity extends AppCompatActivity {
     int clientId;
 
     TextView nameView, phoneView, emailView, identityView, identityDocView, birthView;
-    TextView registrationView, ensurenceView, licenceView;
+    TextView registrationView, ensurenceView, licenceView, ratingView;
     ImageButton btnCall, btnSendEmail;
     Button edit, delete, calender, disable;
 
@@ -68,6 +68,7 @@ public class ClientDetailActivity extends AppCompatActivity {
         registrationView = findViewById(R.id.registerClient);
         ensurenceView = findViewById(R.id.EnsurenceClient);
         licenceView = findViewById(R.id.LicenceClient);
+        ratingView = findViewById(R.id.clientRating);
         btnCall = findViewById(R.id.btnCallClient);
         btnSendEmail = findViewById(R.id.btnEmailClient);
         edit = findViewById(R.id.btnEditClient);
@@ -105,6 +106,8 @@ public class ClientDetailActivity extends AppCompatActivity {
                         resp.getString("identityDoc");
                 String idNum = (resp.getString("identityNumber") == "null") ? null:
                         resp.getString("identityNumber");
+                String rate = (resp.getString("notes") == "null") ? "":
+                        resp.getString("notes");
                 boolean isActive = resp.getBoolean("isActive");
                 String pathPhoto = resp.getString("photo");
                 LocalDateTime birthDate = LocalDateTime.parse(resp.getString("birthDate"),
@@ -127,6 +130,7 @@ public class ClientDetailActivity extends AppCompatActivity {
                 registrationView.setText(client.getInscriptionDate().format(formatter));
                 ensurenceView.setText(client.getEnsurenceValidity().format(formatter));
                 licenceView.setText(client.getLicenceValidity().format(formatter));
+                ratingView.setText(rate);
                 VolleySingleton.getInstance(getApplicationContext()).getImageLoader().get(
                         ApiUrls.BASE + ApiUrls.PHOTO_WS + client.getPathPhoto(),
                         new ImageLoader.ImageListener() {
