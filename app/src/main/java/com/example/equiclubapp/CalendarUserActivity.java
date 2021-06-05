@@ -1,5 +1,8 @@
 package com.example.equiclubapp;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,13 +28,16 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.equiclubapp.ListesAdapters.ApiUrls;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
 import com.example.equiclubapp.Models.Seance;
+import com.example.equiclubapp.Models.SeancesOpenHelper;
 import com.example.equiclubapp.Models.Task;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -49,7 +56,7 @@ public class CalendarUserActivity extends AppCompatActivity {
     LinearLayout ly_left, ly_right;
     String formattedDate;
 
-    //ImageView today, week, month, year;
+    ImageView today, week, month, year;
 
     ArrayList<Seance> seances;
     ArrayList<Task> tasks;
@@ -68,28 +75,28 @@ public class CalendarUserActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
         userId = sharedPreferences.getInt("idUser", 0);
-        role = sharedPreferences.getString("role", "none");
-        //userId = 2;
-        //role = "MONITOR";
+        role = sharedPreferences.getString("role", "");
+        /*userId = 2;
+        role = "MONITOR";*/
 
         simpleDateFormat = new SimpleDateFormat("MMMM-YYYY", Locale.getDefault());
         DateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-        //today = findViewById(R.id.today);
-        //week = findViewById(R.id.week);
-        //month = findViewById(R.id.month);
-        //year = findViewById(R.id.year);
+        today = findViewById(R.id.today);
+        week = findViewById(R.id.week);
+        month = findViewById(R.id.month);
+        year = findViewById(R.id.year);
 
         compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         tx_date = (TextView) findViewById(R.id.text);
         ly_left = (LinearLayout) findViewById(R.id.layout_left);
         ly_right = (LinearLayout) findViewById(R.id.layout_right);
-        //TODO
-        //today.setOnClickListener(this::calendarShowToday);
-        //TODO
+
+        today.setOnClickListener(this::calendarShowToday);
+
         calendarlistener();
         Date currentDate = new Date(System.currentTimeMillis());
-        //TODO
+
         monthData(currentDate);
 
         tx_date.setText(simpleDateFormat.format(currentDate));
@@ -221,8 +228,14 @@ public class CalendarUserActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "pas de tache dans ce jour",
                                 Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "il y'a des taches dans ce jour",
-                                Toast.LENGTH_LONG).show();
+                        LocalDate date = LocalDate.of((dateClicked.getYear() +1900),
+                                (dateClicked.getMonth() + 1), dateClicked.getDate());
+                        Intent intent = new Intent(CalendarUserActivity.this,
+                                DayTasksActivity.class);
+                        intent.putExtra("day", date.atStartOfDay().format(DateTimeFormatter.ISO_DATE_TIME));
+                        startActivity(intent);
+                        /*Toast.makeText(getApplicationContext(), "il y'a des taches dans ce jour",
+                                Toast.LENGTH_LONG).show();*/
                     }
                 } else {
                     Toast.makeText(getApplicationContext(),"pas de seance dans ce jour",

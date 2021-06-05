@@ -90,12 +90,12 @@ public class LoginActivity extends AppCompatActivity {
             try {
                 String status = resp.getString("status");
                 if(status.equals("SUCCESS")){
-                    SharedPreferences sharedPreferences = PreferenceManager
-                            .getDefaultSharedPreferences(getApplicationContext());
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    String role = resp.getString("role");
-                    editor.putInt("idUser", resp.getInt("id"));
-                    editor.putString("role", role);
+                        SharedPreferences sharedPreferences = PreferenceManager
+                                .getDefaultSharedPreferences(getApplicationContext());
+                        SharedPreferences.Editor editor = sharedPreferences.edit();
+                        String role = resp.getString("role");
+                        editor.putInt("idUser", resp.getInt("id"));
+                        editor.putString("role", role);
                     Boolean autoLogin = keepCnx.isChecked();
                     editor.putBoolean("autoLogin", autoLogin);
                     if(autoLogin){

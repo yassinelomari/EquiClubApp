@@ -46,4 +46,5 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
     implementation 'org.naishadhparmar.zcustomcalendar:zcustomcalendar:1.0.1'
     implementation 'com.github.sundeepk:compact-calendar-view:1.9.1'
+    implementation 'com.framgia.library.calendardayview:library:1.0.4'
 }

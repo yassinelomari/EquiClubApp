@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="principal">#ff6e40</color>
+    <color name="seance">#80FECE2F</color>
+    <color name="tache">#80FF6E40</color>
 </resources>
