@@ -1,8 +1,5 @@
 package com.example.equiclubapp;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -20,16 +17,17 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.android.volley.Request;
 import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.equiclubapp.ListesAdapters.ApiUrls;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
 import com.example.equiclubapp.Models.Seance;
-import com.example.equiclubapp.Models.SeancesOpenHelper;
 import com.example.equiclubapp.Models.Task;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
-import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -70,10 +68,10 @@ public class CalendarUserActivity extends AppCompatActivity {
 
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
-        //userId = sharedPreferences.getInt("idUser", 0);
-        //role = sharedPreferences.getString("role", "");
-        userId = 2;
-        role = "MONITOR";
+        userId = sharedPreferences.getInt("idUser", 0);
+        role = sharedPreferences.getString("role", "none");
+        //userId = 2;
+        //role = "MONITOR";
 
         simpleDateFormat = new SimpleDateFormat("MMMM-YYYY", Locale.getDefault());
         DateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());

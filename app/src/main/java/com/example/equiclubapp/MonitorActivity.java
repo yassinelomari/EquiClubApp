@@ -50,7 +50,7 @@ public class MonitorActivity extends AppCompatActivity implements View.OnClickLi
         startActivity(intent);
     }
     public void openCard2(){
-        Intent intent = new Intent(this, com.example.equiclubapp.ClientsActivity.class);
+        Intent intent = new Intent(this, com.example.equiclubapp.CalendarUserActivity.class);
         startActivity(intent);
     }
     public void openCard3(){

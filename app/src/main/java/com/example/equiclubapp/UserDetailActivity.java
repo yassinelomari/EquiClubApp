@@ -187,7 +187,8 @@ public class UserDetailActivity extends AppCompatActivity  {
                 VolleySingleton.getInstance(this).addToRequestQueue(requestState);
                 break;
             case R.id.calendarUser:
-
+                Intent tt = new Intent(this, CalendarUserActivity.class);
+                startActivity(tt);
                 break;
         }
     }
