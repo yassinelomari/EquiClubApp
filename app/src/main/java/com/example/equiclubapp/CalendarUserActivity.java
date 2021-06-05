@@ -12,7 +12,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -50,7 +49,7 @@ public class CalendarUserActivity extends AppCompatActivity {
     LinearLayout ly_left, ly_right;
     String formattedDate;
 
-    ImageView today, week, month, year;
+    //ImageView today, week, month, year;
 
     ArrayList<Seance> seances;
     ArrayList<Task> tasks;
@@ -76,17 +75,17 @@ public class CalendarUserActivity extends AppCompatActivity {
         simpleDateFormat = new SimpleDateFormat("MMMM-YYYY", Locale.getDefault());
         DateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
 
-        today = findViewById(R.id.today);
-        week = findViewById(R.id.week);
-        month = findViewById(R.id.month);
-        year = findViewById(R.id.year);
+        //today = findViewById(R.id.today);
+        //week = findViewById(R.id.week);
+        //month = findViewById(R.id.month);
+        //year = findViewById(R.id.year);
 
         compactCalendarView = (CompactCalendarView) findViewById(R.id.compactcalendar_view);
         tx_date = (TextView) findViewById(R.id.text);
         ly_left = (LinearLayout) findViewById(R.id.layout_left);
         ly_right = (LinearLayout) findViewById(R.id.layout_right);
         //TODO
-        today.setOnClickListener(this::calendarShowToday);
+        //today.setOnClickListener(this::calendarShowToday);
         //TODO
         calendarlistener();
         Date currentDate = new Date(System.currentTimeMillis());

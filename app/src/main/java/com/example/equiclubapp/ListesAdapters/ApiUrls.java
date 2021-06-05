@@ -1,7 +1,7 @@
 package com.example.equiclubapp.ListesAdapters;
 
 public interface ApiUrls {
-    String BASE = "https://192.168.1.108:44352/api";
+    String BASE = "https://192.168.100.90:44352/api";
     String CLIENTS_WS = "/Clients/";
     String PHOTO_WS = "/Clients/photo/";
     String PHOTO_CLIENTID_WS = "/Clients/photoById/";

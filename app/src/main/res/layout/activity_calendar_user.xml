@@ -32,42 +32,29 @@
                 android:text="mon agenda des taches"
                 android:textSize="22sp" />
         </RelativeLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+            android:gravity="right"
             android:layout_margin="10dp"
             android:clickable="true"
             android:layout_gravity="center">
             <ImageView
-                android:id="@+id/year"
+                android:id="@+id/add_task"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_margin="20dp"
-                android:elevation="10dp"
-                android:src="@drawable/year" />
-
+                android:layout_centerVertical="true"
+                android:src="@drawable/addTask"/>
             <ImageView
-                android:id="@+id/month"
+                android:id="@+id/add_seance"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:layout_margin="20dp"
-                android:elevation="10dp"
-                android:src="@drawable/month" />
+                android:layout_gravity="left"
+                android:layout_centerVertical="true"
+                android:src="@drawable/add_icon"/>
 
-            <ImageView
-                android:id="@+id/week"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="20dp"
-                android:src="@drawable/week" />
-
-            <ImageView
-                android:id="@+id/today"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:layout_margin="20dp"
-                android:src="@drawable/day" />
         </LinearLayout>
 
         <LinearLayout

@@ -79,9 +79,11 @@ public class CalendarActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
         clientId = sharedPreferences.getInt("idUser", 0);
-        addSeance.setVisibility((clientId == 0 ? View.VISIBLE : View.INVISIBLE));
-        clientId = (clientId == 0) ? extras.getInt("clientId") : clientId;
-        Toast.makeText(CalendarActivity.this , "- Yopiiii :"+clientId, Toast.LENGTH_LONG)
+        String role = sharedPreferences.getString("role", "");
+
+        addSeance.setVisibility((role.equals("ADMIN") ? View.VISIBLE : View.INVISIBLE));
+        clientId = role.equals("ADMIN") ? extras.getInt("clientId") : clientId;
+        Toast.makeText(CalendarActivity.this , "- Yopiiii : "+clientId, Toast.LENGTH_LONG)
                 .show();
         db = new SeancesOpenHelper(this);
 
@@ -117,7 +119,8 @@ public class CalendarActivity extends AppCompatActivity {
     }
 
     public void addSeance(View v){
-        Intent intent = new Intent(CalendarActivity.this, EditTaskActivity.class);
+        Intent intent = new Intent(CalendarActivity.this, EditSeanceActivity.class);
+        intent.putExtra("clientId", clientId);
         startActivity(intent);
     }
 
