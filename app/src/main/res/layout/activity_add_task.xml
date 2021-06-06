@@ -91,7 +91,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@id/SelectDateTask"
-        android:style="?attr/materialButtonOutlinedStyle"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginLeft="4dp"
@@ -132,7 +132,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@id/SelectTimeTask"
-        android:style="?attr/materialButtonOutlinedStyle"
+        style="?attr/materialButtonOutlinedStyle"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginLeft="4dp"
