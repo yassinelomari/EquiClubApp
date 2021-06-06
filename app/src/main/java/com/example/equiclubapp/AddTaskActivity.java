@@ -50,7 +50,6 @@ public class AddTaskActivity extends AppCompatActivity {
     }
     public void onClickAdd(View v){
         JSONObject jsonObject = new JSONObject();
-        //Toast.makeText(AddTaskActivity.this , addTitleTask.getText().toString(), Toast.LENGTH_LONG).show();
         try {
             jsonObject.put("startDate", addDateTask.getText().toString());
             jsonObject.put("durationMinut", addDureeTask.getText().toString());
