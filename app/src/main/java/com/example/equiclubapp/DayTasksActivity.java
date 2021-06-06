@@ -47,8 +47,9 @@ public class DayTasksActivity extends AppCompatActivity {
                 .getDefaultSharedPreferences(getApplicationContext());
         userId = sharedPreferences.getInt("idUser", 0);
         role = sharedPreferences.getString("role", "");
-
         Bundle extras = getIntent().getExtras();
+        userId = role.equals("ADMIN") ? extras.getInt("idUser") : userId;
+        role = role.equals("ADMIN") ? extras.getString("role") : role;
         day = extras.getString("day");
 
         Toast.makeText(getApplicationContext(), role + userId + day,

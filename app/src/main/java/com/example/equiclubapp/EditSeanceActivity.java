@@ -330,15 +330,18 @@ public class EditSeanceActivity extends AppCompatActivity {
             @Override
             public void onResponse(JSONObject response) {
                 //Log.e(EditSeanceActivity.class.getSimpleName(), "Succcess ");
+                Intent intent;
                 if(action.equals("CLIENT")){
                     Log.e(EditSeanceActivity.class.getSimpleName(), "Succcess  to Client");
-                    Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+                    intent = new Intent(getApplicationContext(), CalendarActivity.class);
                     intent.putExtra("clientId", idClient);
-                    startActivity(intent);
-                    finish();
                 } else {
-
+                    intent = new Intent(getApplicationContext(), CalendarUserActivity.class);
+                    intent.putExtra("requestRole", "MONITOR");
+                    intent.putExtra("requestId", idMonitor);
                 }
+                startActivity(intent);
+                EditSeanceActivity.this.finish();
                 Toast.makeText(getApplicationContext(), "seance added successfully",
                         Toast.LENGTH_LONG).show();
             }
@@ -352,7 +355,7 @@ public class EditSeanceActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("accept", "application/json");
-                map.put("Content-Type", "application/json");
+                //map.put("Content-Type", "application/json");
                 return map;
             }
         };
