@@ -55,6 +55,7 @@ public class ClientDetailActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_client_detail);
+        VolleySingleton.handleSSLHandshake();
 
         Bundle extras = getIntent().getExtras();
         clientId = extras.getInt("clientId");
