@@ -33,7 +33,7 @@
         app:startIconDrawable="@drawable/ic_action_task">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@id/addTitleTask"
+            android:id="@+id/addTitleTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -57,7 +57,7 @@
         app:startIconDrawable="@drawable/ic_action_detail">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@id/addDetailTask"
+            android:id="@+id/addDetailTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -65,6 +65,7 @@
             android:hint="@string/d_tail_de_la_tache"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@id/layoutTaskdate"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -75,22 +76,22 @@
         android:textColorHint="@color/principal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/layoutTaskDetail"
-        app:startIconContentDescription="@string/date_de_la_tache"
+        app:startIconContentDescription="Date de la tache"
         app:startIconDrawable="@drawable/ic_action_calander">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@id/addDateTask"
+            android:id="@+id/addDateTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:ems="10"
-            android:hint="@string/date_de_la_tache"
+            android:hint="Date de la tache"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.button.MaterialButton
         android:id="@id/SelectDateTask"
-        style="?attr/materialButtonOutlinedStyle"
+        android:style="?attr/materialButtonOutlinedStyle"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginLeft="4dp"
@@ -105,6 +106,7 @@
         app:layout_constraintTop_toBottomOf="@id/layoutTaskDetail"
         app:rippleColor="#33AAAAAA"
         app:strokeColor="@color/principal" />
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@id/layoutTaskTime"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
@@ -130,7 +132,7 @@
 
     <com.google.android.material.button.MaterialButton
         android:id="@id/SelectTimeTask"
-        style="?attr/materialButtonOutlinedStyle"
+        android:style="?attr/materialButtonOutlinedStyle"
         android:layout_width="0dp"
         android:layout_height="64dp"
         android:layout_marginLeft="4dp"
@@ -157,16 +159,16 @@
         android:textColorHint="@color/principal"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/SelectTimeTask"
-        app:startIconContentDescription="durée de la tache"
+        app:startIconContentDescription="Durée de la tache"
         app:startIconDrawable="@drawable/ic_action_duration">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@id/addTitleTask"
+            android:id="@+id/addDureeTask"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:ems="10"
-            android:hint="@string/titre_de_la_tache"
+            android:hint="Durée de la tache"
             android:inputType="text" />
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -187,4 +189,5 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:rippleColor="#33AAAAAA"
         app:strokeColor="@color/principal" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

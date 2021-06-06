@@ -188,6 +188,8 @@ public class UserDetailActivity extends AppCompatActivity  {
                 break;
             case R.id.calendarUser:
                 Intent tt = new Intent(this, CalendarUserActivity.class);
+                tt.putExtra("requestRole", user.getUserType());
+                tt.putExtra("requestId", user.getUserId());
                 startActivity(tt);
                 break;
         }

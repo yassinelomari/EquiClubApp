@@ -1,8 +1,5 @@
 package com.example.equiclubapp;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -28,11 +25,9 @@ import com.android.volley.toolbox.JsonArrayRequest;
 import com.example.equiclubapp.ListesAdapters.ApiUrls;
 import com.example.equiclubapp.ListesAdapters.VolleySingleton;
 import com.example.equiclubapp.Models.Seance;
-import com.example.equiclubapp.Models.SeancesOpenHelper;
 import com.example.equiclubapp.Models.Task;
 import com.github.sundeepk.compactcalendarview.CompactCalendarView;
 import com.github.sundeepk.compactcalendarview.domain.Event;
-import com.google.android.material.textfield.TextInputEditText;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -56,26 +51,50 @@ public class CalendarUserActivity extends AppCompatActivity {
     LinearLayout ly_left, ly_right;
     String formattedDate;
 
-    ImageView today, week, month, year;
+    ImageView today, week, month, year, addtask, addseance;
 
     ArrayList<Seance> seances;
     ArrayList<Task> tasks;
-
+    int requestId;
+    LinearLayout items;
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
         setContentView(R.layout.activity_calendar_user);
-
+        Bundle extras = getIntent().getExtras();
+        items = findViewById(R.id.items);
+        addtask = findViewById(R.id.add_task);
+        addseance = findViewById(R.id.add_seance);
         VolleySingleton.handleSSLHandshake();
 
         SharedPreferences sharedPreferences = PreferenceManager
                 .getDefaultSharedPreferences(getApplicationContext());
         userId = sharedPreferences.getInt("idUser", 0);
         role = sharedPreferences.getString("role", "");
+        String requestRole;
+
+        if (extras == null){
+            requestRole = "empty";
+            requestId = 0;
+        }
+        else{
+            requestId = extras.getInt("requestId", 0);
+            requestRole = extras.getString("requestRole", "");
+        }
+        if(role.equals("MONITOR"))
+            items.setVisibility(View.INVISIBLE);
+        if(requestRole.equals("MONITOR")){
+            items.setVisibility(View.VISIBLE);
+        }else {
+            addseance.setVisibility(View.INVISIBLE);
+        }
+
+        Toast.makeText(CalendarUserActivity.this , "- loliii : "+role+", send Role : "+requestRole+", send Id : "+requestId, Toast.LENGTH_LONG)
+                .show();
         /*userId = 2;
         role = "MONITOR";*/
 
@@ -93,6 +112,7 @@ public class CalendarUserActivity extends AppCompatActivity {
         ly_right = (LinearLayout) findViewById(R.id.layout_right);
 
         today.setOnClickListener(this::calendarShowToday);
+        addtask.setOnClickListener(this::addTask);
 
         calendarlistener();
         Date currentDate = new Date(System.currentTimeMillis());
@@ -110,6 +130,12 @@ public class CalendarUserActivity extends AppCompatActivity {
             compactCalendarView.showCalendarWithAnimation();
             compactCalendarView.showPreviousMonth();
         });
+    }
+
+    public void addTask(View v){
+        Intent intent = new Intent(CalendarUserActivity.this, AddTaskActivity.class);
+        intent.putExtra("userId", requestId);
+        startActivity(intent);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.N)
