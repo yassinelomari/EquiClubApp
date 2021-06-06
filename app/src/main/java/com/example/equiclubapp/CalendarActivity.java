@@ -121,7 +121,9 @@ public class CalendarActivity extends AppCompatActivity {
     public void addSeance(View v){
         Intent intent = new Intent(CalendarActivity.this, EditSeanceActivity.class);
         intent.putExtra("clientId", clientId);
+        intent.putExtra("action", "CLIENT");
         startActivity(intent);
+        finish();
     }
 
     public void calendarlistener() {
@@ -197,13 +199,13 @@ public class CalendarActivity extends AppCompatActivity {
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     public void monthData(Date monthSelected){
-        Log.e(CalendarActivity.class.getSimpleName(),"monthSelected : " + monthSelected);
+        //Log.e(CalendarActivity.class.getSimpleName(),"monthSelected : " + monthSelected);
         String month = (new SimpleDateFormat("MM")).format(monthSelected);
         String year = (new SimpleDateFormat("yyyy")).format(monthSelected);
 
         Date currentDate = new Date(System.currentTimeMillis());
         if (isConnected()){
-            Log.e(CalendarActivity.class.getSimpleName(),"connected ");
+            //Log.e(CalendarActivity.class.getSimpleName(),"connected ");
             JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                     ApiUrls.BASE + ApiUrls.SEANCES_WS + clientId + "/" + month + "/" + year,
                     null, (resp) -> {
@@ -215,7 +217,7 @@ public class CalendarActivity extends AppCompatActivity {
             );
             VolleySingleton.getInstance(this).addToRequestQueue(request);
         } else {
-            Log.e(CalendarActivity.class.getSimpleName(),"disconnected ");
+            //Log.e(CalendarActivity.class.getSimpleName(),"disconnected ");
             if(monthSelected.compareTo(currentDate) <= 0) {
                 getDataFromDb(month, year);
             } else {
@@ -263,7 +265,7 @@ public class CalendarActivity extends AppCompatActivity {
                         ApiUrls.BASE + ApiUrls.USERS_WS + s.getMonitorId(),
                         null, (resp) -> {
                     try {
-                        Log.e(CalendarActivity.class.getSimpleName(),"update from json :" +resp.toString());
+                        //Log.e(CalendarActivity.class.getSimpleName(),"update from json :" +resp.toString());
                         db.updateSeance(s, resp.getString("userFname") + " " + resp.getString("userLname"));
                     } catch (JSONException e) {
                         e.printStackTrace();

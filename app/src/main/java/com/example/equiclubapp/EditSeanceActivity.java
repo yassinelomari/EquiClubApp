@@ -36,29 +36,29 @@ import com.google.android.material.button.MaterialButton;
 import com.google.android.material.datepicker.CalendarConstraints;
 import com.google.android.material.datepicker.DateValidatorPointForward;
 import com.google.android.material.datepicker.MaterialDatePicker;
+import com.google.android.material.datepicker.MaterialPickerOnPositiveButtonClickListener;
 import com.google.android.material.textfield.TextInputEditText;
+import com.google.android.material.textfield.TextInputLayout;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
+import java.util.TimeZone;
 
 public class EditSeanceActivity extends AppCompatActivity {
-   /* private static final String URL_BASE = "https://192.168.100.100:44352/api";
-    private static final String URL_WS_CL = "/Clients/";
-    private static final String URL_WS_SC = "/Seances/";
-    private static final String URL_WS_GP = "/Seances/groups/";
-    private static final String URL_WS_MX_GP = "/Seances/groupIdMax/";
-    private static final String URL_WS_MN = "/Users/";*/
 
     Seance seance;
-    int action;
+    String action;
+    int hour, min;
 
     List<Client> clients;
     List<User> users;
@@ -70,6 +70,7 @@ public class EditSeanceActivity extends AppCompatActivity {
 
     MaterialButton selectDate, selectTime, saveButton;
     TextInputEditText dateStart, timeStart, editDurat;
+    TextInputLayout lClient, lMonitor;
     AutoCompleteTextView editClient, editGrp, editMonitor;
     CheckBox nvGroup;
 
@@ -79,6 +80,7 @@ public class EditSeanceActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_seance);
 
+        VolleySingleton.handleSSLHandshake();
         /*Bundle extras = getIntent().getExtras();
         action = extras.getInt("requestCode");*/
 
@@ -90,7 +92,9 @@ public class EditSeanceActivity extends AppCompatActivity {
         VolleySingleton.handleSSLHandshake();
 
         Bundle extras = getIntent().getExtras();
-        Toast.makeText(EditSeanceActivity.this , "- yaak : "+extras.getInt("clientId"), Toast.LENGTH_LONG)
+        action = extras.getString("action", "");
+
+        Toast.makeText(EditSeanceActivity.this , "- action : "+ action, Toast.LENGTH_LONG)
                 .show();
 
         MaterialDatePicker.Builder builder = MaterialDatePicker.Builder.datePicker();
@@ -101,8 +105,12 @@ public class EditSeanceActivity extends AppCompatActivity {
         builder.setCalendarConstraints(cBuilder.build());
         materialDatePicker = builder.build();
 
-        timePicker = new TimePickerDialog(this, (TimePickerDialog.OnTimeSetListener)
-                this::onSelectTime , 0, 0, true);
+        timePicker = new TimePickerDialog(this, (view, hourOfDay, minute) -> {
+            hour = hourOfDay;
+            min = minute;
+            timeStart.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
+        },
+                0, 0, true);
 
         selectDate = findViewById(R.id.SelectDateSeance);
         selectTime = findViewById(R.id.SelectTimeSeance);
@@ -110,19 +118,30 @@ public class EditSeanceActivity extends AppCompatActivity {
         timeStart = findViewById(R.id.addTimeSeance);
         editDurat = findViewById(R.id.addDurSeance);
         editClient = findViewById(R.id.addClientSeance);
-        editGrp = findViewById(R.id.addGrpSeance);
+        lClient = findViewById(R.id.layoutSeanceClient);
+        //editGrp = findViewById(R.id.addGrpSeance);
         editMonitor = findViewById(R.id.addMonitorSeance);
-        nvGroup = findViewById(R.id.nvGroup);
+        lMonitor = findViewById(R.id.layoutSeanceMonitor);
+        //nvGroup = findViewById(R.id.nvGroup);
         saveButton = findViewById(R.id.addSeance);
 
-        editMonitor.setFocusable(false);
+        if(action.equals("CLIENT")){
+            lClient.setVisibility(View.INVISIBLE);
+            editClient.setVisibility(View.INVISIBLE);
+            idClient = extras.getInt("clientId");
+        } else {
+            lMonitor.setVisibility(View.INVISIBLE);
+            editMonitor.setVisibility(View.INVISIBLE);
+            idMonitor = extras.getInt("userId");
+        }
+        /*editMonitor.setFocusable(false);
         editMonitor.setFocusableInTouchMode(false);
         editMonitor.setDropDownHeight(0);
         dateStart.setFocusable(false);
         timeStart.setFocusable(false);
         selectDate.setEnabled(false);
-        selectTime.setEnabled(false);
-        nvGroup.setOnCheckedChangeListener(this::setOnNvGrpChangeListener);
+        selectTime.setEnabled(false);*/
+        //nvGroup.setOnCheckedChangeListener(this::setOnNvGrpChangeListener);
         editClient.setOnItemClickListener((adapterView, view, i, l) -> {
             Object item = adapterView.getItemAtPosition(i);
             Log.d(EditSeanceActivity.class.getSimpleName(),"ccc :" + item);
@@ -131,13 +150,13 @@ public class EditSeanceActivity extends AppCompatActivity {
                 idClient = client.getClientId();
             }
         });
-        editGrp.setOnItemClickListener((adapterView, view, i, l) -> {
+        /*editGrp.setOnItemClickListener((adapterView, view, i, l) -> {
             String grpItem = editGrp.getText().toString().trim();
             String[] grpInfo = grpItem.split("\\|");
             idGrp = Integer.parseInt(grpInfo[0]);
             idMonitor = Integer.parseInt(grpInfo[3]);
             dateSeance = LocalDateTime.parse(grpInfo[1], DateTimeFormatter.ISO_DATE_TIME);
-        });
+        });*/
         editMonitor.setOnItemClickListener((adapterView, view, i, l) -> {
             Object item = adapterView.getItemAtPosition(i);
             if (item instanceof User){
@@ -148,8 +167,17 @@ public class EditSeanceActivity extends AppCompatActivity {
         selectDate.setOnClickListener(this::onClickButtons);
         selectTime.setOnClickListener(this::onClickButtons);
         saveButton.setOnClickListener(this::onClickButtons);
-        materialDatePicker.addOnPositiveButtonClickListener(this::onSelectDate);
-
+        //materialDatePicker.addOnPositiveButtonClickListener(o -> dateStart.setText(materialDatePicker.getHeaderText()));
+        materialDatePicker.addOnPositiveButtonClickListener(new MaterialPickerOnPositiveButtonClickListener<Long>() {
+            @Override public void onPositiveButtonClick(Long selection) {
+                Calendar calendar = Calendar.getInstance(TimeZone.getTimeZone("UTC"));
+                calendar.setTimeInMillis(selection);
+                TimeZone tz = calendar.getTimeZone();
+                ZoneId zid = tz.toZoneId();
+                dateSeance = LocalDateTime.ofInstant(calendar.toInstant(), zid);
+                dateStart.setText(materialDatePicker.getHeaderText());
+            }
+        });
         /*if (action == 2) {
             seance = extras.getParcelable("seance");
             showAdapter();
@@ -173,9 +201,9 @@ public class EditSeanceActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, ApiUrls.BASE +
+                ApiUrls.CLIENTS_WS,null, (resp) -> {
 
-        JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET, ApiUrls.BASE + ApiUrls.CLIENTS_WS,
-                null, (resp) -> {
             try {
                 if(clients.isEmpty()) {
                     for (int i = 0; i < resp.length(); i++) {
@@ -187,9 +215,13 @@ public class EditSeanceActivity extends AppCompatActivity {
                         String idDoc = resp.getJSONObject(i).getString("identityDoc");
                         String idNum = resp.getJSONObject(i).getString("identityNumber");
                         String pathPhoto = resp.getJSONObject(i).getString("photo");
-                        clients.add(new Client(id, fName, lName, email, phone, idDoc, idNum, pathPhoto));
+                        boolean isActive = resp.getJSONObject(i).getBoolean("isActive");
+                        clients.add(new Client(id, fName, lName, email, phone, idDoc, idNum,
+                                pathPhoto, isActive));
                     }
+                    //Log.e(EditSeanceActivity.class.getSimpleName(), "clients 8 : " + clients.get(8).getClientId());
                 }
+
                 if(!clients.isEmpty())
                     editClient.setAdapter(new AutoCompleteClientAdapter(EditSeanceActivity.this, clients));
             } catch (JSONException e) {
@@ -201,33 +233,6 @@ public class EditSeanceActivity extends AppCompatActivity {
                 (error) -> Log.e(EditSeanceActivity.class.getSimpleName(),error.getMessage())
         );
         VolleySingleton.getInstance(this).addToRequestQueue(request);
-
-        JsonArrayRequest requestSGrps = new JsonArrayRequest(Request.Method.GET, ApiUrls.BASE +
-                ApiUrls.GP_SC_WS, null, (resp) -> {
-            try {
-                //Log.d(EditSeanceActivity.class.getSimpleName(),"len :" + resp);
-                if(seanceGrps.isEmpty()) {
-                    for (int i = 0; i < resp.length(); i++) {
-                        int grpId = resp.getJSONObject(i).getInt("seanceGrpId");
-                        String startDate = resp.getJSONObject(i).getString("startDate");
-                        String monitor = resp.getJSONObject(i).getString("monitor");
-                        seanceGrps.add(grpId + "|" + startDate.substring(0, 16) + "|" + monitor);
-                    }
-                }
-                if(!seanceGrps.isEmpty()){
-                    ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                            R.layout.doc_list_item, seanceGrps);
-                    editGrp.setAdapter(adapter);
-                }
-            } catch (JSONException e) {
-                e.printStackTrace();
-                Toast.makeText(EditSeanceActivity.this , "error", Toast.LENGTH_LONG)
-                        .show();
-            }
-        },
-                (error) -> Log.e(EditSeanceActivity.class.getSimpleName(),error.getMessage())
-        );
-        VolleySingleton.getInstance(this).addToRequestQueue(requestSGrps);
 
         JsonArrayRequest requestUsers = new JsonArrayRequest(Request.Method.GET, ApiUrls.BASE +
                 ApiUrls.USERS_WS, null, (resp) -> {
@@ -263,7 +268,7 @@ public class EditSeanceActivity extends AppCompatActivity {
         VolleySingleton.getInstance(this).addToRequestQueue(requestUsers);
     }
 
-    private void setOnNvGrpChangeListener(CompoundButton compoundButton, boolean b) {
+    /*private void setOnNvGrpChangeListener(CompoundButton compoundButton, boolean b) {
         if (b) {
             editMonitor.setFocusable(true);
             editMonitor.setFocusableInTouchMode(true);
@@ -279,7 +284,7 @@ public class EditSeanceActivity extends AppCompatActivity {
             selectTime.setEnabled(false);
             editGrp.setFocusableInTouchMode(true);
         }
-    }
+    }*/
 
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void onClickButtons(View view) {
@@ -291,45 +296,24 @@ public class EditSeanceActivity extends AppCompatActivity {
                 timePicker.show();
                 break;
             case R.id.addSeance:
-                /*Toast.makeText(EditSeanceActivity.this , idClient + " | " + idGrp +
-                        " | " + idMonitor, Toast.LENGTH_LONG).show();*/
                 int duration = Integer.parseInt(Objects.requireNonNull(editDurat.getText())
                         .toString().trim());
-                if(nvGroup.isChecked()){
-                    String dateS = Objects.requireNonNull(dateStart.getText()).toString().trim();
-                    String timeS = Objects.requireNonNull(timeStart.getText()).toString().trim();
+                LocalDateTime dateStart = LocalDateTime.of(dateSeance.getYear(),
+                        dateSeance.getMonthValue(), dateSeance.getDayOfMonth(), hour, min);
 
-                    DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd MMM yyyyHH:mm");
-                    dateSeance = LocalDateTime.parse(dateS + timeS, formatter);
-                    JsonObjectRequest requestMaxGrps = new JsonObjectRequest(Request.Method.GET,
-                            ApiUrls.BASE + ApiUrls.MAX_GP_WS, null, (resp) -> {
-                        try {
-                           idGrp = resp.getInt("id") + 1;
-                            //Log.d(EditClientActivity.class.getSimpleName(), "maxid: " + resp.getInt("id"));
-                            seance = new Seance(0, idGrp, idClient, idMonitor, dateSeance,
-                                    duration, true, 0, "");
-                            sendRequest(Request.Method.POST, null);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            Toast.makeText(EditSeanceActivity.this , "error", 
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }, (error) -> Log.e(EditSeanceActivity.class.getSimpleName(),error.getMessage())
-                    );
-                    VolleySingleton.getInstance(this).addToRequestQueue(requestMaxGrps);
-                } else {
-                    seance = new Seance(0, idGrp, idClient, idMonitor, dateSeance, duration,
-                            true, 0, "");
-                    sendRequest(Request.Method.POST, null);
-                }
+                seance = new Seance(0, 1000, idClient, idMonitor, dateStart, duration,
+                        true, 0, "");
+                /*Toast.makeText(EditSeanceActivity.this , idClient + " | " + idMonitor +
+                        " | " + duration + " | " + dateStart.format(DateTimeFormatter.ISO_DATE_TIME), Toast.LENGTH_LONG).show();*/
+                sendRequest();
                 break;
         }
     }
 
-    private void sendRequest(int methode, Object id) {
+    private void sendRequest() {
         JSONObject jsonObject = new JSONObject();
         try {
-            jsonObject.put("seanceId", id);
+            jsonObject.put("seanceId", null);
             jsonObject.put("seanceGrpId", seance.getSeanceGrpId());
             jsonObject.put("clientId", seance.getClientId());
             jsonObject.put("monitorId", seance.getMonitorId());
@@ -341,13 +325,22 @@ public class EditSeanceActivity extends AppCompatActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-        JsonObjectRequest request = new JsonObjectRequest(methode, ApiUrls.BASE + ApiUrls.SEANCES_WS,
+        JsonObjectRequest request = new JsonObjectRequest(Request.Method.POST, ApiUrls.BASE + ApiUrls.SEANCES_WS,
                 jsonObject, new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                Intent intent = new Intent(getApplicationContext(), ClientsActivity.class);
-                startActivityForResult(intent, 50);
-                Toast.makeText(getApplicationContext(), "seance added successfully", Toast.LENGTH_LONG).show();
+                //Log.e(EditSeanceActivity.class.getSimpleName(), "Succcess ");
+                if(action.equals("CLIENT")){
+                    Log.e(EditSeanceActivity.class.getSimpleName(), "Succcess  to Client");
+                    Intent intent = new Intent(getApplicationContext(), CalendarActivity.class);
+                    intent.putExtra("clientId", idClient);
+                    startActivity(intent);
+                    finish();
+                } else {
+
+                }
+                Toast.makeText(getApplicationContext(), "seance added successfully",
+                        Toast.LENGTH_LONG).show();
             }
         }, new Response.ErrorListener() {
             @Override
@@ -368,12 +361,12 @@ public class EditSeanceActivity extends AppCompatActivity {
     }
 
 
-    private void onSelectTime(TimePicker view, int hourOfDay, int minute) {
+    /*private void onSelectTime(TimePicker view, int hourOfDay, int minute) {
         timeStart.setText(String.format("%02d", hourOfDay) + ":" + String.format("%02d", minute));
-    }
+    }*/
 
-    private void onSelectDate(Object o) {
+    /*private void onSelectDate(Object o) {
         dateStart.setText(materialDatePicker.getHeaderText());
-    }
+    }*/
 
 }

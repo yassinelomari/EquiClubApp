@@ -42,7 +42,7 @@
             android:completionThreshold="1"/>
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
+    <!--<com.google.android.material.textfield.TextInputLayout
         android:id="@id/layoutSeanceGrp"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="260dp"
@@ -79,7 +79,7 @@
             android:checked="false"
             android:textSize="14sp"
             android:text="@string/nouveau_goupe"/>
-    </LinearLayout>
+    </LinearLayout>-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@id/layoutSeanceMonitor"
@@ -92,7 +92,7 @@
         android:textColorHint="@color/principal"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/layoutSeanceGrp"
+        app:layout_constraintTop_toBottomOf="@id/layoutSeanceClient"
         app:startIconContentDescription="@string/moniteur_du_seance"
         app:startIconDrawable="@drawable/ic_action_profil">
 
