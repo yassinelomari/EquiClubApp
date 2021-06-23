@@ -92,7 +92,7 @@ public class AddTaskActivity extends AppCompatActivity {
             protected Map<String, String> getParams() throws AuthFailureError {
                 Map<String, String> map = new HashMap<String, String>();
                 map.put("accept", "application/json");
-                map.put("Content-Type", "application/json");
+                //map.put("Content-Type", "application/json");
                 return map;
             }
         };
