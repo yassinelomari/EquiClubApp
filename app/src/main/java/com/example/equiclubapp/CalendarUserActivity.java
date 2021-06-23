@@ -80,11 +80,11 @@ public class CalendarUserActivity extends AppCompatActivity {
         if (extras == null){
             requestRole = "empty";
             requestId = 0;
-        }
-        else{
+        } else{
             requestId = extras.getInt("requestId", 0);
             requestRole = extras.getString("requestRole", "");
         }
+
         if(role.equals("MONITOR"))
             items.setVisibility(View.INVISIBLE);
         if(requestRole.equals("MONITOR")){
@@ -92,6 +92,9 @@ public class CalendarUserActivity extends AppCompatActivity {
         }else {
             addseance.setVisibility(View.INVISIBLE);
         }
+
+        userId = role.equals("ADMIN") ? extras.getInt("requestId") : userId;
+        role = role.equals("ADMIN") ? extras.getString("requestRole") : role;
 
         Toast.makeText(CalendarUserActivity.this , "- loliii : "+role+", send Role : "+requestRole+", send Id : "+requestId, Toast.LENGTH_LONG)
                 .show();
@@ -113,6 +116,7 @@ public class CalendarUserActivity extends AppCompatActivity {
 
         today.setOnClickListener(this::calendarShowToday);
         addtask.setOnClickListener(this::addTask);
+        addseance.setOnClickListener(this::addSeance);
 
         calendarlistener();
         Date currentDate = new Date(System.currentTimeMillis());
@@ -132,9 +136,18 @@ public class CalendarUserActivity extends AppCompatActivity {
         });
     }
 
+    private void addSeance(View view) {
+        Intent intent = new Intent(CalendarUserActivity.this, EditSeanceActivity.class);
+        intent.putExtra("userId", userId);
+        intent.putExtra("action", "MONITOR");
+        startActivity(intent);
+        finish();
+    }
+
     public void addTask(View v){
         Intent intent = new Intent(CalendarUserActivity.this, AddTaskActivity.class);
         intent.putExtra("userId", requestId);
+        intent.putExtra("role", role);
         startActivity(intent);
     }
 
@@ -144,7 +157,7 @@ public class CalendarUserActivity extends AppCompatActivity {
         tasks = new ArrayList<>();
         String sMonth = (new SimpleDateFormat("MM")).format(monthSelected);
         String sYear = (new SimpleDateFormat("yyyy")).format(monthSelected);
-        if(role.equals("MONITOR")){
+        if(role.equals("MONITOR")) {
             JsonArrayRequest request = new JsonArrayRequest(Request.Method.GET,
                     ApiUrls.BASE + ApiUrls.SEANCES_MONITOR_WS + userId + "/" + sMonth + "/" + sYear,
                     null, this::setSeancedata,
@@ -258,6 +271,12 @@ public class CalendarUserActivity extends AppCompatActivity {
                                 (dateClicked.getMonth() + 1), dateClicked.getDate());
                         Intent intent = new Intent(CalendarUserActivity.this,
                                 DayTasksActivity.class);
+                        SharedPreferences sharedPreferences = PreferenceManager
+                                .getDefaultSharedPreferences(getApplicationContext());
+                        if(sharedPreferences.getString("role", "").equals("ADMIN")) {
+                            intent.putExtra("idUser", userId);
+                            intent.putExtra("role", role);
+                        }
                         intent.putExtra("day", date.atStartOfDay().format(DateTimeFormatter.ISO_DATE_TIME));
                         startActivity(intent);
                         /*Toast.makeText(getApplicationContext(), "il y'a des taches dans ce jour",
